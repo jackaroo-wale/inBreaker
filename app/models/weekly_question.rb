@@ -1,0 +1,2 @@
+class WeeklyQuestion < ApplicationRecord
+end

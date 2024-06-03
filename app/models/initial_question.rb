@@ -1,0 +1,2 @@
+class InitialQuestion < ApplicationRecord
+end
