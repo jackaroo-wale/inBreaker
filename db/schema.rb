@@ -10,9 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_03_120724) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_151556) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "initial_answers", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "initial_question_id", null: false
+    t.integer "wrong_answers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["initial_question_id"], name: "index_initial_answers_on_initial_question_id"
+    t.index ["user_id"], name: "index_initial_answers_on_user_id"
+  end
+
+  create_table "initial_questions", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "weekly_points"
+    t.integer "total_points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_members_on_user_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.bigint "member_id", null: false
+    t.bigint "weekly_question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_teams_on_member_id"
+    t.index ["weekly_question_id"], name: "index_teams_on_weekly_question_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +62,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_120724) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "weekly_answers", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "weekly_question_id", null: false
+    t.integer "wrong_answers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_weekly_answers_on_user_id"
+    t.index ["weekly_question_id"], name: "index_weekly_answers_on_weekly_question_id"
+  end
+
+  create_table "weekly_questions", force: :cascade do |t|
+    t.text "content"
+    t.integer "week_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "initial_answers", "initial_questions"
+  add_foreign_key "initial_answers", "users"
+  add_foreign_key "members", "users"
+  add_foreign_key "teams", "members"
+  add_foreign_key "teams", "weekly_questions"
+  add_foreign_key "weekly_answers", "users"
+  add_foreign_key "weekly_answers", "weekly_questions"
 end
