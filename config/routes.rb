@@ -1,28 +1,23 @@
 Rails.application.routes.draw do
-  get 'weekly_answers/create'
-  get 'weekly_questions/index'
-  get 'weekly_questions/show'
-  get 'weekly_questions/new'
-  get 'weekly_questions/create'
-  get 'initial_answers/create'
-  get 'initial_questions/index'
-  get 'initial_questions/show'
-  get 'initial_questions/new'
-  get 'initial_questions/create'
-  get 'teams/index'
-  get 'teams/show'
-  get 'teams/new'
-  get 'teams/create'
-  get 'members/index'
-  get 'members/show'
-  get 'members/new'
-  get 'members/create'
-  get 'users/index'
-  get 'users/show'
-  get 'users/new'
-  get 'users/create'
   devise_for :users
-  root to: "pages#home"
+  
+  resources :users do
+    resources :members do
+      resources :teams do
+        resources :weekly_questions, only: [:index, :show] do
+          resources :weekly_answers, only: [:create]
+        end
+      end
+    end
+    resources :initial_questions, only: [:index, :show] do
+      resources :initial_answers, only: [:create]
+    end
+  end
+
+  resources :weekly_questions, only: [:index, :show, :new, :create]
+
+  root 'users#index'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
