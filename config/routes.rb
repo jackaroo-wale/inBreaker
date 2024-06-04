@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  
+
   resources :users do
     resources :members do
       resources :teams do
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :weekly_questions, only: [:index, :show, :new, :create]
+  get "user/search", to: "user#search"
 
   root 'users#index'
 
