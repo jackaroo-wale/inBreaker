@@ -1,2 +1,9 @@
 <h1>InitialQuestions#index</h1>
 <p>Find me in app/views/initial_questions/index.html.erb</p>
+<% @initial_question.each do |question| %>
+  <div class="question">
+    <h3>Question <%= %>:</h3>
+    <p><%= initial_question.content %></p>
+    <!-- You can add more HTML elements or logic here related to each question -->
+  </div>
+<% end %>

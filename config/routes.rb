@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :weekly_questions, only: [:index, :show, :new, :create]
   get "user/search", to: "user#search"
 
-  root 'users#index'
+  root 'pages#home'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
