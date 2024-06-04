@@ -16,6 +16,17 @@ InitialAnswer.destroy_all
 WeeklyQuestion.destroy_all
 WeeklyAnswer.destroy_all
 
+initial_question1 = InitialQuestion.create(content: "Where did you go to high school?")
+
+initial_question2 = InitialQuestion.create(content: "What subject did you excel at most in your life?")
+
+initial_question3 = InitialQuestion.create(content: "What is your favourite hobby?")
+
+initial_question4 = InitialQuestion.create(content: "What is your favourite type of book?")
+
+initial_question5 = InitialQuestion.create(content: "What do you think is the most important aspect for teamwork?")
+
+
 user1 = User.create(email: 'user1@example.com', password: 'password')
 user2 = User.create(email: 'user2@example.com', password: 'password')
 
@@ -24,9 +35,6 @@ member2 = Member.create(user: user2, weekly_points: 0, total_points: 0)
 
 team1 = Team.create(name: 'Team 1', member: member1)
 team2 = Team.create(name: 'Team 2', member: member2)
-
-initial_question1 = InitialQuestion.create(content: 'What is the capital of France?')
-initial_question2 = InitialQuestion.create(content: 'What is 2 + 2?')
 
 initial_answer1 = InitialAnswer.create(content: 'Paris', user: user1, initial_question: initial_question1, wrong_answers: 0)
 initial_answer2 = InitialAnswer.create(content: '4', user: user2, initial_question: initial_question2, wrong_answers: 0)
