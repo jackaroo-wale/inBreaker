@@ -10,8 +10,15 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.where('email iLIKE ?', "%#{params[:search]}%")
-    render json: @users
+    if params[:q].present?
+      @users = User.where('email LIKE ?', "%#{params[:q]}%")
+    else
+      @users = User.none
+    end
+
+    respond_to do |format|
+      format.json { render json: @users}
+    end
   end
 
   def show

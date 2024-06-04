@@ -1,41 +1,49 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="user-search"
 export default class extends Controller {
-  static targets = ["results", "selectedMembers"]
+  static targets = ["results", "selectedMembers"];
 
-  search(event) {
-    const query = event.target.value
-
-    fetch(`/users/search?q=${query}`)
-    .then(response => response.json())
-    .then(users => {
-      this.resultsTarget.innerHTML = ''
-      users.forEach(user => {
-        const userElement = document.createElement('div')
-        userElement.textContent = user.email
-        userElement.addEventListener('click', () => this.addUserToTeam(user))
-        this.resultsTarget.appendChild(userElement)
-      });
-    })
+  connect() {
+    console.log("STFU")
+    console.log(this.loadAllUsers())
+    this.loadAllUsers();
   }
 
-  addUserToTeam(user) {
-    if (!this.userExistInMember(user_id)) {
-      const userElement = document.createElement('div')
-      userElement.textContent = user.email
-      this.selectedMembersTarget.appendChild(userElement)
-      const inputElement = document.createElement('input')
-      inputElement.type = 'hidden'
-      inputElement.name = 'user_ids[]'
-      inputElement.value = user.id
-      this.element.appendChild(inputElement)
+  loadAllUsers() {
+    fetch("/users", {
+      headers: { "Accept": "text/html" }
+    })
+    .then(response => response.text())
+    .then(users => this.displayUsers(users));
+  }
+
+  displayUsers(users) {
+    console.log(typeof(users))
+    this.resultsTarget.innerHTML = users.forEach(user => {
+      return `<div>
+                ${user.email} <button type="button" data-action="click->user-search#add" data-user-id="${user.id}" data-user-email="${user.email}">Add</button>
+              </div>`
+    }).join("");
+  }
+
+  perform(event) {
+    const email = event.target.value.trim();
+
+    if (email.length > 2) {
+      fetch(`/users/search?email=${email}`, {
+        headers: { "Accept": "text/html" }
+      })
+      .then(response => response.text())
+      .then(users => this.displayUsers(users));
+    } else {
+      this.loadAllUsers();
     }
   }
 
-  userExistInMember(userId) {
-    return Array.from(this.selectedMembersTarget.children).somw(child => {
-      return child.dataset.userId === userId
-    })
+  add(event) {
+    const userId = event.target.dataset.userId;
+    const userEmail = event.target.dataset.userEmail;
+    const userHtml = `<div>${userEmail} <input type="hidden" name="team[user_ids][]" value="${userId}"></div>`;
+    this.selectedMembersTarget.insertAdjacentHTML("beforeend", userHtml);
   }
 }
