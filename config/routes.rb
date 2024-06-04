@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  
+
   resources :users do
     resources :members do
       resources :teams do
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :weekly_questions, only: [:index, :show, :new, :create]
 
-  root 'users#index'
+  root 'pages#home'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
