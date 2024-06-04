@@ -1,6 +1,17 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show]
+
   def index
-    @users = User.all
+    @users =  if params[:search]
+                User.where("email iLIKE ?", "%#{params[:search]}%")
+              else
+                User.all
+              end
+  end
+
+  def search
+    @users = User.where('email iLIKE ?', "%#{params[:search]}%")
+    render json: @users
   end
 
   def show
@@ -23,6 +34,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:email, :password)
   end
 end

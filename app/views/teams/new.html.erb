@@ -1,2 +1,16 @@
-<h1>Teams#new</h1>
-<p>Find me in app/views/teams/new.html.erb</p>
+<h1>Create a New Team</h1>
+
+<%= simple_form_for (@team) do |f| %>
+  <%= f.input :name %>
+
+  <h2>Add Members</h2>
+  <%= input :user_search, '', placeholder: 'Search for users', id: 'user_search' %>
+  <div id="search_results" data-user-search-target = "results"></div>
+
+  <h2>Selected Members</h2>
+  <div id="selected_members" data-user-search-target = "selectedMembers"></div>
+
+  <%= f.submit 'Create Team' %>
+<% end %>
+
+<%= javascript_include_tag 'teams' %>

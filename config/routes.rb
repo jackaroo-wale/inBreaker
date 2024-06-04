@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :weekly_questions, only: [:index, :show, :new, :create]
+  get "user/search", to: "user#search"
 
   root 'pages#home'
 
