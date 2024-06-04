@@ -17,14 +17,23 @@ export default class extends Controller {
     .then(users => this.displayUsers(users));
   }
 
-  displayUsers(users) {
-    console.log(typeof(users))
-    this.resultsTarget.innerHTML = users.forEach(user => {
-      return `<div>
-                ${user.email} <button type="button" data-action="click->user-search#add" data-user-id="${user.id}" data-user-email="${user.email}">Add</button>
-              </div>`
-    }).join("");
-  }
+  displayUsers(usersHtml) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(usersHtml, 'text/html');
+  const userDivs = doc.body.querySelectorAll('div');
+  const users = Array.from(userDivs).map(div => {
+    const [email, id] = div.textContent.trim().split(' ');
+    return { email, id };
+  });
+
+  console.log(typeof users); // logs "object" (an array of user objects)
+
+  this.resultsTarget.innerHTML = users.map(user => {
+    return `<div>
+              ${user.email} <button type="button" data-action="click->user-search#add" data-user-id="${user.id}" data-user-email="${user.email}">Add</button>
+            </div>`
+  }).join("");
+}
 
   perform(event) {
     const email = event.target.value.trim();
