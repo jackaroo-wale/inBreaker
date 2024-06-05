@@ -1,29 +1,22 @@
 
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-<% @initial_questions.each do |question| %>
-  <div class="question">
-    <p><%= question.content %></p>
-    <!-- You can add more HTML elements or logic here related to each question -->
-  </div>
-<% end %>
+<div class="main-container">
+<div class="main-circle">
+  <a class="play-btn" href="#"></a>
+  <div class="orbit-container">
+    <a href="/profile/1">
+      <img src="https://ekcfbmsotzc.exactdn.com/en/blog/wp-content/uploads/2023/08/20-higest-paid-ufc-fighters-conor-mcgregor-ufc-betmgm.jpg?strip=all&lossy=1&ssl=1" alt="Profile 1">
+    </a>
+    <a href="/profile/2">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAfq4dipGTzO1h1hyUfH4_4M87PvKEjyfHZw&s" alt="Profile 2">
+    </a>
+    <a href="/profile/3">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq05IrqkGzqfjW6p1KdWDux9FSpfNSm5zHGA&s" alt="Profile 3">
+    </a>
+    <a href="/profile/4">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7KKz3OqFWCl8XT7KYZrfFJ_jKRSRMTXieg&s" alt="Profile 4">
+    </a>
 
-<%= link_to 'Create a New Team', new_team_path, class: 'btn btn-primary' %>
-<div class="container">
-    <div class="change-text">
-    <div class="big-circle">
-      <span class="text">PLAY</span>
-      <% 9.times do |i| %>
-        <div class="small-circle" id="circle-<%= i %>">
-        </div>
-        <div class="small-circle" ></div>
-        <%# <img id=circle-0 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
-         <img id=circle-1 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
-          <img id=circle-2 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
-           <img id=circle-3 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
-            <img id=circle-4 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
-             <img id=circle-5 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
-              <img id=circle-6 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
-               <img id=circle-7 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'> %>
-      <% end %>
-    </div>
+  </div>
+</div>
+
+
