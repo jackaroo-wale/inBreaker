@@ -33,19 +33,16 @@ user2 = User.create(email: 'user2@example.com', password: 'password')
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0)
 
-team1 = Team.create(name: 'Team 1', member: member1)
-team2 = Team.create(name: 'Team 2', member: member2)
+team1 = Team.create(name: 'Team 1')
+team2 = Team.create(name: 'Team 2')
 
-initial_answer1 = InitialAnswer.create(content: 'Paris', user: user1, initial_question: initial_question1, wrong_answers: 0)
-initial_answer2 = InitialAnswer.create(content: '4', user: user2, initial_question: initial_question2, wrong_answers: 0)
+initial_answer1 = InitialAnswer.create(content: 'Paris', user: user1, initial_question: initial_question1, wrong_answers: ["red", "green", "orange"])
+initial_answer2 = InitialAnswer.create(content: '4', user: user2, initial_question: initial_question2, wrong_answers: ["red", "green", "orange"])
 
 weekly_question1 = WeeklyQuestion.create(content: 'What is the capital of Spain?', week_number: 1)
 weekly_question2 = WeeklyQuestion.create(content: 'What is 3 + 3?', week_number: 1)
 
-team1.update(weekly_question: weekly_question1)
-team2.update(weekly_question: weekly_question2)
-
-weekly_answer1 = WeeklyAnswer.create(content: 'Madrid', user: user1, weekly_question: weekly_question1, wrong_answers: 0)
-weekly_answer2 = WeeklyAnswer.create(content: '6', user: user2, weekly_question: weekly_question2, wrong_answers: 0)
+weekly_answer1 = WeeklyAnswer.create(content: 'Madrid', user: user1, weekly_question: weekly_question1, wrong_answers: ["red", "green", "orange"])
+weekly_answer2 = WeeklyAnswer.create(content: '6', user: user2, weekly_question: weekly_question2, wrong_answers: ["red", "green", "orange"])
 
 puts 'Database seeded!'

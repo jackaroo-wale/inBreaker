@@ -1,5 +1,4 @@
 class WeeklyQuestion < ApplicationRecord
-  belongs_to :team
   has_many :weekly_answers
 
   validates :content, presence: true
