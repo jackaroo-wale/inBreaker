@@ -1,2 +1,15 @@
-<h1>InitialQuestions#show</h1>
-<p>Find me in app/views/initial_questions/show.html.erb</p>
+<h1>Questions</h1>
+
+<div data-controller="display-initial-questions">
+  <div class="question">
+    <p><%= @initial_question.content %></p>
+    <%#= form_with(model: @answer, url: user_initial_question_initial_answers_path(current_user, question, @answer), method: :patch) do |f| %>
+    <%#= f.text_field :content, class: "form-control", id: "answer_content" %>
+    <%= simple_form_for [@initial_question, @initial_answer] do |f| %>
+    <%= f.input :content %>
+    <%= f.submit "send it through" %>
+    <% end %>
+    <!-- You can add more HTML elements or logic here related to each question -->
+  </div>
+</div>
+

@@ -5,6 +5,7 @@ class InitialQuestionsController < ApplicationController
 
   def show
     @initial_question = InitialQuestion.find(params[:id])
+    @initial_answer = InitialAnswer.new
   end
 
   def new

@@ -4,7 +4,7 @@ class CreateInitialAnswers < ActiveRecord::Migration[7.1]
       t.text :content
       t.references :user, null: false, foreign_key: true
       t.references :initial_question, null: false, foreign_key: true
-      t.integer :wrong_answers
+      t.integer :wrong_answers, array: true, default: []
 
       t.timestamps
     end

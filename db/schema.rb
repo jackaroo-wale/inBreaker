@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_122442) do
     t.text "content"
     t.bigint "user_id", null: false
     t.bigint "initial_question_id", null: false
-    t.integer "wrong_answers"
+    t.integer "wrong_answers", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["initial_question_id"], name: "index_initial_answers_on_initial_question_id"
@@ -43,12 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_122442) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.bigint "member_id", null: false
-    t.bigint "weekly_question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["member_id"], name: "index_teams_on_member_id"
-    t.index ["weekly_question_id"], name: "index_teams_on_weekly_question_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,7 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_122442) do
     t.text "content"
     t.bigint "user_id", null: false
     t.bigint "weekly_question_id", null: false
-    t.integer "wrong_answers"
+    t.integer "wrong_answers", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_weekly_answers_on_user_id"
@@ -84,8 +80,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_122442) do
   add_foreign_key "initial_answers", "initial_questions"
   add_foreign_key "initial_answers", "users"
   add_foreign_key "members", "users"
-  add_foreign_key "teams", "members"
-  add_foreign_key "teams", "weekly_questions"
   add_foreign_key "weekly_answers", "users"
   add_foreign_key "weekly_answers", "weekly_questions"
 end
