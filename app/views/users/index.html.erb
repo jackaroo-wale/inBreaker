@@ -4,3 +4,23 @@
     <span class="user-id"><%= user.id %></span>
   </div>
 <% end %>
+
+<ul>
+  <% @users.each do |user| %>
+
+
+    <li><%= link_to user.email, user_path(user) %></li>
+
+    <li><%= link_to user.email, user_path(user), class: "button-54" %></li>
+
+
+    <%# <li><%= link_to user.username, user_path(user) %>
+
+  <% end %>
+</ul>
+      <%= link_to 'invite users', new_user_path, class: "button-54" %>
+      </div>
+  </div>
+</div>
+
+
