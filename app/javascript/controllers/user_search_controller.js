@@ -82,7 +82,7 @@ export default class extends Controller {
     const userId = event.target.dataset.userId;
     const userEmail = event.target.dataset.userEmail;
     const userHtml = `<div data-user-id="${userId}" data-user-email="${userEmail}">
-                        ${userEmail} <button type="button" data-action="click->user-search#remove" data-user-id="${userId}" data-user-email="${userEmail}">Remove</button>
+                        ${userEmail} <button type="button" data-action="click->user-search#remove" data-user-id="${userId}" data-user-email="${userEmail}" class="button-54">Remove</button>
                         <input type="hidden" name="team[user_ids][]" value="${userId}">
                       </div>`;
 
@@ -100,7 +100,7 @@ export default class extends Controller {
     }
 
     const userHtml = `<div data-user-id="${userId}">
-                        ${userEmail} <button type="button" data-action="click->user-search#add" data-user-id="${userId}" data-user-email="${userEmail}">Add</button>
+                        ${userEmail} <button type="button" data-action="click->user-search#add" data-user-id="${userId}" data-user-email="${userEmail}" class="button-54">Add</button>
                       </div>`;
     this.resultsTarget.insertAdjacentHTML("beforeend", userHtml);
   }
