@@ -5,13 +5,57 @@
   padding: 20px;
 }
 
-.users-card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  padding: 20px;
-  width: 320px;
+
+
+
+
+  .user-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    margin: 0 auto; /* Add this line to center the card horizontally */
+    margin-top: 100px;
+    margin-bottom: 100px; /* Add this line to center the card vertically */
+    align-items: center;
+  }
+
+
+.user-card h1 {
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.user-card ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-card ol li {
+  background-color: #f9f9f9;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  color: #555555;
+}
+
+.user-card ol li:nth-child(1) {
+  background-color: #ffd700;
+}
+
+.user-card ol li:nth-child(2) {
+  background-color: #c0c0c0;
+}
+
+.user-card ol li:nth-child(3) {
+  background-color: #cd7f32;
 }
 
 .title {
