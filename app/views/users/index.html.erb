@@ -1,9 +1,10 @@
-<div class="users-container">
-  <div class="users-card">
-  <div class="title">
-    <div class="text">
-    <h1>Users</h1>
+<% @users.each do |user| %>
+  <div>
+    <span class="user-email"><%= user.email %></span>
+    <span class="user-id"><%= user.id %></span>
   </div>
+<% end %>
+
 <ul>
   <% @users.each do |user| %>
 

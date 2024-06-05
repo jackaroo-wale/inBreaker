@@ -1,16 +1,28 @@
 <h1>Create a New Team</h1>
 
-<%= simple_form_for (@team) do |f| %>
-  <%= f.input :name %>
+<%= simple_form_for(@team) do |f| %>
+  <div class="field">
+    <%= f.input :name %>
+  </div>
 
   <h2>Add Members</h2>
-  <%= input :user_search, '', placeholder: 'Search for users', id: 'user_search' %>
-  <div id="search_results" data-user-search-target = "results"></div>
+  <div data-controller="user-search">
+    <%= form_with url: users_path, method: :get, html: { class: "mb-4", data: { user_search_target: "form" } } do |f| %>
+      <%= f.text_field :query,
+                       class: "form-control",
+                       placeholder: "Search for users",
+                       value: params[:query],
+                       data: { user_search_target: "input", action: "input->user-search#perform" } %>
+    <% end %>
 
-  <h2>Selected Members</h2>
-  <div id="selected_members" data-user-search-target = "selectedMembers"></div>
+    <h2>Results</h2>
+    <div data-user-search-target="results"></div>
 
-  <%= f.submit 'Create Team' %>
+    <h2>Selected Members</h2>
+    <div data-user-search-target="selectedMembers"></div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Create Team' %>
+  </div>
 <% end %>
-
-<%= javascript_include_tag 'teams' %>

@@ -1,4 +1,14 @@
 
+<h1>Pages#home</h1>
+<p>Find me in app/views/pages/home.html.erb</p>
+<% @initial_questions.each do |question| %>
+  <div class="question">
+    <p><%= question.content %></p>
+    <!-- You can add more HTML elements or logic here related to each question -->
+  </div>
+<% end %>
+
+<%= link_to 'Create a New Team', new_team_path, class: 'btn btn-primary' %>
 <div class="container">
     <div class="change-text">
     <div class="big-circle">

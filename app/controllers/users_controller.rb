@@ -2,16 +2,19 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
 
   def index
-    @users =  if params[:search]
-                User.where("email iLIKE ?", "%#{params[:search]}%")
-              else
-                User.all
-              end
+    @users = User.all
   end
 
   def search
-    @users = User.where('email iLIKE ?', "%#{params[:search]}%")
-    render json: @users
+    if params[:q].present?
+      @users = User.where('email LIKE ?', "%#{params[:q]}%")
+    else
+      @users = User.none
+    end
+
+    respond_to do |format|
+      format.json { render json: @users}
+    end
   end
 
   def show
