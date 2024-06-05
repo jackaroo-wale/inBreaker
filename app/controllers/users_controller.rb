@@ -2,11 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
 
   def index
-    @users =  if params[:search]
-                User.where("email iLIKE ?", "%#{params[:search]}%")
-              else
-                User.all
-              end
+    @users = User.all
   end
 
   def search

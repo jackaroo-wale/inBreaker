@@ -1,11 +1,9 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["results", "selectedMembers"];
+  static targets = ["results", "selectedMembers", "input"];
 
   connect() {
-    console.log("STFU")
-    console.log(this.loadAllUsers())
     this.loadAllUsers();
   }
 
@@ -14,45 +12,93 @@ export default class extends Controller {
       headers: { "Accept": "text/html" }
     })
     .then(response => response.text())
-    .then(users => this.displayUsers(users));
+    .then(usersHtml => this.displayUsers(usersHtml))
+    .catch(error => console.error("Error fetching users:", error));
   }
 
   displayUsers(usersHtml) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(usersHtml, 'text/html');
-  const userDivs = doc.body.querySelectorAll('div');
-  const users = Array.from(userDivs).map(div => {
-    const [email, id] = div.textContent.trim().split(' ');
-    return { email, id };
-  });
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(usersHtml, 'text/html');
+    const userDivs = doc.body.querySelectorAll('div');
 
-  console.log(typeof users); // logs "object" (an array of user objects)
+    const users = Array.from(userDivs).map(div => {
+      const emailElement = div.querySelector('.user-email');
+      const idElement = div.querySelector('.user-id');
 
-  this.resultsTarget.innerHTML = users.map(user => {
-    return `<div>
-              ${user.email} <button type="button" data-action="click->user-search#add" data-user-id="${user.id}" data-user-email="${user.email}">Add</button>
-            </div>`
-  }).join("");
-}
+      if (!emailElement || !idElement) {
+        return null;
+      }
+
+      const email = emailElement.textContent.trim();
+      const id = idElement.textContent.trim();
+      return { email, id };
+    }).filter(user => user !== null);
+
+    this.resultsTarget.innerHTML = users.map(user => {
+      return `<div data-user-id="${user.id}">
+                ${user.email} <button type="button" data-action="click->user-search#add" data-user-id="${user.id}" data-user-email="${user.email}">Add</button>
+              </div>`;
+    }).join("");
+  }
 
   perform(event) {
     const email = event.target.value.trim();
 
-    if (email.length > 2) {
+    if (email.length >= 3) {
       fetch(`/users/search?email=${email}`, {
         headers: { "Accept": "text/html" }
       })
       .then(response => response.text())
-      .then(users => this.displayUsers(users));
-    } else {
+      .then(usersHtml => {
+        if (usersHtml.trim() === '') {
+          this.resultsTarget.innerHTML = "<p>No users found</p>";
+        } else {
+          this.displayUsers(usersHtml);
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching search results:", error);
+        this.resultsTarget.innerHTML = "<p>Error fetching search results</p>";
+      });
+    } else if (email.length === 0) {
       this.loadAllUsers();
+    } else {
+      this.resultsTarget.innerHTML = "";
     }
-  }
+}
+
 
   add(event) {
     const userId = event.target.dataset.userId;
     const userEmail = event.target.dataset.userEmail;
-    const userHtml = `<div>${userEmail} <input type="hidden" name="team[user_ids][]" value="${userId}"></div>`;
+    const userHtml = `<div data-user-id="${userId}" data-user-email="${userEmail}">
+                        ${userEmail} <button type="button" data-action="click->user-search#remove" data-user-id="${userId}" data-user-email="${userEmail}">Remove</button>
+                        <input type="hidden" name="team[user_ids][]" value="${userId}">
+                      </div>`;
+
     this.selectedMembersTarget.insertAdjacentHTML("beforeend", userHtml);
+    this.removeUserFromResults(userId);
+  }
+
+  remove(event) {
+    const userId = event.target.dataset.userId;
+    const userEmail = event.target.dataset.userEmail;
+
+    const selectedMember = this.selectedMembersTarget.querySelector(`[data-user-id="${userId}"]`);
+    if (selectedMember) {
+      selectedMember.remove();
+    }
+
+    const userHtml = `<div data-user-id="${userId}">
+                        ${userEmail} <button type="button" data-action="click->user-search#add" data-user-id="${userId}" data-user-email="${userEmail}">Add</button>
+                      </div>`;
+    this.resultsTarget.insertAdjacentHTML("beforeend", userHtml);
+  }
+
+  removeUserFromResults(userId) {
+    const userDiv = this.resultsTarget.querySelector(`[data-user-id="${userId}"]`);
+    if (userDiv) {
+      userDiv.remove();
+    }
   }
 }

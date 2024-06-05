@@ -7,24 +7,19 @@
 
   <h2>Add Members</h2>
   <div data-controller="user-search">
-    <%= form_with url: users_path, method: :get, html: {class:
-    "mb-4", data: {user_search_target: "form"}} do |f| %>
-    <%= f.text_field :query,
-                     class: "form-control",
-                     placeholder: "Search for users",
-                     value: params[:query],
-                     data: {user_search_target: "input"} %>
+    <%= form_with url: users_path, method: :get, html: { class: "mb-4", data: { user_search_target: "form" } } do |f| %>
+      <%= f.text_field :query,
+                       class: "form-control",
+                       placeholder: "Search for users",
+                       value: params[:query],
+                       data: { user_search_target: "input", action: "input->user-search#perform" } %>
     <% end %>
 
     <h2>Results</h2>
-    <div data-user-search-target="results"><p class="h3"></p></div>
+    <div data-user-search-target="results"></div>
 
     <h2>Selected Members</h2>
-    <div data-user-search-target="selectedMembers"><p class="h3"></p></div>
-
-    <%# <input type="text" id="user_search" placeholder='Search for users' data-action="input->user-search#perform">
-    <div id="search_results" data-user-search-target="results"></div> %>
-
+    <div data-user-search-target="selectedMembers"></div>
   </div>
 
   <div class="actions">

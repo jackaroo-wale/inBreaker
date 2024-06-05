@@ -15,7 +15,6 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @users = User.all
     @team = Team.new(team_params)
     if @team.save
       flash[:success] = "Team created successfully!"
