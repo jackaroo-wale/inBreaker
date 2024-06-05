@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show]
+  before_action :set_user_and_member, only: [:new, :create]
   before_action :authenticate_user!
 
   def index
@@ -17,12 +18,13 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     if @team.save
+      redirect_to root_path
       flash[:success] = "Team created successfully!"
-      redirect_to @team
     else
-      flash.now[:success] = "Failed to create team: #{team_errors(@team)}"
+      flash[:error] = "Failed to create team."
       render :new
     end
+
   end
 
   private
@@ -35,7 +37,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
   end
 
-  def team_errors(team)
-    team.errors.full_messages.join(", ")
+  def set_user_and_member
+    @user = current_user
   end
 end

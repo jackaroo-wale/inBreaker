@@ -3,17 +3,16 @@ Rails.application.routes.draw do
 
   resources :teams, only: [:new, :create]
 
-  resources :users do
-    resources :members do
-      resources :teams do
-        resources :weekly_questions, only: [:index, :show] do
-          resources :weekly_answers, only: [:create]
-        end
-      end
-    end
-    resources :initial_questions, only: [:index, :show] do
-      resources :initial_answers, only: [:create]
-    end
+  resources :teams, only: [:new, :create,:index] do
+    resources :members
+  end
+
+  resources :weekly_questions, only: [:index, :show] do
+    resources :weekly_answers, only: [:create]
+  end
+  
+  resources :initial_questions, only: [:index, :show] do
+    resources :initial_answers, only: [:create]
   end
 
   resources :weekly_questions, only: [:index, :show, :new, :create]

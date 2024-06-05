@@ -111,4 +111,32 @@ export default class extends Controller {
       userDiv.remove();
     }
   }
+
+  submit(event) {
+    event.preventDefault();
+
+    const form = event.target.closest('form');
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'text/vnd.turbo-stream.html, text/html, application/xhtml+xml',
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        response.text().then(html => {
+          document.documentElement.innerHTML = html;
+        });
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
 }
