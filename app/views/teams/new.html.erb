@@ -2,13 +2,14 @@
   <p class="create-title">Create a New Team</p>
   <div class="users-card">
     <%= simple_form_for( @team) do |f| %>
-      <%= hidden_field_tag :user_id, @user.id %>
       <div class="field">
         <%= f.input :name, label: false, placeholder: "Team Name", class: "form-control" %>
       </div>
+
       <div class="create-text">
         <p>Add Members</p>
       </div>
+
       <div data-controller="user-search">
         <%= f.text_field :query,
                          class: "form-control",
@@ -25,7 +26,7 @@
         <div data-user-search-target="selectedMembers"></div>
       </div>
       <div class="actions">
-        <%= link_to 'Create Team', team_members_path, class: "button-54", data: { action: "user-search#submit" } %>
+        <%= f.submit "Create", class: "button-54" %>
       </div>
     <% end %>
   </div>

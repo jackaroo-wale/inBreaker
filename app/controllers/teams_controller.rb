@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show]
-  before_action :set_user_and_member, only: [:new, :create]
+
   before_action :authenticate_user!
 
   def index
@@ -18,7 +18,11 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     if @team.save
-      redirect_to root_path
+      if params[:team][:user_ids].present?
+        @team.users << User.find(params[:team][:user_ids])
+      end
+
+      redirect_to teams_path
       flash[:success] = "Team created successfully!"
     else
       flash[:error] = "Failed to create team."
@@ -35,9 +39,5 @@ class TeamsController < ApplicationController
 
   def set_team
     @team = Team.find(params[:id])
-  end
-
-  def set_user_and_member
-    @user = current_user
   end
 end

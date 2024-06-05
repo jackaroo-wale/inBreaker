@@ -82,7 +82,7 @@ export default class extends Controller {
     const userId = event.target.dataset.userId;
     const userEmail = event.target.dataset.userEmail;
     const userHtml = `<div data-user-id="${userId}" data-user-email="${userEmail}">
-                        ${userEmail} <button type="button" data-action="click->user-search#remove" data-user-id="${userId}" data-user-email="${userEmail}">Remove</button>
+                        ${userEmail} <button type="button" data-action="click->user-search#remove" data-user-id="${userId}" data-user-email="${userEmail}" class="button-54">Remove</button>
                         <input type="hidden" name="team[user_ids][]" value="${userId}">
                       </div>`;
 
@@ -100,7 +100,7 @@ export default class extends Controller {
     }
 
     const userHtml = `<div data-user-id="${userId}">
-                        ${userEmail} <button type="button" data-action="click->user-search#add" data-user-id="${userId}" data-user-email="${userEmail}">Add</button>
+                        ${userEmail} <button type="button" data-action="click->user-search#add" data-user-id="${userId}" data-user-email="${userEmail}" class="button-54">Add</button>
                       </div>`;
     this.resultsTarget.insertAdjacentHTML("beforeend", userHtml);
   }
@@ -110,33 +110,5 @@ export default class extends Controller {
     if (userDiv) {
       userDiv.remove();
     }
-  }
-
-  submit(event) {
-    event.preventDefault();
-
-    const form = event.target.closest('form');
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Accept': 'text/vnd.turbo-stream.html, text/html, application/xhtml+xml',
-      },
-    })
-    .then(response => {
-      if (response.ok) {
-        response.text().then(html => {
-          document.documentElement.innerHTML = html;
-        });
-      } else {
-        throw new Error('Network response was not ok');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
   }
 }
