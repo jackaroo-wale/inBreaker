@@ -1,22 +1,19 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :teams, only: [:new, :create]
 
-  resources :users do
-    resources :members do
-      resources :teams do
-        resources :weekly_questions, only: [:index, :show] do
-          resources :weekly_answers, only: [:create]
-        end
-      end
-    end
+  resources :teams do
+    resources :members, only: [:new, :create, :show, :index]
   end
+
+  resources :weekly_questions, only: [:index, :show, :new, :create] do
+    resources :weekly_answers, only: [:create]
+  end
+
   resources :initial_questions, only: [:index, :show] do
     resources :initial_answers, only: [:create]
   end
-  resources :initial_answers, only: [:show]
-  resources :weekly_questions, only: [:index, :show, :new, :create]
+
   get "users/search", to: "users#search"
 
   root 'pages#home'
