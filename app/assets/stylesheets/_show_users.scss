@@ -16,10 +16,10 @@
     padding: 20px;
     width: 300px;
     text-align: center;
-    margin: 0 auto; /* Add this line to center the card horizontally */
+    margin: 0 auto;
     margin-top: 100px;
-    margin-bottom: 100px; /* Add this line to center the card vertically */
-    align-items: center;
+    margin-bottom: 100px;
+    align-items: left;
   }
 
 
@@ -122,7 +122,7 @@
   transition: all 400ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
-/* pulse wave */
+
 .play-btn::before {
   content: "";
   position: absolute;
