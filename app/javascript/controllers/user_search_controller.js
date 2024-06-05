@@ -17,56 +17,66 @@ export default class extends Controller {
   }
 
   displayUsers(usersHtml) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(usersHtml, 'text/html');
-    const userDivs = doc.body.querySelectorAll('div');
+    if (typeof usersHtml === "object") {
+      this.resultsTarget.innerHTML = usersHtml.map(user => {
+        return `<div data-user-id="${user.id}">
+                  ${user.email} <button type="button" data-action="click->user-search#add" data-user-id="${user.id}" data-user-email="${user.email}">Add</button>
+                </div>`;
+      }).join("");
+    } else {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(usersHtml, 'text/html');
+      const userDivs = doc.body.querySelectorAll('div');
 
-    const users = Array.from(userDivs).map(div => {
-      const emailElement = div.querySelector('.user-email');
-      const idElement = div.querySelector('.user-id');
+      const users = Array.from(userDivs).map(div => {
+        const emailElement = div.querySelector('.user-email');
+        const idElement = div.querySelector('.user-id');
 
-      if (!emailElement || !idElement) {
-        return null;
-      }
+        if (!emailElement || !idElement) {
+          return null;
+        }
 
-      const email = emailElement.textContent.trim();
-      const id = idElement.textContent.trim();
-      return { email, id };
-    }).filter(user => user !== null);
+        const email = emailElement.textContent.trim();
+        const id = idElement.textContent.trim();
+        return { email, id };
+      }).filter(user => user !== null);
 
-    this.resultsTarget.innerHTML = users.map(user => {
-      return `<div data-user-id="${user.id}">
-                ${user.email} <button type="button" data-action="click->user-search#add" data-user-id="${user.id}" data-user-email="${user.email}">Add</button>
-              </div>`;
-    }).join("");
+      this.resultsTarget.innerHTML = users.map(user => {
+        return `<div data-user-id="${user.id}">
+                  ${user.email} <button type="button" data-action="click->user-search#add" data-user-id="${user.id}" data-user-email="${user.email}">Add</button>
+                </div>`;
+      }).join("");
+    }
   }
 
   perform(event) {
     const email = event.target.value.trim();
 
-    if (email.length >= 3) {
-      fetch(`/users/search?email=${email}`, {
-        headers: { "Accept": "text/html" }
+    if (email) {
+      fetch(`/users/search?email=${encodeURIComponent(email)}`, {
+        headers: { "Accept": "application/json" }
       })
-      .then(response => response.text())
-      .then(usersHtml => {
-        if (usersHtml.trim() === '') {
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(users => {
+        if (users.length === 0) {
           this.resultsTarget.innerHTML = "<p>No users found</p>";
         } else {
-          this.displayUsers(usersHtml);
+          this.displayUsers(users);
         }
       })
       .catch(error => {
         console.error("Error fetching search results:", error);
         this.resultsTarget.innerHTML = "<p>Error fetching search results</p>";
       });
-    } else if (email.length === 0) {
-      this.loadAllUsers();
     } else {
-      this.resultsTarget.innerHTML = "";
+      this.loadAllUsers();
     }
-}
-
+  }
 
   add(event) {
     const userId = event.target.dataset.userId;
