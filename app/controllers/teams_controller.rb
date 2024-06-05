@@ -17,22 +17,25 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     if @team.save
-      params[:user_ids].each do |user_id|
-        @team.members.create(user_id: user_id)
-      end
-      redirect_to @team, notice: 'Team was successfully created'
+      flash[:success] = "Team created successfully!"
+      redirect_to @team
     else
-      render 'new'
+      flash.now[:success] = "Failed to create team: #{team_errors(@team)}"
+      render :new
     end
   end
 
   private
 
   def team_params
-    params.require(:team).permit(:name)
+    params.require(:team).permit(:name, user_ids: [])
   end
 
   def set_team
     @team = Team.find(params[:id])
+  end
+
+  def team_errors(team)
+    team.errors.full_messages.join(", ")
   end
 end

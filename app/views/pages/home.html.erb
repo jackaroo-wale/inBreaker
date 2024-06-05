@@ -1,3 +1,31 @@
 
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+
+<% @initial_questions.each do |question| %>
+  <div class="question">
+    <p><%= question.content %></p>
+    <!-- You can add more HTML elements or logic here related to each question -->
+  </div>
+<% end %>
+
+<%= link_to 'Create a New Team', new_team_path, class: 'btn btn-primary' %>
+<div class="container">
+    <div class="change-text">
+    <div class="big-circle">
+      <span class="text">PLAY</span>
+      <% 9.times do |i| %>
+        <div class="small-circle" id="circle-<%= i %>">
+        </div>
+        <div class="small-circle" ></div>
+        <%# <img id=circle-0 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
+         <img id=circle-1 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
+          <img id=circle-2 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
+           <img id=circle-3 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
+            <img id=circle-4 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
+             <img id=circle-5 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
+              <img id=circle-6 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'>
+               <img id=circle-7 src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s'> %>
+      <% end %>
+    </div>
+
