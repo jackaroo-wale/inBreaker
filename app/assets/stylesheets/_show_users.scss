@@ -77,13 +77,14 @@ html {
 }
 
 .make-me-flash {
-  height: 250px;
-  width: 250px;
+  height: 150px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #faff66;
-  border-radius: 100%;
+  border-radius: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .change-text {
@@ -113,4 +114,142 @@ html {
   100% {
     font-family: 'Major Mono Display', monospace;
   }
+}
+
+
+
+.member-card {
+  display: flex;
+  width: 300px;
+  height: 200px;
+  background-color: #9aa6aa;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+
+
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.big-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: #FFFF66;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.text {
+  font-size: 2rem;
+  color: #FF4B89;
+  font-weight: bold;
+  position: absolute;
+  z-index: 10;
+}
+
+.small-circle {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #FF4B89;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  animation: orbit 10s linear infinite;
+}
+
+#circle-0 {
+  transform: rotate(0deg) translateX(100px);
+  animation-delay: 0s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-1 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-2 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-3 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-3 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-4 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-5 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-6 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-7 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+#circle-8 {
+  transform: rotate(45deg) translateX(100px);
+  animation-delay: 1.25s;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4br6FqyVnzqcJm37f7de7Hnm7fANyReWHFw&s');
+}
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(100px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(100px) rotate(-360deg);
+  }
+}
+
+
+#circle-0 { transform: rotate(0deg) translateX(100px); animation-delay: 0s; }
+#circle-1 { transform: rotate(45deg) translateX(100px); animation-delay: 1.25s; }
+#circle-2 { transform: rotate(90deg) translateX(100px); animation-delay: 2.5s; }
+#circle-3 { transform: rotate(135deg) translateX(100px); animation-delay: 3.75s; }
+#circle-4 { transform: rotate(180deg) translateX(100px); animation-delay: 5s; }
+#circle-5 { transform: rotate(225deg) translateX(100px); animation-delay: 6.25s; }
+#circle-6 { transform: rotate(270deg) translateX(100px); animation-delay: 7.5s; }
+#circle-7 { transform: rotate(315deg) translateX(100px); animation-delay: 8.75s; }
+
+.member-card {
+  display: flex;
+  width: 300px;
+  height: 200px;
+  background-color: #9aa6aa;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

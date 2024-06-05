@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: Arial, sans-serif;
+}
+
 /* Navbar styles */
 nav {
   background-color: #FFE45E;
@@ -12,47 +16,63 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 10px 20px;
   position: relative;
+  z-index: 1000;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 .menu-toggle {
   display: none;
 }
 
-.menu-toggle + label {
+.menu-icon {
   display: block;
   cursor: pointer;
-  padding: 10px;
-}
-
-.menu-toggle + label span,
-.menu-toggle + label span::before,
-.menu-toggle + label span::after {
-  display: block;
-  background-color: #00B4D8;
-  height: 3px;
-  width: 25px;
-  border-radius: 3px;
+  width: 30px;
+  height: 25px;
   position: relative;
 }
 
-.menu-toggle + label span::before,
-.menu-toggle + label span::after {
-  content: '';
+.menu-icon span {
+  display: block;
+  background-color: #00B4D8;
+  height: 3px;
+  width: 100%;
+  border-radius: 3px;
   position: absolute;
+  transition: all 0.3s ease;
 }
 
-.menu-toggle + label span::before {
-  top: -7px;
+.menu-icon span:nth-child(1) {
+  top: 0;
 }
 
-.menu-toggle + label span::after {
-  top: 7px;
+.menu-icon span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menu-icon span:nth-child(3) {
+  bottom: 0;
+}
+
+.menu-toggle:checked + .menu-icon span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.menu-toggle:checked + .menu-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle:checked + .menu-icon span:nth-child(3) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
 }
 
 nav ul {
@@ -66,36 +86,45 @@ nav ul {
   width: 100%;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 0.5s ease-out;
 }
 
 nav li {
-  padding: 10px;
-  border-bottom: 1px solid #555;
+  padding: 15px 20px;
+  border-bottom: 1px solid #00B4D8;
 }
 
 nav li a {
   color: #00B4D8;
   text-decoration: none;
+  font-size: 1.2rem;
 }
 
 .menu-toggle:checked ~ ul {
-  max-height: 500px;
+  max-height: 400px;
 }
 
 @media (min-width: 768px) {
-  .menu-toggle + label {
-    display: none;
+  .menu-toggle + .menu-icon {
+      display: none;
   }
 
   nav ul {
-    display: flex;
-    position: static;
-    background-color: transparent;
-    max-height: none;
+      display: flex;
+      position: static;
+      background-color: transparent;
+      max-height: none;
+      height: auto;
   }
 
   nav li {
-    border-bottom: none;
+      border-bottom: none;
+      padding: 0;
+      margin-left: 20px;
+  }
+
+  nav li a {
+      font-size: 1rem;
+      padding: 10px 0;
   }
 }
