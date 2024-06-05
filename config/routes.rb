@@ -9,11 +9,11 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :initial_questions, only: [:index, :show] do
-      resources :initial_answers, only: [:create]
-    end
   end
-
+  resources :initial_questions, only: [:index, :show] do
+    resources :initial_answers, only: [:create]
+  end
+  resources :initial_answers, only: [:show]
   resources :weekly_questions, only: [:index, :show, :new, :create]
   get "user/search", to: "user#search"
 
