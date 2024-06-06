@@ -1,2 +1,13 @@
-<h1>WeeklyQuestions#new</h1>
-<p>Find me in app/views/weekly_questions/new.html.erb</p>
+<%= form_with(model: @weekly_question, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+  <div class="field">
+    <%= form.label :correct_answer %>
+    <%= form.text_field :correct_answer %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

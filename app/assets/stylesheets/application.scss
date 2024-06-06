@@ -17,3 +17,15 @@
 @import "navbar";
 @import "create_team";
 @import "show_questions";
+
+.d-none {
+  display: none;
+}
+
+.correct-answer {
+  color: green;
+}
+
+.incorrect-answer {
+  color: red;
+}
