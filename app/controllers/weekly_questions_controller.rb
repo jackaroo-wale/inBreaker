@@ -17,6 +17,7 @@ class WeeklyQuestionsController < ApplicationController
 
   def show
     @weekly_question = WeeklyQuestion.find(params[:id])
+    # raise
   end
 
   def new
