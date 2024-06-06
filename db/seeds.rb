@@ -28,7 +28,6 @@ initial_question2 = InitialQuestion.create(content: "What subject did you excel 
 initial_question3 = InitialQuestion.create(content: "What is your favourite hobby?")
 initial_question4 = InitialQuestion.create(content: "What is your favourite type of book?")
 initial_question5 = InitialQuestion.create(content: "What do you think is the most important aspect for teamwork?")
-puts "Created the IA"
 
 user1 = User.create(email: 'user1@example.com', password: 'password')
 user2 = User.create(email: 'user2@example.com', password: 'password')
