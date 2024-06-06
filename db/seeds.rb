@@ -26,7 +26,6 @@ initial_question4 = InitialQuestion.create(content: "What is your favourite type
 
 initial_question5 = InitialQuestion.create(content: "What do you think is the most important aspect for teamwork?")
 
-
 user1 = User.create(email: 'user1@example.com', password: 'password')
 user2 = User.create(email: 'user2@example.com', password: 'password')
 

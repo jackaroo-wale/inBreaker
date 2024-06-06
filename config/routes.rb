@@ -9,10 +9,12 @@ Rails.application.routes.draw do
   resources :weekly_questions, only: [:index, :show, :new, :create] do
     resources :weekly_answers, only: [:create]
   end
+  resources :weekly_answers, only: [:show]
 
   resources :initial_questions, only: [:index, :show] do
     resources :initial_answers, only: [:create]
   end
+  resources :initial_answers, only: [:show]
 
   get "users/search", to: "users#search"
 
