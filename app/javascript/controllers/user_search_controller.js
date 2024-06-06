@@ -17,6 +17,7 @@ export default class extends Controller {
   }
 
   displayUsers(usersHtml) {
+    const searchQuery = this.inputTarget.value.trim();
     if (typeof usersHtml === "object") {
       this.resultsTarget.innerHTML = usersHtml.map(user => {
         return `<div data-user-id="${user.id}">
@@ -52,8 +53,10 @@ export default class extends Controller {
   perform(event) {
     const email = event.target.value.trim();
 
-    if (email) {
-      fetch(`/users/search?email=${encodeURIComponent(email)}`, {
+    const searchQuery = event.target.value.trim();
+
+    if (searchQuery) {
+      fetch(`/users/search?email=${encodeURIComponent(searchQuery)}`, {
         headers: { "Accept": "application/json" }
       })
       .then(response => {

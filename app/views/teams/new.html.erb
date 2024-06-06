@@ -11,11 +11,11 @@
       </div>
 
       <div data-controller="user-search">
-        <%= f.text_field :query,
-                         class: "form-control",
-                         placeholder: "Search for users",
-                         value: params[:query],
-                         data: { user_search_target: "input", action: "input->user-search#perform" } %>
+        <%= f.text_field :searchQuery,
+                          class: "form-control",
+                          placeholder: "Search for users",
+                          value: params[:searchQuery],
+                          data: { user_search_target: "input", action: "input->user-search#perform" } %>
         <div class="create-text">
           <p>Results:</p>
         </div>
