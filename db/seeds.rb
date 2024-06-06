@@ -8,13 +8,13 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.destroy_all
+InitialAnswer.destroy_all
+InitialQuestion.destroy_all
+WeeklyAnswer.destroy_all
+WeeklyQuestion.destroy_all
 Member.destroy_all
 Team.destroy_all
-InitialQuestion.destroy_all
-InitialAnswer.destroy_all
-WeeklyQuestion.destroy_all
-WeeklyAnswer.destroy_all
+User.destroy_all
 
 initial_question1 = InitialQuestion.create(content: "Where did you go to high school?")
 

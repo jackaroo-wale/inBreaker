@@ -1,8 +1,9 @@
 <h1>Teams</h1>
-<p>Find me in app/views/teams/index.html.erb</p>
 
 <% @teams.each do |team| %>
   <div class="users.card">
-    <h2><%= team.name %></h2>
+  <ul>
+    <li> <%= team.name %> </li>
+  </ul>
   </div>
 <% end %>
