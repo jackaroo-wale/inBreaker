@@ -2,14 +2,23 @@ class InitialAnswersController < ApplicationController
   def create
     @initial_answer = InitialAnswer.new(initial_answer_params)
     @initial_question = InitialQuestion.find(params[:initial_question_id])
-    next_initial_question = InitialQuestion.find(@initial_question.id + 1)
+
+    unless @initial_question.id == InitialQuestion.last.id
+      next_initial_question = InitialQuestion.find(@initial_question.id + 1)
+    end
+
     @initial_answer.initial_question = @initial_question
     @initial_answer.user = current_user
+
     if @initial_answer.save
       # need to create a elsif about the final card then redirect
       @initial_answer.wrong_answers = generate_and_save_false_answers(@initial_question, @initial_answer.content)
       p "WE HAVE A PROBLEM" unless @initial_answer.save!
-      redirect_to initial_question_path(next_initial_question), notice: "Your answer has been saved successfully."
+      if next_initial_question
+        redirect_to initial_question_path(next_initial_question), notice: "Your answer has been saved successfully."
+      else
+        redirect_to root_path
+      end
     else
       render 'new'
     end

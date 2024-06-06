@@ -1,6 +1,15 @@
 class InitialQuestionsController < ApplicationController
-  def index
+  def initial
+    @initial_answers = current_user.initial_answers
     @initial_questions = InitialQuestion.all
+
+    render 'initial'
+  end
+
+  def index
+    @initial_answers = current_user.initial_answers
+    @initial_questions = InitialQuestion.all
+
   end
 
   def show

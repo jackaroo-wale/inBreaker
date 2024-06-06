@@ -10,7 +10,7 @@ class MembersController < ApplicationController
   end
 
   def index
-    @members = Member.all
+    @members = Member.includes(:user).all
   end
 
   def show
