@@ -17,6 +17,9 @@ class WeeklyQuestionsController < ApplicationController
 
   def show
     @weekly_question = WeeklyQuestion.find(params[:id])
+    @this_weeks_answers = @weekly_question.weekly_answers.include(:member_id)
+    # get all the weeks answers (eager load the member/user id)
+
     # raise
   end
 
