@@ -4,6 +4,15 @@ class WeeklyQuestionsController < ApplicationController
   def index
     @weekly_questions = WeeklyQuestion.all
     @weekly_answer = current_user.weekly_answers.build
+    if params[:team_id].present?
+      @team = Team.find(params[:team_id])
+      @week_number = @team.week_number
+    else
+      flash[:alert] = "Team not found."
+      redirect_to teams_path and return
+    end
+    @weekly_questions = WeeklyQuestion.all
+    @weekly_answer = current_user.weekly_answers.build
   end
 
   def show
@@ -15,9 +24,18 @@ class WeeklyQuestionsController < ApplicationController
   end
 
   def create_answer
-    @weekly_question = WeeklyQuestion.find(params[:id])
-    user_answer = params[:user_answer]
-    correct_answer = @weekly_question.correct_answer
+    if Team.week_number == 1
+      @weekly_question = InitialQuestion.find(params[:id])
+      user_answer = params[:user_answer]
+      correct_answer = @weekly_question.correct_answer
+    else
+      @weekly_question = WeeklyQuestion.find(params[:id])
+      user_answer = params[:user_answer]
+      correct_answer = @weekly_question.correct_answer
+    end
+    # @weekly_question = WeeklyQuestion.find(params[:id])
+    # user_answer = params[:user_answer]
+    # correct_answer = @weekly_question.correct_answer
 
     if user_answer == correct_answer
       flash[:success] = "Congratulations! Your answer is correct."

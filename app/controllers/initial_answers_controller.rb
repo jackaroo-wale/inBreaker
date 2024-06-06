@@ -2,12 +2,20 @@ class InitialAnswersController < ApplicationController
   def create
     @initial_answer = InitialAnswer.new(initial_answer_params)
     @initial_question = InitialQuestion.find(params[:initial_question_id])
-    next_initial_question = InitialQuestion.find(@initial_question.id + 1)
+
+    unless @initial_question.id == InitialQuestion.last.id
+      next_initial_question = InitialQuestion.find(@initial_question.id + 1)
+    end
+
     @initial_answer.initial_question = @initial_question
     @initial_answer.user = current_user
+
     if @initial_answer.save
-      # need to create a elsif about the final card then redirect 
-      redirect_to initial_question_path(next_initial_question)
+      if next_initial_question
+        redirect_to initial_question_path(next_initial_question)
+      else
+        redirect_to root_path
+      end
     else
       render 'new'
     end
