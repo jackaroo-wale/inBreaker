@@ -4,7 +4,7 @@ class CreateWeeklyAnswers < ActiveRecord::Migration[7.1]
       t.text :content
       t.references :user, null: false, foreign_key: true
       t.references :weekly_question, null: false, foreign_key: true
-      t.integer :wrong_answers, array: true, default: []
+      t.string :wrong_answers, default: ""
 
       t.timestamps
     end
