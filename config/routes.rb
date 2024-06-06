@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
-
-  resources :teams do
-    resources :members, only: [:new, :create, :show, :index]
+  resources :teams, only: [:new, :create,:index] do
+    resources :members
   end
 
-  resources :weekly_questions, only: [:index, :show, :new, :create] do
+  resources :weekly_questions, only: [:index, :show] do
+    post 'create_answer', on: :member
     resources :weekly_answers, only: [:create]
   end
   resources :weekly_answers, only: [:show]

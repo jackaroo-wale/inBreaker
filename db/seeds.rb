@@ -9,39 +9,60 @@
 #   end
 
 User.destroy_all
-Member.destroy_all
+puts "User destroyed"
 Team.destroy_all
+puts "Team destroyed"
+Member.destroy_all
+puts "Member destroyed"
 InitialQuestion.destroy_all
+puts "IQ destroyed"
 InitialAnswer.destroy_all
+puts "IA destroyed"
 WeeklyQuestion.destroy_all
+puts "WQ destroyed"
 WeeklyAnswer.destroy_all
+puts "WA destroyed"
 
 initial_question1 = InitialQuestion.create(content: "Where did you go to high school?")
-
 initial_question2 = InitialQuestion.create(content: "What subject did you excel at most in your life?")
-
 initial_question3 = InitialQuestion.create(content: "What is your favourite hobby?")
-
 initial_question4 = InitialQuestion.create(content: "What is your favourite type of book?")
-
 initial_question5 = InitialQuestion.create(content: "What do you think is the most important aspect for teamwork?")
 
 user1 = User.create(email: 'user1@example.com', password: 'password')
 user2 = User.create(email: 'user2@example.com', password: 'password')
+puts "Created the Users"
 
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0)
+puts "Created the Members"
 
 team1 = Team.create(name: 'Team 1')
 team2 = Team.create(name: 'Team 2')
+puts "Created the Team"
 
-initial_answer1 = InitialAnswer.create(content: 'Paris', user: user1, initial_question: initial_question1, wrong_answers: ["red", "green", "orange"])
-initial_answer2 = InitialAnswer.create(content: '4', user: user2, initial_question: initial_question2, wrong_answers: ["red", "green", "orange"])
+20.times do |i|
+  weekly_question = WeeklyQuestion.create(content: "Sample question #{i+1}", week_number: (i % 4) + 1)
+  puts "Created the Weekly"
 
-weekly_question1 = WeeklyQuestion.create(content: 'What is the capital of Spain?', week_number: 1)
-weekly_question2 = WeeklyQuestion.create(content: 'What is 3 + 3?', week_number: 1)
+  User.all.each do |user|
+    correct_answer_index = rand(4)
+    puts "fine"
+    wrong_answers = (0..3).to_a - [correct_answer_index]
 
-weekly_answer1 = WeeklyAnswer.create(content: 'Madrid', user: user1, weekly_question: weekly_question1, wrong_answers: ["red", "green", "orange"])
-weekly_answer2 = WeeklyAnswer.create(content: '6', user: user2, weekly_question: weekly_question2, wrong_answers: ["red", "green", "orange"])
+    weekly_answer = WeeklyAnswer.create(
+      content: "Sample answer for question #{i+1}",
+      user: user,
+      correct_answer_index: correct_answer_index,
+      wrong_answers: wrong_answers
+    )
+
+    puts "really"
+    weekly_answer.update(weekly_question_id: weekly_question.id)
+    puts "not really"
+  end
+end
+
+
 
 puts 'Database seeded!'
