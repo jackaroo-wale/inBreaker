@@ -42,7 +42,8 @@ class InitialAnswersController < ApplicationController
 
     input_message = "The question is #{initial_question}"
     input_message += "This is the correct answer: #{initial_answer}"
-    input_message += "Generate three unique wrong answers which are related to the correct answer and the question in this format: wrong answer1|wrong answer2|wrong answer3"
+    input_message += "Generate comma-separated string of three unique plausible answers to the question which are different from the correct answer and realistic responses to the question, exclude any additional characters.
+    "
 
 
     chaptgpt_response = client.chat(parameters: {
@@ -54,6 +55,6 @@ class InitialAnswersController < ApplicationController
 
     p chaptgpt_response
     p @generated_response
-    @generated_response.split("|")
+    @generated_response.split
   end
 end
