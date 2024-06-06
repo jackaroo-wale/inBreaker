@@ -4,7 +4,23 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @teams = current_user.teams
+    if @team.present?
+      @week_number = @team.week_number
+    elsif current_user.members.any?
+      @team = current_user.members.first.team
+      if @team.present?
+        @week_number = @team.week_number
+      else
+        flash[:alert] = "No teams associated with the current user."
+        redirect_to root_path and return
+      end
+    else
+      flash[:alert] = "Team not found."
+      redirect_to root_path and return
+    end
+
+    @weekly_questions = WeeklyQuestion.all
+    @weekly_answer = current_user.weekly_answers.build
   end
 
   def show
@@ -17,7 +33,6 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
-    # raise
     if @team.save
       if params[:team][:user_ids].present?
         params[:team][:user_ids].each do |user_id|
@@ -37,10 +52,10 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :searchQuery, user_ids: [])
+    params.require(:team).permit(:name, user_ids: [])
   end
 
   def set_team
-    @team = Team.find(params[:id])
+    @team = Team.find_by(id: params[:team_id])
   end
 end

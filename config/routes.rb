@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
 
   resources :teams, only: [:new, :create,:index] do
     resources :members
@@ -17,6 +20,8 @@ Rails.application.routes.draw do
   resources :initial_answers, only: [:show]
 
   get "users/search", to: "users#search"
+
+  # get 'initial_questions', to: 'questions#initial', as: :initial_questions
 
   root 'pages#home'
 
