@@ -17,9 +17,12 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    # raise
     if @team.save
       if params[:team][:user_ids].present?
-        @team.users << User.find(params[:team][:user_ids])
+        params[:team][:user_ids].each do |user_id|
+          Member.create(user_id: user_id, team_id: @team.id)
+        end
       end
 
       redirect_to teams_path
@@ -34,7 +37,7 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, user_ids: [])
+    params.require(:team).permit(:name, :searchQuery, user_ids: [])
   end
 
   def set_team
