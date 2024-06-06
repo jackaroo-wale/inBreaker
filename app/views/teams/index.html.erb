@@ -3,7 +3,7 @@
 <% @teams.each do |team| %>
   <div class="users.card">
   <ul>
-    <li> <%= team.name %> </li>
+    <li> <%= link_to team.name, team_members_path %> </li>
   </ul>
   </div>
 <% end %>

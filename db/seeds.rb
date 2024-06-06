@@ -37,12 +37,12 @@ member1 = Member.create(user: user1, weekly_points: 0, total_points: 0)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0)
 puts "Created the Members"
 
-team1 = Team.create(name: 'Team 1')
-team2 = Team.create(name: 'Team 2')
+team1 = Team.create(name: 'Team 1', week_number: 1)
+team2 = Team.create(name: 'Team 2', week_number: rand(1..3))
 puts "Created the Team"
 
 20.times do |i|
-  weekly_question = WeeklyQuestion.create(content: "Sample question #{i+1}", week_number: (i % 4) + 1)
+  weekly_question = WeeklyQuestion.create!(content: "Sample question #{i+1}")
   puts "Created the Weekly"
 
   User.all.each do |user|
