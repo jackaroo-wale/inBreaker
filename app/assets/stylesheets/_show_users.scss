@@ -28,6 +28,7 @@
   color: #333333;
   margin-bottom: 20px;
   text-transform: uppercase;
+  justify-content: bottom;
 }
 
 .home-container ol {
@@ -323,6 +324,7 @@ html {
   height: 100%;
   object-fit: cover;
   position: absolute;
+  
 }
 
 .orbit-container a:nth-child(1) { top: -60px; left: 50%; transform: translateX(-50%); }

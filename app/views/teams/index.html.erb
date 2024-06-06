@@ -1,5 +1,9 @@
+<div class="users-container">
 <h1>Teams</h1>
 
 <% @members.each do |member| %>
-  <p>Team: <%= link_to member.team.name, root_path  %></p>
+<ul>
+  <li class="text"> <%= link_to member.team.name, root_path  %> </li>
+</ul>
 <% end %>
+</div>
