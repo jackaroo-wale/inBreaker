@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_05_122442) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_05_192429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,8 +73,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_122442) do
   create_table "weekly_questions", force: :cascade do |t|
     t.text "content"
     t.integer "week_number"
+    t.string "correct_answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "wrong_answers", force: :cascade do |t|
+    t.text "content"
+    t.bigint "weekly_question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["weekly_question_id"], name: "index_wrong_answers_on_weekly_question_id"
   end
 
   add_foreign_key "initial_answers", "initial_questions"
@@ -82,4 +91,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_122442) do
   add_foreign_key "members", "users"
   add_foreign_key "weekly_answers", "users"
   add_foreign_key "weekly_answers", "weekly_questions"
+  add_foreign_key "wrong_answers", "weekly_questions"
 end
