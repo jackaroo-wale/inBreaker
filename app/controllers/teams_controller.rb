@@ -20,10 +20,11 @@ class TeamsController < ApplicationController
   end
 
   def show
-    unless @team.present?
-      flash[:alert] = "Team not found."
-      redirect_to root_path and return
-    end
+    @team = Team.find(params[:id])
+    # unless @team.present?
+    #   flash[:alert] = "Team not found."
+    #   redirect_to root_path and return
+    # end
   end
 
   def new
