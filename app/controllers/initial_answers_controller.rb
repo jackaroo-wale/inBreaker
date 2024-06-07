@@ -11,8 +11,8 @@ class InitialAnswersController < ApplicationController
     @initial_answer.user = current_user
 
     if @initial_answer.save
-      @initial_answer.wrong_answers = generate_and_save_false_answers(@initial_question, @initial_answer.content)
-      p "WE HAVE A PROBLEM" unless @initial_answer.save!
+      # @initial_answer.wrong_answers = generate_and_save_false_answers(@initial_question, @initial_answer.content)
+      # p "WE HAVE A PROBLEM" unless @initial_answer.save!
 
       if next_initial_question
         redirect_to initial_question_path(next_initial_question), notice: "Your answer has been saved successfully."
@@ -34,27 +34,31 @@ class InitialAnswersController < ApplicationController
     params.require(:initial_answer).permit(:content)
   end
 
-  def generate_and_save_false_answers(initial_question, initial_answer)
-    client = OpenAI::Client.new
+  # def generate_and_save_false_answers(initial_question, initial_answer)
+  #   client = OpenAI::Client.new
 
-    input_message = "The question is #{initial_question}"
-    input_message += "This is the correct answer: #{initial_answer}"
-    input_message += "Generate comma-separated string of three unique plausible answers to the question which are different from the correct answer and realistic responses to the question, exclude any additional characters.
-    "
+  #   input_message = "The question is #{initial_question}"
+  #   input_message += "This is the correct answer: #{initial_answer}"
+  #   input_message += "Generate comma-separated string of three unique plausible answers to the question which are different from the correct answer and realistic responses to the question, exclude any additional characters make sure it is 3 one word answers on the same line and not in a list format but as one string.
+  #   "
+
+  #   chaptgpt_response = client.chat(parameters: {
+  #     model: "gpt-3.5-turbo",
+  #     messages: [{ role: "user", content: input_message }]
+  #     })
+
+  #   p chaptgpt_response
+  #   p chaptgpt_response
+
+  #   @generated_response = chaptgpt_response["choices"][0]["message"]["content"]
+
+  #   # p "These are the generated answers ===> " + @generated_response
+
+  #   # messy_answers = @generated_response.chomp.split(", ")
+
+  #   # p "this is the messy one idk lekker BRU #{messy_answers}"
 
 
-    chaptgpt_response = client.chat(parameters: {
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: input_message }]
-      })
-
-    @generated_response = chaptgpt_response["choices"][0]["message"]["content"]
-    # p chaptgpt_response
-    # p @generated_response
-    messy_answers = @generated_response.split
-
-    wrong_answers_array = messy_answers.map { |answer| answer.gsub(/[^a-zA-Z]/, '') }
-
-    return wrong_answers_array
-  end
+  #   return @generated_response
+  # end
 end
