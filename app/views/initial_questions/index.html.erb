@@ -1,17 +1,18 @@
 <div class="users-container">
-<h1>Welcome to inBreaker</h1>
+  <h1>Welcome to inBreaker</h1>
 
-<p class="text">Please answer a few questions before getting started 😍</p>
+  <p class="text">Please answer a few questions before getting started 😍</p>
+
   <div>
     <div data-controller="display-initial-questions">
-<% @initial_questions.each do |question| %>
-  <div class="question">
-    <ul>
-    <li> <%= link_to question.content,  initial_question_path(question),  class: "text" %> </li>
-    </ul>
-    <!-- You can add more HTML elements or logic here related to each question -->
+      <% @initial_questions.each do |question| %>
+        <div class="question">
+
+             <p> <%= link_to question.content, initial_question_path(question), class: "text" %></p>
+
+          <!-- You can add more HTML elements or logic here related to each question -->
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
-  </div>
-</div>
 </div>

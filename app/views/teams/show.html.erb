@@ -1,2 +1,18 @@
-<h1>Teams#show</h1>
-<p>Find me in app/views/teams/show.html.erb</p>
+<body>
+  <div class="main-container1">
+    <% @team.members.each do |member| %>
+      <div class="member-card">
+        <a href="/profile/<%= member.id %>">
+        <% if member.user.profile_image.key.present? %>
+        <%= cl_image_tag member.user.profile_image.key %>
+        <% end %>
+        </a>
+        <p><%= member.user.username %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="play-button-container">
+    <a class="play-btn" href="weekly_questions"></a>
+  </div>
+</body>

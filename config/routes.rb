@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :teams, only: [:new, :create,:index] do
+  resources :teams, only: [:new, :create,:index, :show] do
     resources :members
   end
 

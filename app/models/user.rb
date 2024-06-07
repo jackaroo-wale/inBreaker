@@ -5,6 +5,9 @@ class User < ApplicationRecord
   has_many :weekly_answers
   has_many :members, dependent: :destroy
   has_many :teams, through: :members
+  has_one_attached :profile_image
+  validates :username, presence: true, uniqueness: true
+  validates :description, presence: true, length: { maximum: 200 }
   before_destroy :destroy_associated_records
 
   private

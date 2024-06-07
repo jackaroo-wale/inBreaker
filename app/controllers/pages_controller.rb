@@ -4,5 +4,6 @@ class PagesController < ApplicationController
   def home
     @initial_questions = InitialQuestion.all
     @answer = InitialAnswer.new
+    @users = User.all
   end
 end
