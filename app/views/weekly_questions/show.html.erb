@@ -1,14 +1,24 @@
+<!--<h1><%#= @weekly_question.content %></h1>
+
+<%#= form_with url: create_answer_weekly_question_path(@weekly_question, team_id: @team.id), method: :post, local: true do |form| %>-->
+  <%# @answers.each do |answer| %>
+<!--    <div>-->
+      <%#= form.radio_button :user_answer, answer %>
+      <%#= form.label :user_answer, answer %>
+<!--    </div>-->
+  <%# end %>
+<!--  <div>-->
+    <%#= form.hidden_field :weekly_answer_id, value: @weekly_answer.id %>
+    <%#= form.submit "Submit Answer" %>
+<!--  </div>-->
+<%# end %>
+<!---->
+
 <h1><%= @weekly_question.content %></h1>
 
-<%= form_with url: create_answer_weekly_question_path(@weekly_question, team_id: @team.id), method: :post, local: true do |form| %>
-  <% @answers.each do |answer| %>
-    <div>
-      <%= form.radio_button :user_answer, answer %>
-      <%= form.label :user_answer, answer %>
-    </div>
-  <% end %>
+<% @weekly_answers.each do |answer| %>
   <div>
-    <%= form.hidden_field :weekly_answer_id, value: @weekly_answer.id %>
-    <%= form.submit "Submit Answer" %>
+    <%= image_tag answer.user.profile_picture if answer.user.profile_picture.attached? %>
+    <p><%= answer.content %></p>
   </div>
 <% end %>

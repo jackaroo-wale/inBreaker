@@ -1,0 +1,70 @@
+<!--<h1>Weekly Questionnaire</h1>
+
+<%# @members.each do |member| %>-->
+  <%# shuffled_answers = member.user.weekly_answers.shuffle %>
+  <%# shuffled_answers.each do |weekly_answer| %>
+    <%# next if weekly_answer.user == current_user %>
+<!--    <h2><%#= member.user.username %></h2>
+
+    <%#= image_tag member.user.profile_image.url %> <br>-->
+<!--    <h3><%#= weekly_answer.weekly_question.content %></h3>
+
+    <%#= form_for MemberAnswer.new, url: check_answer_path do |f| %>-->
+      <%#= f.radio_button :selected, weekly_answer.content %>
+      <%#= f.label :selected, weekly_answer.content %><br>
+<!---->
+      <%#= f.radio_button :selected, weekly_answer.wrong_answers.split(',')[0] %>
+      <%#= f.label :selected, weekly_answer.wrong_answers.split(',')[0] %><br>
+<!---->
+      <%#= f.radio_button :selected, weekly_answer.wrong_answers.split(',')[1] %>
+      <%#= f.label :selected, weekly_answer.wrong_answers.split(',')[1] %><br>
+<!---->
+      <%#= f.radio_button :selected, weekly_answer.wrong_answers.split(',')[2] %>
+      <%#= f.label :selected, weekly_answer.wrong_answers.split(',')[2] %><br>
+<!---->
+      <%#= f.hidden_field :user_id, value: member.user_id %>
+      <%#= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
+      <%#= f.submit "Submit" %>
+    <%# end %>
+  <%# end %>
+<%# end %>
+<!---->
+
+<!-- app/views/pages/play.html.erb -->
+<h1>Weekly Questionnaire</h1>
+
+<% @members.each do |member| %>
+  <% member.user.weekly_answers.each do |weekly_answer| %>
+    <% next if weekly_answer.user == current_user %>
+    <h2><%= member.user.username %></h2>
+
+    <%= image_tag member.user.profile_image.url %> <br>
+    <h3><%= weekly_answer.weekly_question.content %></h3>
+
+    <%= form_for weekly_answer, url: check_answer_team_path do |f| %>
+      <%= f.radio_button :selected, true %>
+      <%= f.label :selected, weekly_answer.content %><br>
+      <%= f.hidden_field :user_id, value: member.user_id %>
+
+      <%= f.radio_button :selected, true %>
+      <%= f.label :selected, weekly_answer.wrong_answers.split(',')[0] %><br>
+      <%= f.hidden_field :user_id, value: member.user_id %>
+
+      <%= f.radio_button :selected, true %>
+      <%= f.label :selected, weekly_answer.wrong_answers.split(',')[1] %><br>
+      <%= f.hidden_field :user_id, value: member.user_id %>
+
+      <%= f.radio_button :selected, true %>
+      <%= f.label :selected, weekly_answer.wrong_answers.split(',')[2] %><br>
+      <%= f.hidden_field :user_id, value: member.user_id %>
+
+      <%= f.submit "Submit" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @last_question %>
+  <%= link_to "Finish", finish_path %>
+<% else %>
+  <%= link_to "Next", next_question_team_path %>
+<% end %>

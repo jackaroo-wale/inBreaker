@@ -1,7 +1,9 @@
-<h1>Weekly Questions Index</h1>
+<h1>Questions for <%= @team.name %></h1>
 
-<% @weekly_questions.each do |question| %>
-  <div>
-    <%= question.content %>
-  </div>
-<% end %>
+<ul>
+  <% @weekly_questions.each do |question| %>
+    <li>
+      <%= link_to question.content, team_weekly_question_path(@team, question) %>
+    </li>
+  <% end %>
+</ul>

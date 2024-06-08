@@ -4,8 +4,15 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :teams, only: [:new, :create,:index, :show] do
+  resources :teams, only: [:new, :create, :index, :show] do
     resources :members
+
+    member do
+      get 'play', to: 'pages#play'
+      post 'check_answer', to: 'pages#check_answer'
+      get 'next_question', to: 'pages#next_question'
+      get 'finish', to: 'pages#finish'
+    end
   end
 
   resources :weekly_questions, only: [:index, :show] do
@@ -22,7 +29,6 @@ Rails.application.routes.draw do
   resources :initial_answers, only: [:show]
 
   get "users/search", to: "users#search"
-
   root 'pages#home'
 
   get "up" => "rails/health#show", as: :rails_health_check

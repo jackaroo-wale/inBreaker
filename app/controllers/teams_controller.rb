@@ -3,28 +3,36 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if @team.present?
-      @week_number = @team.week_number
-    elsif current_user.members.any?
-      @team = current_user.members.first.team
-      unless @team.present?
-        flash.now[:alert] = "No teams associated with the current user."
-      end
-    else
-      flash.now[:alert] = "Team not found."
-    end
+    # if @team.present?
+    #   @week_number = @team.week_number
+    # elsif current_user.members.any?
+    #   @team = current_user.members.first.team
+    #   unless @team.present?
+    #     flash.now[:alert] = "No teams associated with the current user."
+    #   end
+    # else
+    #   flash.now[:alert] = "Team not found."
+    # end
+    # @teams = current_user.teams
 
-    @members = current_user.members.includes(:user, :team)
-    @weekly_questions = WeeklyQuestion.all
-    @weekly_answer = current_user.weekly_answers.build
+    # @members = current_user.members.includes(:user, :team)
+    # @weekly_questions = WeeklyQuestion.all
+    # @weekly_answer = current_user.weekly_answers.build
+    @teams = current_user.teams
+
+    # if @teams.present?
+    #   @week_number = @team.week_number
+    # else
+    #   flash.now[:alert] = "No teams associated with the current user."
+    # end
+
+    # @members = current_user.members.includes(:user, :team)
+    # @weekly_questions = WeeklyQuestion.all
+    # @weekly_answer = current_user.weekly_answers.build
   end
 
   def show
     @team = Team.find(params[:id])
-    # unless @team.present?
-    #   flash[:alert] = "Team not found."
-    #   redirect_to root_path and return
-    # end
   end
 
   def new
@@ -32,6 +40,20 @@ class TeamsController < ApplicationController
   end
 
   def create
+    # @team = Team.new(team_params)
+    # if @team.save
+    #   if params[:team][:user_ids].present?
+    #     params[:team][:user_ids].each do |user_id|
+    #       Member.create(user_id: user_id, team_id: @team.id)
+    #     end
+    #   end
+    #   Member.create(user_id: current_user.id, team_id: @team.id)
+    #   redirect_to teams_path
+    #   flash[:success] = "Team created successfully!"
+    # else
+    #   flash.now[:error] = "Failed to create team."
+    #   render :new
+    # end
     @team = Team.new(team_params)
     if @team.save
       if params[:team][:user_ids].present?
