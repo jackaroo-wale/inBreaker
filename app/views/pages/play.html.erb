@@ -1,70 +1,54 @@
-<!--<h1>Weekly Questionnaire</h1>
-
-<%# @members.each do |member| %>-->
-  <%# shuffled_answers = member.user.weekly_answers.shuffle %>
-  <%# shuffled_answers.each do |weekly_answer| %>
-    <%# next if weekly_answer.user == current_user %>
-<!--    <h2><%#= member.user.username %></h2>
-
-    <%#= image_tag member.user.profile_image.url %> <br>-->
-<!--    <h3><%#= weekly_answer.weekly_question.content %></h3>
-
-    <%#= form_for MemberAnswer.new, url: check_answer_path do |f| %>-->
-      <%#= f.radio_button :selected, weekly_answer.content %>
-      <%#= f.label :selected, weekly_answer.content %><br>
-<!---->
-      <%#= f.radio_button :selected, weekly_answer.wrong_answers.split(',')[0] %>
-      <%#= f.label :selected, weekly_answer.wrong_answers.split(',')[0] %><br>
-<!---->
-      <%#= f.radio_button :selected, weekly_answer.wrong_answers.split(',')[1] %>
-      <%#= f.label :selected, weekly_answer.wrong_answers.split(',')[1] %><br>
-<!---->
-      <%#= f.radio_button :selected, weekly_answer.wrong_answers.split(',')[2] %>
-      <%#= f.label :selected, weekly_answer.wrong_answers.split(',')[2] %><br>
-<!---->
-      <%#= f.hidden_field :user_id, value: member.user_id %>
-      <%#= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
-      <%#= f.submit "Submit" %>
-    <%# end %>
-  <%# end %>
-<%# end %>
-<!---->
-
 <!-- app/views/pages/play.html.erb -->
-<h1>Weekly Questionnaire</h1>
+<div class="create-container">
+  <h1>Weekly Questionnaire</h1>
+  <div class="question-container">
+    <% @question_data.each_with_index do |question_data, index| %>
+      <% weekly_question = question_data[0] %>
+      <% weekly_answer = question_data[1] %>
+      <% wrong_answers = question_data[2] %>
+      <% image_url = question_data[3] %>
 
-<% @members.each do |member| %>
-  <% member.user.weekly_answers.each do |weekly_answer| %>
-    <% next if weekly_answer.user == current_user %>
-    <h2><%= member.user.username %></h2>
+      <div class="question<%= index == 0 ? '' : ' d-none' %>">
+        <%= image_tag image_url if image_url.present? %> <br>
 
-    <%= image_tag member.user.profile_image.url %> <br>
-    <h3><%= weekly_answer.weekly_question.content %></h3>
+        <div>
+          <p><%= weekly_question.content %></p>
+          <%= form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
+            <%= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
+            <%= f.hidden_field :user_id, value: weekly_answer.user_id %>
 
-    <%= form_for weekly_answer, url: check_answer_team_path do |f| %>
-      <%= f.radio_button :selected, true %>
-      <%= f.label :selected, weekly_answer.content %><br>
-      <%= f.hidden_field :user_id, value: member.user_id %>
+            <h3>Select the correct answer:</h3>
+            <%= f.radio_button :selected, 'correct' %>
+            <%= f.label :selected, weekly_answer.content %><br>
 
-      <%= f.radio_button :selected, true %>
-      <%= f.label :selected, weekly_answer.wrong_answers.split(',')[0] %><br>
-      <%= f.hidden_field :user_id, value: member.user_id %>
+            <h3>Other options:</h3>
+            <% wrong_answers.each do |wrong_answer| %>
+              <%= f.radio_button :selected, wrong_answer %>
+              <%= f.label :selected, wrong_answer %><br>
+            <% end %>
 
-      <%= f.radio_button :selected, true %>
-      <%= f.label :selected, weekly_answer.wrong_answers.split(',')[1] %><br>
-      <%= f.hidden_field :user_id, value: member.user_id %>
-
-      <%= f.radio_button :selected, true %>
-      <%= f.label :selected, weekly_answer.wrong_answers.split(',')[2] %><br>
-      <%= f.hidden_field :user_id, value: member.user_id %>
-
-      <%= f.submit "Submit" %>
+            <%= f.submit "Next", class: 'submit-btn next-question' %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  <% end %>
-<% end %>
+  </div>
+  <% raise %>
+</div>
 
-<% if @last_question %>
-  <%= link_to "Finish", finish_path %>
-<% else %>
-  <%= link_to "Next", next_question_team_path %>
-<% end %>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const questions = document.querySelectorAll('.question');
+    const nextButtons = document.querySelectorAll('.next-question');
+
+    nextButtons.forEach((button, index) => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        questions[index].classList.add('d-none');
+        if (index < questions.length - 1) {
+          questions[index + 1].classList.remove('d-none');
+        }
+      });
+    });
+  });
+</script>
