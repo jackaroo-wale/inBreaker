@@ -1,18 +1,5 @@
-<body>
-  <div class="main-container1">
-    <% @users.each do |user| %>
-      <div class="member-card">
-        <a href="/profile/<%= user.id %>">
-        <% if user.profile_image.key.present? %>
-        <%= cl_image_tag user.profile_image.key %>
-        <% end %>
-        </a>
-        <p><%= user.username %></p>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="play-button-container">
-    <%= link_to '', teams_path, class: "play-btn" %>
-  </div>
-</body>
+<div class="users-container with-background">
+  <h1>Welcome to inBreaker</h1>
+  <%= link_to "Create team", new_team_path, class: "btn btn-primary"  %>
+  <%= link_to "My teams", teams_path, class: "btn btn-primary" %>
+</div>

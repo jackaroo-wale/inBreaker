@@ -3,7 +3,7 @@
 
 <% @teams.each do |team| %>
   <ul>
-    <li class="text">
+    <li>
       <%# <%= link_to member.team.name, weekly_question_path(id: member.team.weekly_questions.first.id, team_id: member.team.id), class: "text" %>
       <%= link_to team.name, team_path(team) %>
     </li>
