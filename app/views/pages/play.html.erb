@@ -1,0 +1,53 @@
+<!-- app/views/pages/play.html.erb -->
+<div class="create-container">
+  <h1>Weekly Questionnaire</h1>
+  <div class="question-container">
+    <% @question_data.each_with_index do |question_data, index| %>
+      <% weekly_question = question_data[0] %>
+      <% weekly_answer = question_data[1] %>
+      <% wrong_answers = question_data[2] %>
+      <% image_url = question_data[3] %>
+
+      <div class="question<%= index == 0 ? '' : ' d-none' %>">
+        <%= image_tag image_url, style: "width: 150px;" if image_url.present? %> <br>
+
+        <div>
+          <p><%= weekly_question.content %></p>
+          <%= form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
+            <%= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
+            <%= f.hidden_field :user_id, value: weekly_answer.user_id %>
+
+            <%= f.radio_button :selected, weekly_answer.content, id: "correct_answer_#{weekly_answer.id}" %>
+            <%= f.label "correct_answer_#{weekly_answer.id}", weekly_answer.content %><br>
+
+            <% wrong_answers.each_with_index do |wrong_answer, index| %>
+              <%= f.radio_button :selected, wrong_answer, id: "wrong_answer_#{index}" %>
+              <%= f.label "wrong_answer_#{index}", wrong_answer %><br>
+            <% end %>
+
+            <%= f.submit "Next", class: 'submit-btn next-question' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const questions = document.querySelectorAll('.question');
+    const nextButtons = document.querySelectorAll('.next-question');
+
+    nextButtons.forEach((button, index) => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        questions[index].classList.add('d-none');
+        if (index < questions.length  - 1) {
+          questions[index + 1].classList.remove('d-none');
+        } else {
+          window.location.href = '<%= team_path(@team) %>';
+        }
+      });
+    });
+  });
+</script>

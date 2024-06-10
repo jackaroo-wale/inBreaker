@@ -2,8 +2,7 @@
   <p class="create-title">Create a New Team</p>
   <div class="users-card">
     <%= simple_form_for([@user, @member, @team]) do |f| %>
-      <%= hidden_field_tag :user_id, @user.id %>
-      <%= hidden_field_tag :member_id, @member.id %>
+      <%= hidden_field_tag :user_id, current_user.id %>
       <div class="field">
         <%= f.input :name, label: false, placeholder: "Team Name", class: "form-control" %>
       </div>
