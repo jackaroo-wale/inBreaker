@@ -18,7 +18,12 @@
           <p><%= weekly_question.content %></p>
           <p>Which of the answers below do you think they picked?</p>
           <%= form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
-            <%= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
+            <% if @team.week_number == 1 %>
+              <%= f.hidden_field :initial_answer_id, value: weekly_answer.id %>
+            <% else %>
+              <%= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
+            <% end %>
+
             <%= f.hidden_field :user_id, value: weekly_answer.user_id %>
 
             <%= f.radio_button :selected, weekly_answer.content, id: "correct_answer_#{weekly_answer.id}" %>

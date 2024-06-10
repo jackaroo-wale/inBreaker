@@ -11,13 +11,13 @@
 @import "components/index";
 @import "pages/index";
 @import "show_users";
-
 @import "../stylesheets/navbar";
-
 @import "navbar";
 @import "create_team";
 @import "show_questions";
+@import "colour";
 @import "sign_up";
+@import "profile_page";
 
 .d-none {
   display: none;
