@@ -3,7 +3,7 @@
 
 <% @members.each do |member| %>
 <ul>
-  <li class="text"> <%= link_to member.team.name, team_path(member.team), class: "text"  %> </li>
+  <li> <p><%= link_to member.team.name, team_path(member.team), class: "text"  %></p> </li>
 </ul>
 <% end %>
 </div>

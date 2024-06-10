@@ -9,6 +9,10 @@
 
 
 
+  .with-background {
+    background-image: url('https://wallpaperset.com/w/full/c/5/9/545591.jpg');
+    /* Add other background properties like size, position, repeat, etc. as needed */
+  }
 
 
   .user-card {
@@ -31,7 +35,7 @@
   margin-bottom: 20px;
   text-transform: uppercase;
   justify-content: bottom;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
 }
 
 .home-container ol {
@@ -218,7 +222,7 @@ html {
 
 .change-text {
   font-size: 30pt;
-  color: #eb3486;
+  color: #000000;
   animation-name: fontChange;
   animation-duration: 2s;
   animation-iteration-count: infinite;
