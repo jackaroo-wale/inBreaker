@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  font-family: 'Space Mono', monospace;
 }
 
 .signup-form {
@@ -11,11 +12,13 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Space Mono', monospace;
 }
 
 .signup-form h2 {
   margin-bottom: 30px;
   color: #333;
+  font-family: 'Space Mono', monospace;
   text-align: center;
 }
 
@@ -26,6 +29,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  font-family: 'Space Mono', monospace;
 }
 
 .signup-button {
@@ -38,6 +42,7 @@
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  font-family: 'Space Mono', monospace;
 }
 
 .signup-button:hover {

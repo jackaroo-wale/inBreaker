@@ -2,8 +2,13 @@
 <h1>Teams</h1>
 
 <% @teams.each do |team| %>
-<p>
+
   <%# <%= link_to member.team.name, weekly_question_path(id: member.team.weekly_questions.first.id, team_id: member.team.id), class: "text" %>
-  <%= link_to team.name, team_path(team) %>
-</p>
+
+<ol class="alternating-colors">
+  <li>
+    <strong><%= link_to team.name, team_path(team) %></strong>
+  </li>
+</ol>
+
 <% end %>
