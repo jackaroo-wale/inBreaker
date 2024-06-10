@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Space Mono', monospace;
 }
 
 /* Navbar styles */
@@ -24,6 +24,7 @@ nav {
 .logo {
   font-size: 1.8rem;
   font-weight: bold;
+  letter-spacing: 0,1rem;
 }
 
 .menu-toggle {
