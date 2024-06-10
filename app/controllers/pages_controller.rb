@@ -116,7 +116,7 @@ class PagesController < ApplicationController
       session[:current_question_index] ||= 0
       session[:current_question_index] += 1
 
-      if session[:current_question_index] < @question_data.length
+      if session[:current_question_index] <= @question_data.length
         redirect_to play_team_path(@team)
       else
         redirect_to team_path(@team)
