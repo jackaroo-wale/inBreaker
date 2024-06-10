@@ -1,21 +1,20 @@
 
+<div class="main-container1">
+    <% @team.members.each do |member| %>
+
       <div class="member-card">
          <%= link_to team_member_path(@team, member) do %>
         <% if member.user.profile_image.key.present? %>
-        <%= cl_image_tag member.user.profile_image.key %>
+          <%= cl_image_tag member.user.profile_image.key, class: "profile-image" %>
         <% end %>
-        <% end %>
-        </a>
-        <p><%= member.user.username %></p>
         <p>Weakly points<%= member.weekly_points %></p>
         <p>Total points<%= member.total_points %></p>
       </div>
 
     <% end %>
+    <% end %>
   </div>
-
   <div class="play-button-container">
     <!--<a class="play-btn" href="play(@team)"></a>-->
     <%= link_to '', play_team_path(@team), class: "play-btn" %>
   </div>
-</body>
