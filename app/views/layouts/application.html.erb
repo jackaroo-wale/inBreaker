@@ -8,13 +8,27 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    
+
   </head>
 
   <body><%= render "shared/navbar" %>
 <%= render "shared/flashes" %>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+
+        <% if flash[:notice] %>
+    <div class="alert alert-success">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+    <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
     <%= yield %>
   </body>
 </html>
+
+      <!--<p class="notice"><%#= notice %></p>-->
+<!--      <p class="alert"><%#= alert %></p>
