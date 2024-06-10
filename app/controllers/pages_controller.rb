@@ -11,6 +11,7 @@ class PagesController < ApplicationController
   end
 
   def play
+    # @team from callback
     session[:current_question_index] = 0 # Reset the current question index when the user starts the game
   end
 
