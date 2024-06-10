@@ -17,10 +17,12 @@ class InitialAnswersController < ApplicationController
       if next_initial_question
         redirect_to initial_question_path(next_initial_question), notice: "Your answer has been saved successfully."
       else
-        redirect_to root_path
+        redirect_to root_path, notice: "Welcome to inBreaker! Thank you for submitting your answers! 🎉
+        Get ready to dive into the game and see how well you can score against your teammates.
+        We’re excited to see you play! Have fun!"
       end
     else
-      render 'new'
+      redirect_to initial_question_path(@initial_question), alert: "Please put in your answer before submitting"
     end
   end
 
