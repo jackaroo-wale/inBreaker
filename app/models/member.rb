@@ -3,9 +3,8 @@ class Member < ApplicationRecord
   belongs_to :team
 
   has_many :member_answers
-  has_many :weekly_answers, through: :member_answers, source: :answerable, source_type: 'WeeklyAnswer'
 
-  def points
+  def correct_answers_count
     member_answers.where(correct: true).count
   end
 end

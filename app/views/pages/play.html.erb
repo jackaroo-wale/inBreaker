@@ -9,7 +9,7 @@
       <% image_url = question_data[3] %>
 
       <div class="question<%= index == 0 ? '' : ' d-none' %>">
-        <%= image_tag image_url if image_url.present? %> <br>
+        <%= image_tag image_url, style: "width: 150px;" if image_url.present? %> <br>
 
         <div>
           <p><%= weekly_question.content %></p>
@@ -17,14 +17,12 @@
             <%= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
             <%= f.hidden_field :user_id, value: weekly_answer.user_id %>
 
-            <h3>Select the correct answer:</h3>
-            <%= f.radio_button :selected, 'correct' %>
-            <%= f.label :selected, weekly_answer.content %><br>
+            <%= f.radio_button :selected, weekly_answer.content, id: "correct_answer_#{weekly_answer.id}" %>
+            <%= f.label "correct_answer_#{weekly_answer.id}", weekly_answer.content %><br>
 
-            <h3>Other options:</h3>
-            <% wrong_answers.each do |wrong_answer| %>
-              <%= f.radio_button :selected, wrong_answer %>
-              <%= f.label :selected, wrong_answer %><br>
+            <% wrong_answers.each_with_index do |wrong_answer, index| %>
+              <%= f.radio_button :selected, wrong_answer, id: "wrong_answer_#{index}" %>
+              <%= f.label "wrong_answer_#{index}", wrong_answer %><br>
             <% end %>
 
             <%= f.submit "Next", class: 'submit-btn next-question' %>
@@ -33,7 +31,6 @@
       </div>
     <% end %>
   </div>
-  <% raise %>
 </div>
 
 <script>
@@ -45,8 +42,10 @@
       button.addEventListener('click', function(event) {
         event.preventDefault();
         questions[index].classList.add('d-none');
-        if (index < questions.length - 1) {
+        if (index < questions.length  - 1) {
           questions[index + 1].classList.remove('d-none');
+        } else {
+          window.location.href = '<%= team_path(@team) %>';
         }
       });
     });
