@@ -1,87 +1,85 @@
 class WeeklyQuestionsController < ApplicationController
+  before_action :set_team, only: [:index, :show, :create_answer]
   before_action :set_weekly_question, only: [:show, :create_answer]
 
   def index
-    @weekly_questions = WeeklyQuestion.all
-    @weekly_answer = current_user.weekly_answers.build
-    if params[:team_id].present?
-      @team = Team.find(params[:team_id])
-      @week_number = @team.week_number
-    else
-      flash[:alert] = "Team not found."
-      redirect_to teams_path and return
-    end
-    @weekly_questions = WeeklyQuestion.all
+    @weekly_questions = @team.weekly_questions
     @weekly_answer = current_user.weekly_answers.build
   end
 
   def show
-    @weekly_question = WeeklyQuestion.find(params[:id])
-  end
+    if @team.week_number == 1
+      @initial_answer = InitialAnswer.find_by(initial_question_id: @weekly_question.id, user_id: current_user.id)
+    else
+      @weekly_answers = @weekly_question.weekly_answers.includes(:user)
+      @weekly_answer = @weekly_question.weekly_answers.find_by(user_id: current_user.id)
+    end
 
-  def new
-    @weekly_question = WeeklyQuestion.new
+    @member = current_user.members.find_by(team: @team)
+
+    if @initial_answer
+    @answer_content = @initial_answer.content
+    @answer_type = "Initial"
+    @wrong_answers = @initial_answer.wrong_answers.split(',')
+  elsif @weekly_answer
+    @answers = [
+      @weekly_answer.content,
+      @weekly_answer.wrong_answers.split(',')[0],
+      @weekly_answer.wrong_answers.split(',')[1],
+      @weekly_answer.wrong_answers.split(',')[2]
+    ].shuffle
+    @answer_type = "Weekly"
+    @wrong_answers = @weekly_answer.wrong_answers.split(',')
+  else
+    # Handle case when no answer is found
+    @answer_content = "No answer found"
+    @answer_type = "None"
+    @wrong_answers = []
+  end
   end
 
   def create_answer
-    if Team.week_number == 1
-      @weekly_question = InitialQuestion.find(params[:id])
-      user_answer = params[:user_answer]
-      correct_answer = @weekly_question.correct_answer
-    else
-      @weekly_question = WeeklyQuestion.find(params[:id])
-      user_answer = params[:user_answer]
-      correct_answer = @weekly_question.correct_answer
-    end
-    # @weekly_question = WeeklyQuestion.find(params[:id])
-    # user_answer = params[:user_answer]
-    # correct_answer = @weekly_question.correct_answer
+    @weekly_answer = WeeklyAnswer.find(params[:weekly_answer_id])
+    @member = current_user.members.find_by(team: @team)
 
-    if user_answer == correct_answer
+    user_answer = params[:user_answer]
+    correct_answer = @weekly_answer.content
+    correct = user_answer == correct_answer
+
+    MemberAnswer.create!(
+      member: @member,
+      weekly_answer: @weekly_answer,
+      correct: correct
+    )
+
+    if correct
       flash[:success] = "Congratulations! Your answer is correct."
+      @member.increment!(:score) if @member
     else
       flash[:error] = "Oops! Your answer is incorrect. The correct answer is '#{correct_answer}'."
     end
 
-    redirect_to weekly_question_path(@weekly_question)
+    redirect_to weekly_question_path(@weekly_question, team_id: @team.id)
   end
-
-  # def create_answer
-  #   @weekly_answer = WeeklyAnswer.new(weekly_answer_params)
-  #   @weekly_answer.weekly_question = @weekly_question
-  #   @weekly_answer.user = current_user
-
-  #   if @weekly_answer.save
-  #     redirect_to @weekly_question, notice: 'Answer was successfully created.'
-  #   else
-  #     render :show
-  #   end
-  # end
-
-  # def create_answer
-  #   @weekly_question = WeeklyQuestion.find(params[:id])
-  #   @weekly_answer = current_user.weekly_answers.build(weekly_question: @weekly_question, content: params[:content])
-
-  #   if @weekly_answer.save
-  #     if @weekly_answer.correct_answer?
-  #       flash[:success] = "Correct answer! Well done."
-  #     else
-  #       flash[:error] = "Incorrect answer. Try again next time."
-  #     end
-  #   else
-  #     flash[:error] = "Failed to submit answer."
-  #   end
-
-  #   redirect_to weekly_questions_path
-  # end
 
   private
 
-  def set_weekly_question
-    @weekly_question = WeeklyQuestion.find(params[:id])
+  def available_weekly_question_for_user_in_team(user)
+    answered_question_ids = user.weekly_answers.pluck(:weekly_question_id)
+    team_questions = user.team.weekly_questions
+    unanswered_questions = team_questions.where.not(id: answered_question_ids)
+    unanswered_questions.sample
   end
 
-  def weekly_answer_params
-    params.require(:weekly_answer).permit(:content, :wrong_answers)
+  def set_team
+    @team = Team.find(params[:team_id])
+  end
+
+  def set_weekly_question
+    if @team.week_number == 1
+      @weekly_question = WeeklyQuestion.find_by(content: "Sample question 1")
+    else
+      @weekly_question = WeeklyQuestion.find(params[:id])
+    end
   end
 end
