@@ -1,18 +1,22 @@
 <!-- app/views/pages/play.html.erb -->
 <div class="create-container">
-  <h1>Weekly Questionnaire</h1>
-  <div class="question-container">
+  <%#= member.user.username %>
+
+      <% user = @question_data.first[1].user %>
+  <h1>How well do you know <%= user.username %>? </h1>
+    <div class="question-container">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
       <% weekly_answer = question_data[1] %>
       <% wrong_answers = question_data[2] %>
       <% image_url = question_data[3] %>
-
       <div class="question<%= index == 0 ? '' : ' d-none' %>">
         <%= image_tag image_url, style: "width: 150px;" if image_url.present? %> <br>
 
         <div>
+        <p> <%= user.username %> was asked...</p>
           <p><%= weekly_question.content %></p>
+          <p>Which of the answers below do you think they picked?</p>
           <%= form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
             <%= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
             <%= f.hidden_field :user_id, value: weekly_answer.user_id %>
