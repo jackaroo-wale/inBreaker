@@ -1,14 +1,18 @@
 <div>
-  <h1><%= @question.content %></h1>
-  <%= form_with model: @answer, url: create_answer_weekly_question_path(@question), local: true do |form| %>
-    <% @question.answers.each do |answer| %>
+  <h1><%= @weekly_question.content %></h1>
+  <%= form_with model: @answer, url: weekly_question_weekly_answers_path(@weekly_question), local: true do |form| %>
+    <% @weekly_question.wrong_answers.each do |answer| %>
       <div>
         <%= form.radio_button :content, answer %>
         <%= form.label :content, answer %>
       </div>
     <% end %>
+    <div>
+        <%= form.radio_button :content, correct_answer %>
+        <%= form.label :content, correct_answer %>
+      </div>
     <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.hidden_field :weekly_question_id, value: @question.id %>
+    <%= form.hidden_field :weekly_question_id, value: @weekly_question.id %>
     <%= form.submit 'Submit Answer' %>
   <% end %>
 </div>

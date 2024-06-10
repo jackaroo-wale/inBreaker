@@ -2,8 +2,12 @@
 <h1>Teams</h1>
 
 <% @members.each do |member| %>
+<<<<<<< HEAD
+  <p>Team: <%= link_to member.team.name, weekly_question_path(member.team.id)  %></p>
+=======
 <ul>
   <li> <p><%= link_to member.team.name, team_path(member.team), class: "text"  %></p> </li>
 </ul>
+>>>>>>> master
 <% end %>
 </div>
