@@ -1,17 +1,9 @@
-<div data-controller="weekly-questions">
-  <% @weekly_questions.each_with_index do |question, index| %>
-    <div class="question-card <%= index.zero? ? '' : 'd-none' %>" data-weekly-questions-target="questionCard">
-      <h2><%= question.content %></h2>
-      <ul>
-        <% question.answers.each do |answer| %>
-          <li>
-            <%= radio_button_tag "weekly_answer[#{question.id}]", answer %>
-            <%= label_tag "weekly_answer[#{question.id}]", answer %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<h1>Questions for <%= @team.name %></h1>
 
-  <%= button_tag "Next", data: { action: "click->weekly-questions#nextQuestion" }, id: "next-question-btn" %>
-</div>
+<ul>
+  <% @weekly_questions.each do |question| %>
+    <li>
+      <%= link_to question.content, team_weekly_question_path(@team, question) %>
+    </li>
+  <% end %>
+</ul>

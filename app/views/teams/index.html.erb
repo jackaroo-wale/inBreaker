@@ -1,9 +1,11 @@
 <div class="users-container">
 <h1>Teams</h1>
 
-<% @members.each do |member| %>
-
-  <p>Team: <%= link_to member.team.name, weekly_question_path(member.team.id)  %></p>
-
+<% @teams.each do |team| %>
+  <ul>
+    <li>
+      <%# <%= link_to member.team.name, weekly_question_path(id: member.team.weekly_questions.first.id, team_id: member.team.id), class: "text" %>
+      <%= link_to team.name, team_path(team) %>
+    </li>
+  </ul>
 <% end %>
-</div>

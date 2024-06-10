@@ -9,19 +9,19 @@
 #   end
 
 User.destroy_all
-puts "User destroyed"
+puts "Users destroyed"
 Team.destroy_all
-puts "Team destroyed"
+puts "Teams destroyed"
 Member.destroy_all
-puts "Member destroyed"
+puts "Members destroyed"
 InitialQuestion.destroy_all
-puts "IQ destroyed"
+puts "InitialQuestions destroyed"
 InitialAnswer.destroy_all
-puts "IA destroyed"
+puts "InitialAnswers destroyed"
 WeeklyQuestion.destroy_all
-puts "WQ destroyed"
+puts "WeeklyQuestions destroyed"
 WeeklyAnswer.destroy_all
-puts "WA destroyed"
+puts "WeeklyAnswers destroyed"
 
 initial_question1 = InitialQuestion.create(content: "Where did you go to high school?")
 initial_question2 = InitialQuestion.create(content: "What subject did you excel at most in your life?")
@@ -33,7 +33,6 @@ user1 = User.create(email: 'jack@example.com', password: 'password', username: "
 file = URI.open("https://m.media-amazon.com/images/I/61ktJwNsInL._AC_SL1500_.jpghttps://upload.wikimedia.org/wikipedia/commons/thumb/8/82/NES-Console-Set.jphttps://m.media-amazon.com/images/I/61ktJwNsInL._AC_SL1500_.jpg")
 user1.profile_image.attach(io: file, filename: "cowboy.png", content_type: "image/png")
 user1.save
-
 
 user2 = User.create(email: 'prince2@example.com', password: 'password', username: "princess", description: "sickkunt")
 puts "Created the Users"
@@ -47,7 +46,6 @@ file = URI.open("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Cima_
 user3.profile_image.attach(io: file, filename: "god.png", content_type: "image/png")
 user3.save
 
-
 team1 = Team.create(name: 'Le Wagon', week_number: 1)
 team2 = Team.create(name: 'BreakerBoys', week_number: rand(1..3))
 puts "Created #{Team.count} Teams"
@@ -57,10 +55,9 @@ member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: te
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0, team: team1)
 puts "Created #{Member.count} Members"
 
-
-weekly_question1 = WeeklyQuestion.create!(content: "If you could have any superpower, what would it be?")
-weekly_question2 = WeeklyQuestion.create!(content: "What's your favorite travel destination")
-weekly_question3 = WeeklyQuestion.create!(content: "If you could meet any historical figure, who would it be?")
+weekly_question1 = WeeklyQuestion.create!(content: "If you could have any superpower, what would it be?", team_id: team1.id)
+weekly_question2 = WeeklyQuestion.create!(content: "What's your favorite travel destination", team_id: team1.id)
+weekly_question3 = WeeklyQuestion.create!(content: "If you could meet any historical figure, who would it be?", team_id: team1.id)
 puts "Created #{WeeklyQuestion.count} Weeklies"
 
 super_powers = [
@@ -154,67 +151,71 @@ teamwork_aspects = [
   "Goal setting"
 ]
 
-
 User.all.each do |user|
 
   # initial question 1
   initial_answer = InitialAnswer.create(
     content: school_names.sample,
     user: user,
-    wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}"
+    wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}",
+    initial_question: initial_question1
   )
 
   # initial question 2
   initial_answer = InitialAnswer.create(
     content: school_names.sample,
     user: user,
-    wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}"
+    wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}",
+    initial_question: initial_question2
   )
 
   # initial question 3
   initial_answer = InitialAnswer.create(
     content: school_subjects.sample,
     user: user,
-    wrong_answers: "#{school_subjects.sample}, #{school_subjects.sample}, #{school_subjects.sample}"
+    wrong_answers: "#{school_subjects.sample}, #{school_subjects.sample}, #{school_subjects.sample}",
+    initial_question: initial_question3
   )
 
   # initial question 4
   initial_answer = InitialAnswer.create(
     content: hobbies.sample,
     user: user,
-    wrong_answers: "#{hobbies.sample}, #{hobbies.sample}, #{hobbies.sample}"
+    wrong_answers: "#{hobbies.sample}, #{hobbies.sample}, #{hobbies.sample}",
+    initial_question: initial_question4
   )
 
   # initial question 5
   initial_answer = InitialAnswer.create(
     content: teamwork_aspects.sample,
     user: user,
-    wrong_answers: "#{teamwork_aspects.sample}, #{teamwork_aspects.sample}, #{teamwork_aspects.sample}"
+    wrong_answers: "#{teamwork_aspects.sample}, #{teamwork_aspects.sample}, #{teamwork_aspects.sample}",
+    initial_question: initial_question5
   )
+
   # weekly question 1
   weekly_answer = WeeklyAnswer.create(
     content: super_powers.sample,
     user: user,
-    wrong_answers: "#{super_powers.sample}, #{super_powers.sample}, #{super_powers.sample}"
+    wrong_answers: "#{super_powers.sample}, #{super_powers.sample}, #{super_powers.sample}",
+    weekly_question: weekly_question1
   )
 
   # weekly question 2
   weekly_answer = WeeklyAnswer.create(
     content: travel_destinations.sample,
     user: user,
-    wrong_answers: "#{travel_destinations.sample}, #{travel_destinations.sample}, #{travel_destinations.sample}"
+    wrong_answers: "#{travel_destinations.sample}, #{travel_destinations.sample}, #{travel_destinations.sample}",
+    weekly_question: weekly_question2
   )
 
   # weekly question 3
   weekly_answer = WeeklyAnswer.create(
     content: historical_figures.sample,
     user: user,
-    wrong_answers: "#{historical_figures.sample}, #{historical_figures.sample}, #{historical_figures.sample}"
+    wrong_answers: "#{historical_figures.sample}, #{historical_figures.sample}, #{historical_figures.sample}",
+    weekly_question: weekly_question3
   )
 end
-
-
-
-
 
 puts 'Database seeded!'
