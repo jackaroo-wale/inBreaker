@@ -1,16 +1,16 @@
 <body>
   <div class="main-container1">
     <% @team.members.each do |member| %>
-      <div class="member-card">
-        <a href="/profile/<%= member.id %>">
-        <% if member.user.profile_image.key.present? %>
-        <%= cl_image_tag member.user.profile_image.key %>
-        <% end %>
-        </a>
-        <p><%= member.user.username %></p>
-        <p><%= member.weekly_points %></p>
-        <p><%= member.total_points %></p>
-      </div>
+        <div class="member-card">
+          <a href="/profile/<%= member.id %>">
+          <% if member.user.profile_image.key.present? %>
+          <%= cl_image_tag member.user.profile_image.key %>
+          <% end %>
+          </a>
+          <p><%= member.user.username %></p>
+          <p><%= member.weekly_points %></p>
+          <p><%= member.total_points %></p>
+        </div>
     <% end %>
   </div>
 

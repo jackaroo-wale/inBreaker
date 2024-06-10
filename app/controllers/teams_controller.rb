@@ -16,6 +16,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @team.week_number == 1
     if @team.save
       if params[:team][:user_ids].present?
         params[:team][:user_ids].each do |user_id|

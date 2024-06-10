@@ -29,12 +29,12 @@ initial_question3 = InitialQuestion.create(content: "What is your favourite hobb
 initial_question4 = InitialQuestion.create(content: "What is your favourite type of book?")
 initial_question5 = InitialQuestion.create(content: "What do you think is the most important aspect for teamwork?")
 
-user1 = User.create(email: 'jack@example.com', password: 'password', username: "JayCee", description: "Cowboy in a puffer jacket")
+user1 = User.create(email: 'jack@example.com', password: 'password', username: "JackASS", description: "Cowboy in a puffer jacket")
 file = URI.open("https://m.media-amazon.com/images/I/61ktJwNsInL._AC_SL1500_.jpghttps://upload.wikimedia.org/wikipedia/commons/thumb/8/82/NES-Console-Set.jphttps://m.media-amazon.com/images/I/61ktJwNsInL._AC_SL1500_.jpg")
 user1.profile_image.attach(io: file, filename: "cowboy.png", content_type: "image/png")
 user1.save
 
-user2 = User.create(email: 'prince2@example.com', password: 'password', username: "princess", description: "sickkunt")
+user2 = User.create(email: 'prince2@example.com', password: 'password', username: "Him Jong Un", description: "King")
 puts "Created the Users"
 file = URI.open("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfcMkNiLDXVaULaetBzC3xD2HDLaDRmvSKsw&sttps://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%2Fimages%3Fk%3D%2522black%2Bwolf%2522&psig=AOvVaw1492Z1jzi2Y0sHeiaEFDgf&ust=1717854811894000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKjYw4HSyYYDFQAAAAAdAAAAABAE")
 user2.profile_image.attach(io: file, filename: "wolf.png", content_type: "image/png")
@@ -151,6 +151,21 @@ teamwork_aspects = [
   "Goal setting"
 ]
 
+books = [
+  "Catcher in the Rye",
+  "48 Laws of Power",
+  "Harry Potter Series",
+  "To Kill a Mockingbird",
+  "1984",
+  "Pride and Prejudice",
+  "The Great Gatsby",
+  "Moby Dick",
+  "The Hobbit",
+  "Brave New World",
+  "The Alchemist",
+  "The Lord of the Rings"
+]
+
 User.all.each do |user|
 
   # initial question 1
@@ -163,25 +178,25 @@ User.all.each do |user|
 
   # initial question 2
   initial_answer = InitialAnswer.create(
-    content: school_names.sample,
+    content: school_subjects.sample,
     user: user,
-    wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}",
+    wrong_answers: "#{school_subjects.sample}, #{school_subjects.sample}, #{school_subjects.sample}",
     initial_question: initial_question2
   )
 
   # initial question 3
   initial_answer = InitialAnswer.create(
-    content: school_subjects.sample,
+    content: hobbies.sample,
     user: user,
-    wrong_answers: "#{school_subjects.sample}, #{school_subjects.sample}, #{school_subjects.sample}",
+    wrong_answers: "#{hobbies.sample}, #{hobbies.sample}, #{hobbies.sample}",
     initial_question: initial_question3
   )
 
   # initial question 4
   initial_answer = InitialAnswer.create(
-    content: hobbies.sample,
+    content: books.sample,
     user: user,
-    wrong_answers: "#{hobbies.sample}, #{hobbies.sample}, #{hobbies.sample}",
+    wrong_answers: "#{books.sample}, #{books.sample}, #{books.sample}",
     initial_question: initial_question4
   )
 
