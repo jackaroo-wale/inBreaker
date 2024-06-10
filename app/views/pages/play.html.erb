@@ -2,8 +2,6 @@
 <div class="create-container">
   <%#= member.user.username %>
 
-      <% user = @question_data.first[1].user %>
-  <h1>How well do you know <%= user.username %>? </h1>
     <div class="question-container">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
@@ -11,31 +9,54 @@
       <% wrong_answers = question_data[2] %>
       <% image_url = question_data[3] %>
       <div class="question<%= index == 0 ? '' : ' d-none' %>">
+      <h1>How well do you know <%= weekly_answer.user.username %>? </h1>
         <%= image_tag image_url, style: "width: 150px;" if image_url.present? %> <br>
 
         <div>
-        <p> <%= user.username %> was asked...</p>
+        <p> <%= weekly_answer.user.username %> was asked...</p>
           <p><%= weekly_question.content %></p>
           <p>Which of the answers below do you think they picked?</p>
-          <%= form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
+          <%#= form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
+            <%# if @team.week_number == 1 %>
+              <%#= f.hidden_field :initial_answer_id, value: weekly_answer.id %>
+            <%# else %>
+              <%#= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
+            <%# end %>
+<!---->
+            <%#= f.hidden_field :user_id, value: weekly_answer.user_id %>
+<!---->
+            <%#= f.radio_button :selected, weekly_answer.content, id: "correct_answer_#{weekly_answer.id}" %>
+            <%#= f.label "correct_answer_#{weekly_answer.id}", weekly_answer.content %><br>
+<!---->
+            <%# wrong_answers.each_with_index do |wrong_answer, index| %>
+              <%#= f.radio_button :selected, wrong_answer, id: "wrong_answer_#{index}" %>
+              <%#= f.label "wrong_answer_#{index}", wrong_answer %><br>
+            <%# end %>
+<!---->
+            <%#= f.submit "Next", class: 'submit-btn next-question' %>
+          <%# end %>
+
+          <%= simple_form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
             <% if @team.week_number == 1 %>
-              <%= f.hidden_field :initial_answer_id, value: weekly_answer.id %>
+              <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
             <% else %>
-              <%= f.hidden_field :weekly_answer_id, value: weekly_answer.id %>
+              <%= f.input :weekly_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
             <% end %>
 
-            <%= f.hidden_field :user_id, value: weekly_answer.user_id %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
 
-            <%= f.radio_button :selected, weekly_answer.content, id: "correct_answer_#{weekly_answer.id}" %>
-            <%= f.label "correct_answer_#{weekly_answer.id}", weekly_answer.content %><br>
-
-            <% wrong_answers.each_with_index do |wrong_answer, index| %>
-              <%= f.radio_button :selected, wrong_answer, id: "wrong_answer_#{index}" %>
-              <%= f.label "wrong_answer_#{index}", wrong_answer %><br>
+            <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
+            <% answers.shuffle.each_with_index do |answer, index| %>
+              <div class="form-group form-check">
+                <%= f.radio_button :selected, answer.first, id: "answer_#{index}", class: 'form-check-input' %>
+                <%= f.label "answer_#{index}", answer.first, class: 'form-check-label' %>
+              </div>
             <% end %>
 
-            <%= f.submit "Next", class: 'submit-btn next-question' %>
+            <%= f.button :submit, "Next", class: 'btn btn-primary submit-btn next-question' %>
           <% end %>
+
+
         </div>
       </div>
     <% end %>
@@ -51,7 +72,7 @@
       button.addEventListener('click', function(event) {
         event.preventDefault();
         questions[index].classList.add('d-none');
-        if (index < questions.length  - 1) {
+        if (index <= questions.length  - 1) {
           questions[index + 1].classList.remove('d-none');
         } else {
           window.location.href = '<%= team_path(@team) %>';
