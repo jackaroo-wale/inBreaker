@@ -6,4 +6,8 @@ class PagesController < ApplicationController
     @answer = InitialAnswer.new
     @users = User.all
   end
+
+  def dashboard
+    
+  end
 end
