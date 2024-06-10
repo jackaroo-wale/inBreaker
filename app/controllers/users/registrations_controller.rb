@@ -41,7 +41,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
-    initial_question_path(InitialQuestion.first)
+    initial_questions_path
   end
 
   # protected

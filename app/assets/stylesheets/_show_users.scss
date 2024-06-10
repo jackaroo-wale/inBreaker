@@ -4,8 +4,12 @@
     margin: 0 auto; /* Center the container */
     padding: 20px; /* Optional: Add padding around the container */
     text-align: center; /* Center align text in the container */
+    color: #00B4D8;
   }
 
+  h1 p {
+   color: #00B4D8;
+  }
 
 
 
@@ -26,12 +30,13 @@
     margin-bottom: 100px;
     max-width: 600px;
     margin: 0 auto;
+    color: #00B4D8;
   }
 
 
 .home-container h1 {
   font-size: 24px;
-  color: #333333;
+  color: #00B4D8;
   margin-bottom: 20px;
   text-transform: uppercase;
   justify-content: bottom;
@@ -51,7 +56,7 @@
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 18px;
-  color: #555555;
+  color: #00B4D8;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -80,7 +85,7 @@
   margin-bottom: 10px;
   text-decoration: none;
   list-style-type: circle;
-  color: #000000;
+  color: #00B4D8;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -91,7 +96,7 @@
   letter-spacing: 2px;
   text-decoration: none;
   text-transform: uppercase;
-  color: #000;
+  color: #00B4D8;
   cursor: pointer;
   border: 3px solid;
   padding: 0.25em 0.5em;
@@ -196,10 +201,7 @@
     padding: 0.25em 0.75em;
   }
 }
-@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@300&family=Kaushan+Script&family=Lobster&family=Major+Mono+Display&family=Ranchers&display=swap');
-html {
-  background-color: #f6f6f6;
-}
+
 
 .container {
   height: 100vh;
@@ -209,45 +211,7 @@ html {
   align-items: center;
 }
 
-.make-me-flash {
-  height: 150px;
-  width: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #faff66;
-  border-radius: 100px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
-.change-text {
-  font-size: 30pt;
-  color: #000000;
-  animation-name: fontChange;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-}
-
-@keyframes fontChange {
-  0% {
-    font-family: 'Major Mono Display', monospace;
-  }
-  20% {
-    font-family: 'Kaushan Script', cursive;
-  }
-  40% {
-    font-family: 'Lobster', cursive;
-  }
-  60% {
-    font-family: 'Ranchers', cursive;
-  }
-  80% {
-    font-family: 'Bitter', serif;
-  }
-  100% {
-    font-family: 'Major Mono Display', monospace;
-  }
-}
 
 .main-container1 {
   display: flex;
