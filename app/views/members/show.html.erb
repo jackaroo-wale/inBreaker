@@ -1,2 +1,14 @@
-<h1>Members#show</h1>
-<p>Find me in app/views/members/show.html.erb</p>
+<div class="profile-page-container">
+  <div class="profile-details-container">
+    <div class="profile-header">
+      <%= cl_image_tag @member.user.profile_image.key, class: "profile-image" %>
+      <h1><%= @member.user.username %></h1>
+    </div>
+    <div class="profile-description">
+      <p><%= @member.user.description %></p>
+    </div>
+    <div class="profile-stats">
+      <p>Total Points: <%= @member.total_points %></p>
+      <p>Weekly Points: <%= @member.weekly_points %></p>
+    </div>
+  </div>
