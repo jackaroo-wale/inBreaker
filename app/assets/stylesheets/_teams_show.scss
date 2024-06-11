@@ -1,0 +1,133 @@
+.main-container1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.member-card {
+  background: #000000;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 200px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.play-button-container {
+  margin-top: 20px;
+}
+
+.play-btn {
+  display: inline-block;
+  background: #3d719f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.play-btn:hover {
+  background: #2d5a7d;
+}
+
+/* Leaderboard specific styles */
+main {
+  width: 100%;
+  max-width: 500px;
+  background: #FFE45E;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#header h1 {
+  margin: 0;
+}
+
+.share {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+#leaderboard {
+  margin-top: 0px;
+}
+
+.ribbon {
+  width: 100%;
+  height: 4px;
+  background: #000000;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.number {
+  width: 10%;
+  text-align: center;
+}
+
+.name {
+  width: 60%;
+}
+
+.points {
+  width: 30%;
+  text-align: right;
+}
+
+.gold-medal {
+  width: 20px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exit, .continue {
+  background: #3d719f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.exit:hover, .continue:hover {
+  background: #2d5a7d;
+}

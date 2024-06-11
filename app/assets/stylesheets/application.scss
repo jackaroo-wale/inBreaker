@@ -19,6 +19,9 @@
 @import "sign_up";
 @import "profile_page";
 @import "teams_index";
+@import "play_game";
+@import "teams_show";
+@import "footer";
 
 .d-none {
   display: none;
@@ -30,4 +33,17 @@
 
 .incorrect-answer {
   color: red;
+}
+
+input[type="radio"].d-none {
+  display: none;
+}
+
+.label.btn {
+  cursor: pointer;
+}
+
+.label.btn.selected {
+  background-color: #e7dd54;
+  color: white;
 }

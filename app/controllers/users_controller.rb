@@ -5,8 +5,10 @@ class UsersController < ApplicationController
 
   def search
     @users = User.where("email LIKE ?", "%#{params[:email]}%")
+                 .where.not(id: current_user.id)
     render json: @users
   end
+
 
   def show
     if params[:id] == 'search'
