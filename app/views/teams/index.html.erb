@@ -5,10 +5,15 @@
 
   <%# <%= link_to member.team.name, weekly_question_path(id: member.team.weekly_questions.first.id, team_id: member.team.id), class: "text" %>
 
-<ol class="alternating-colors">
-  <li>
-    <strong><%= link_to team.name, team_path(team) %></strong>
-  </li>
-</ol>
+<!--<ol class="alternating-colors">
+-->
+<div>
+<% if user.team_image.key.present? %>
+  <%= cl_image_tag user.team_image.key, class: "team-image" %>
+  <% end %>
+</div>
+<div>
+  <strong><%= link_to team.name, team_path(team), class: "no-underline" %></strong>
+</div>
 
 <% end %>

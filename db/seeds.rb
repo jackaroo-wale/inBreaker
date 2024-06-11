@@ -59,6 +59,7 @@ team3.save
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team1)
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team2)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0, team: team1)
+member1 = Member.create(user: user1, weekly_points: 0, total_points: 64, team: team3)
 puts "Created #{Member.count} Members"
 
 weekly_question1 = WeeklyQuestion.create!(content: "If you could have any superpower, what would it be?", team_id: team1.id)
