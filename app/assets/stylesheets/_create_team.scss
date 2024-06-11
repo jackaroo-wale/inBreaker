@@ -1,10 +1,11 @@
 .create-container {
   max-width: 600px;
+  height: 1400px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: hsl(0, 0%, 98%);
+  background-color: #FFE45E;
   font-family: 'Space Mono', monospace;
 }
 
@@ -17,7 +18,7 @@
 }
 
 .users-card {
-  background: #fff;
+  background: #00000024;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
