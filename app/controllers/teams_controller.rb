@@ -3,6 +3,7 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    # raise
     @teams = current_user.teams
   end
 
@@ -41,7 +42,7 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, user_ids: [])
+    params.require(:team).permit(:team_image, :name, user_ids: [])
   end
 
   def set_team

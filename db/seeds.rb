@@ -50,9 +50,18 @@ team1 = Team.create(name: 'Le Wagon', week_number: 1)
 team2 = Team.create(name: 'BreakerBoys', week_number: rand(1..3))
 puts "Created #{Team.count} Teams"
 
+team_default_image = URI.open("https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg")
+
+team3 = Team.create(name: "camera Team", week_number: rand(1..3))
+puts "Created #{Team.count} Teams"
+file = URI.open("https://images.pexels.com/photos/1208074/pexels-photo-1208074.jpeg?cs=srgb&dl=pexels-cody-king-433493-1208074.jpg&fm=jpg")
+team3.team_image.attach(io: file, filename: "lens.png", content_type: "image/png")
+team3.save
+
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team1)
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team2)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0, team: team1)
+member1 = Member.create(user: user1, weekly_points: 0, total_points: 64, team: team3)
 puts "Created #{Member.count} Members"
 
 weekly_question1 = WeeklyQuestion.create!(content: "If you could have any superpower, what would it be?", team_id: team1.id)

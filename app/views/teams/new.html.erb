@@ -5,6 +5,7 @@
       <%= hidden_field_tag :user_id, current_user.id %>
       <div class="field">
         <%= f.input :name, label: false, placeholder: "Team Name", class: "form-control" %>
+        <%= f.file_field :team_image, as: :file,  label: "Team Image" %>
       </div>
       <div class="create-text">
         <p>Add Members</p>
