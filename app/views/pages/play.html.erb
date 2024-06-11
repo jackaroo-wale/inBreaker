@@ -1,5 +1,5 @@
-<div class="create-container">
-  <div class="question-container">
+<div class="create-container d-flex justify-content-center align-items-center">
+  <div class="question-container text-center">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
       <% weekly_answer = question_data[1] %>
@@ -23,10 +23,10 @@
             <% end %>
             <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
             <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
-            <div class="answers">
+            <div class="answers d-flex flex-wrap justify-content-center">
               <% answers.shuffle.each_with_index do |answer, index| %>
-                <div class="answer">
-                  <%= f.radio_button :selected, answer.first, id: "answer_#{index}", class: 'form-check-input d-none', data: { answer_group: 'answers' } %>
+                <div class="answer m-2">
+                  <%= f.radio_button :selected, answer.first, id: "answer_#{index}", data: { answer_group: 'answers' } %>
                   <label for="answer_#{index}" class="form-check-label btn btn-outline-primary m-1">
                     <%= answer.first %>
                   </label>
@@ -78,3 +78,4 @@
     });
   });
 </script>
+
