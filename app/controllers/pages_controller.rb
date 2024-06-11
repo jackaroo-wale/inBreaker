@@ -12,14 +12,27 @@ class PagesController < ApplicationController
 
   def play
     # @team from callback
-    session[:current_question_index] = 0 # Reset the current question index when the user starts the game
+    if @question_data.empty?
+      # raise
+      redirect_to team_path(@team)
+      flash[:error] = "Answer not found"
+    else
+      session[:current_question_index] = 0 # Reset the current question index when the user starts the game
+    end
+    # raise
   end
 
   def next_question
     session[:current_question_index] ||= 0
     session[:current_question_index] += 1
 
-    redirect_to play_team_path
+    if session[:current_question_index] < @question_data.length
+      redirect_to play_team_path(@team)
+    else
+      redirect_to team_path(@team)
+    end
+
+    # redirect_to play_team_path
   end
 
   def check_answer
@@ -58,11 +71,7 @@ class PagesController < ApplicationController
       session[:current_question_index] ||= 0
       session[:current_question_index] += 1
 
-      if session[:current_question_index] <= @question_data.length
-        redirect_to play_team_path(@team)
-      else
-        redirect_to team_path(@team)
-      end
+
     else
       flash[:error] = "Failed to save answer"
       redirect_to root_path
