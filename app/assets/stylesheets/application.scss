@@ -32,3 +32,16 @@
 .incorrect-answer {
   color: red;
 }
+
+input[type="radio"].d-none {
+  display: none;
+}
+
+.label.btn {
+  cursor: pointer;
+}
+
+.label.btn.selected {
+  background-color: #e7dd54;
+  color: white;
+}
