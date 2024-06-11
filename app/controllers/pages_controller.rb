@@ -12,6 +12,9 @@ class PagesController < ApplicationController
 
   def play
     # @team from callback
+    @team.week_number = 1 if @team.week_number < 1
+    @team.save
+    
     if @question_data.empty?
       flash[:notice] = "Answer not found"
       redirect_to team_path(@team)
@@ -29,8 +32,7 @@ class PagesController < ApplicationController
   end
 
   def check_answer
-    @team.week_number = 1 if @team.week_number < 1
-    @team.save
+
 
     if @team.week_number == 1
       answer = InitialAnswer.find_by(id: params[:member_answer][:initial_answer_id])
