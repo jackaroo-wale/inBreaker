@@ -1,6 +1,12 @@
 
 <div class="footer">
-    <a href="#" class="icon"><img src="" alt="Home"></a>
-    <a href="#" class="icon"><img src="teams_icon.png" alt="Teams"></a>
-    <a href="#" class="icon"><img src="profile_icon.png" alt="Profile"></a>
+  <%= link_to root_path do %>
+  <i class="fa-solid fa-house-chimney" style="color: #FFD43B;"></i>
+<% end %>
+    <%= link_to teams_path do %>
+  <i class="fa-sharp fa-solid fa-people-group" style="color: #FFD43B;"></i>
+<% end %>
+    <%= link_to root_path do %>
+  <i class="fa-solid fa-user" style="color: #FFD43B;"></i>
+<% end %>
 </div>
