@@ -50,6 +50,12 @@ team1 = Team.create(name: 'Le Wagon', week_number: 1)
 team2 = Team.create(name: 'BreakerBoys', week_number: rand(1..3))
 puts "Created #{Team.count} Teams"
 
+team3 = Team.create(name: "camera Team", week_number: rand(1..3))
+puts "Created #{Team.count} Teams"
+file = URI.open("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fimage-vector%2Fcamera-photo-lens-shutter-108679109&psig=AOvVaw0WlcDyyZ556qyCX8e9BXtA&ust=1718180519612000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCICYgbKP04YDFQAAAAAdAAAAABAE")
+team3.team_image.attach(io: file, filename: "lens.png", content_type: "image/png")
+team3.save
+
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team1)
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team2)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0, team: team1)
