@@ -48,6 +48,8 @@ class PagesController < ApplicationController
       selected: params[:member_answer][:selected]
     )
 
+    
+
     if params[:member_answer][:selected] == answer.content
       member_answer.correct = true
     else
