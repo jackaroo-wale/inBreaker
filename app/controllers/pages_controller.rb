@@ -29,6 +29,9 @@ class PagesController < ApplicationController
   end
 
   def check_answer
+    @team.week_number = 1 if @team.week_number < 1
+    @team.save
+
     if @team.week_number == 1
       answer = InitialAnswer.find_by(id: params[:member_answer][:initial_answer_id])
     else
@@ -48,7 +51,7 @@ class PagesController < ApplicationController
       selected: params[:member_answer][:selected]
     )
 
-    
+
 
     if params[:member_answer][:selected] == answer.content
       member_answer.correct = true
