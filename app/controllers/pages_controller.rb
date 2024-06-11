@@ -13,9 +13,8 @@ class PagesController < ApplicationController
   def play
     # @team from callback
     if @question_data.empty?
-      # raise
+      flash[:notice] = "Answer not found"
       redirect_to team_path(@team)
-      flash[:error] = "Answer not found"
     else
       session[:current_question_index] = 0 # Reset the current question index when the user starts the game
     end
@@ -37,7 +36,7 @@ class PagesController < ApplicationController
     end
 
     if answer.nil?
-      flash[:error] = "Answer not found"
+      flash[:notice] = "Answer not found"
       redirect_to root_path and return
     end
 
@@ -72,7 +71,7 @@ class PagesController < ApplicationController
       end
 
     else
-      flash[:error] = "Failed to save answer"
+      flash[:notice] = "Failed to save answer"
       redirect_to root_path
     end
   end
