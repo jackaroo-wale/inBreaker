@@ -14,6 +14,7 @@
           <p><%= weekly_answer.user.username %> was asked...</p>
           <p><%= weekly_question.content %></p>
           <p>Which of the answers below do you think they picked?</p>
+
           <%= simple_form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
             <% if @team.week_number == 1 %>
               <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
@@ -25,13 +26,16 @@
             <div class="answers">
               <% answers.shuffle.each_with_index do |answer, index| %>
                 <div class="answer">
-                  <%= f.radio_button :selected, answer.first, id: "answer_#{index}", class: 'form-check-input' %>
-                  <%= f.label "answer_#{index}", answer.first, class: 'form-check-label' %>
+                  <%= f.radio_button :selected, answer.first, id: "answer_#{index}", class: 'form-check-input d-none', data: { answer_group: 'answers' } %>
+                  <label for="answer_#{index}" class="form-check-label btn btn-outline-primary m-1">
+                    <%= answer.first %>
+                  </label>
                 </div>
               <% end %>
             </div>
             <%= f.button :submit, "Next", class: 'btn btn-primary submit-btn next-question' %>
           <% end %>
+
         </div>
       </div>
     <% end %>
@@ -43,6 +47,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     const questions = document.querySelectorAll('.question');
     const nextButtons = document.querySelectorAll('.next-question');
+    const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
 
     nextButtons.forEach((button, index) => {
       button.addEventListener('click', function(event) {
@@ -52,6 +57,22 @@
           questions[index + 1].classList.remove('d-none');
         } else {
           window.location.href = '<%= team_path(@team) %>';
+        }
+      });
+    });
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', function () {
+        if (radio.checked) {
+          // Remove the 'selected' class from all labels
+          radios.forEach(r => {
+            const label = document.querySelector(`label[for="${r.id}"]`);
+            label.classList.remove('selected');
+          });
+
+          // Add the 'selected' class to the clicked label
+          const label = document.querySelector(`label[for="${radio.id}"]`);
+          label.classList.add('selected');
         }
       });
     });

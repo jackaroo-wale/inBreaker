@@ -13,9 +13,8 @@ class PagesController < ApplicationController
   def play
     # @team from callback
     if @question_data.empty?
-      # raise
+      flash[:notice] = "Answer not found"
       redirect_to team_path(@team)
-      flash[:error] = "Answer not found"
     else
       session[:current_question_index] = 0 # Reset the current question index when the user starts the game
     end
@@ -26,13 +25,7 @@ class PagesController < ApplicationController
     session[:current_question_index] ||= 0
     session[:current_question_index] += 1
 
-    if session[:current_question_index] < @question_data.length
-      redirect_to play_team_path(@team)
-    else
-      redirect_to team_path(@team)
-    end
-
-    # redirect_to play_team_path
+    redirect_to play_team_path
   end
 
   def check_answer
@@ -43,7 +36,7 @@ class PagesController < ApplicationController
     end
 
     if answer.nil?
-      flash[:error] = "Answer not found"
+      flash[:notice] = "Answer not found"
       redirect_to root_path and return
     end
 
@@ -71,9 +64,14 @@ class PagesController < ApplicationController
       session[:current_question_index] ||= 0
       session[:current_question_index] += 1
 
+      if session[:current_question_index] < @question_data.length
+        redirect_to play_team_path(@team)
+      else
+        redirect_to team_path(@team)
+      end
 
     else
-      flash[:error] = "Failed to save answer"
+      flash[:notice] = "Failed to save answer"
       redirect_to root_path
     end
   end
@@ -101,6 +99,7 @@ class PagesController < ApplicationController
       answers = @team.week_number == 1 ? member.user.initial_answers : member.user.weekly_answers
       answers.each do |answer|
         next if current_user_member_answers.include?([answer.id, answer.class.name])
+        # raise
         question_data = [
           @team.week_number == 1 ? answer.initial_question : answer.weekly_question,
           answer,
