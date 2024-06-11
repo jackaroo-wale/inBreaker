@@ -6,7 +6,7 @@
           <% if member.user.profile_image.key.present? %>
             <%= cl_image_tag member.user.profile_image.key, class: "profile-image" %>
           <% end %>
-          <p>Total points: <%= member.total_points %></p>
+          <p>Total points: <%= member.user.username %></p>
         <% end %>
       </div>
     <% end %>
@@ -38,9 +38,6 @@
           </tr>
         <% end %>
       </table>
-      <div id="buttons">
-        <button class="exit">Exit</button>
-        <button class="continue">Continue</button>
-      </div>
+
     </div>
   </main>
