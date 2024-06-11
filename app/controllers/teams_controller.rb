@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    raise 
+    # raise
     @teams = current_user.teams
   end
 

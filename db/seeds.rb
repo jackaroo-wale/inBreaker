@@ -50,9 +50,11 @@ team1 = Team.create(name: 'Le Wagon', week_number: 1)
 team2 = Team.create(name: 'BreakerBoys', week_number: rand(1..3))
 puts "Created #{Team.count} Teams"
 
+team_default_image = URI.open("https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg")
+
 team3 = Team.create(name: "camera Team", week_number: rand(1..3))
 puts "Created #{Team.count} Teams"
-file = URI.open("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fimage-vector%2Fcamera-photo-lens-shutter-108679109&psig=AOvVaw0WlcDyyZ556qyCX8e9BXtA&ust=1718180519612000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCICYgbKP04YDFQAAAAAdAAAAABAE")
+file = URI.open("https://images.pexels.com/photos/1208074/pexels-photo-1208074.jpeg?cs=srgb&dl=pexels-cody-king-433493-1208074.jpg&fm=jpg")
 team3.team_image.attach(io: file, filename: "lens.png", content_type: "image/png")
 team3.save
 

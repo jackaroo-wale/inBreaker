@@ -8,8 +8,10 @@
 <!--<ol class="alternating-colors">
 -->
 <div>
-<% if user.team_image.key.present? %>
-  <%= cl_image_tag user.team_image.key, class: "team-image" %>
+<% if team.team_image.key.present? %>
+  <%= cl_image_tag team.team_image.key, class: "profile-image" %>
+  <% else %>
+    <%= image_tag "no_profile.jpg", class: "profile-image" %>
   <% end %>
 </div>
 <div>
