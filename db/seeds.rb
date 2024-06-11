@@ -74,16 +74,16 @@ super_powers = [
 ]
 
 travel_destinations = [
-  "Paris, France",
-  "Tokyo, Japan",
-  "New York City, USA",
-  "Santorini, Greece",
-  "Machu Picchu, Peru",
-  "Sydney, Australia",
-  "Rio de Janeiro, Brazil",
-  "Cape Town, South Africa",
-  "Kyoto, Japan",
-  "Venice, Italy"
+  "Paris",
+  "Tokyo",
+  "New York City",
+  "Santorini",
+  "Machu Picchu",
+  "Sydney",
+  "Rio de Janeiro",
+  "Cape Town",
+  "Kyoto",
+  "Venice"
 ]
 
 historical_figures = [

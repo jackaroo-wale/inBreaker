@@ -3,7 +3,7 @@
     <% @team.members.each do |member| %>
 
       <div class="member-card">
-         <%= link_to team_member_path(@team, member) do %>
+        <%= link_to team_member_path(@team, member) do %>
         <% if member.user.profile_image.key.present? %>
           <%= cl_image_tag member.user.profile_image.key, class: "profile-image" %>
         <% end %>
