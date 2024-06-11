@@ -26,13 +26,7 @@ class PagesController < ApplicationController
     session[:current_question_index] ||= 0
     session[:current_question_index] += 1
 
-    if session[:current_question_index] < @question_data.length
-      redirect_to play_team_path(@team)
-    else
-      redirect_to team_path(@team)
-    end
-
-    # redirect_to play_team_path
+    redirect_to play_team_path
   end
 
   def check_answer
@@ -71,6 +65,11 @@ class PagesController < ApplicationController
       session[:current_question_index] ||= 0
       session[:current_question_index] += 1
 
+      if session[:current_question_index] < @question_data.length
+        redirect_to play_team_path(@team)
+      else
+        redirect_to team_path(@team)
+      end
 
     else
       flash[:error] = "Failed to save answer"
@@ -101,6 +100,7 @@ class PagesController < ApplicationController
       answers = @team.week_number == 1 ? member.user.initial_answers : member.user.weekly_answers
       answers.each do |answer|
         next if current_user_member_answers.include?([answer.id, answer.class.name])
+        # raise
         question_data = [
           @team.week_number == 1 ? answer.initial_question : answer.weekly_question,
           answer,

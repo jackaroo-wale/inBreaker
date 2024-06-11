@@ -14,6 +14,7 @@
           <p><%= weekly_answer.user.username %> was asked...</p>
           <p><%= weekly_question.content %></p>
           <p>Which of the answers below do you think they picked?</p>
+
           <%= simple_form_for MemberAnswer.new, url: check_answer_team_path do |f| %>
             <% if @team.week_number == 1 %>
               <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
