@@ -11,8 +11,8 @@ body {
 
 /* Navbar styles */
 nav {
-  background-color: #FFE45E;
-  color: #00B4D8;
+  background-color: #000000;
+  color: #FFE45E;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,7 +41,7 @@ nav {
 
 .menu-icon span {
   display: block;
-  background-color: #00B4D8;
+  background-color: #FFE45E;
   height: 3px;
   width: 100%;
   border-radius: 3px;
@@ -92,11 +92,11 @@ nav ul {
 
 nav li {
   padding: 15px 20px;
-  border-bottom: 1px solid #00B4D8;
+  border-bottom: 1px solid #000000;
 }
 
 nav li a {
-  color: #00B4D8;
+  color: #000000;
   text-decoration: none;
   font-size: 1.2rem;
 }
