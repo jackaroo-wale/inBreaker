@@ -1,49 +1,70 @@
-// Graphical variables
-@import "config/fonts";
-@import "config/colors";
-@import "config/bootstrap_variables";
+// .answers {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+//   justify-content: center;
+//   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+//   font-size: 16px;
+//   font-weight: 600;
+//   color: white;
+// }
 
-// External libraries
-@import "bootstrap";
-@import "font-awesome";
+// .answers .answer {
+//   margin: 2px;
+// }
 
-// Your CSS partials
-@import "components/index";
-@import "pages/index";
-@import "show_users";
-@import "../stylesheets/navbar";
-@import "navbar";
-@import "create_team";
-@import "show_questions";
-@import "colour";
-@import "sign_up";
-@import "profile_page";
-@import "teams_index";
-@import "play_game";
-@import "teams_show";
-@import "footer";
+// .answers .answer input[type="radio"] {
+//   display: none;
+// }
 
-.d-none {
-  display: none;
-}
+// .answers .answer label {
+//   display: flex;
+//   align-items: center;
+//   padding: 10px;
+//   border: 1px solid #ccc;
+//   background-color: #212121;
+//   border-radius: 5px;
+//   margin-right: 12px;
+//   cursor: pointer;
+//   position: relative;
+//   transition: all 0.3s ease-in-out;
+// }
 
-.correct-answer {
-  color: green;
-}
+// .answers .answer label:before {
+//   content: "";
+//   display: block;
+//   position: absolute;
+//   top: 50%;
+//   left: 0;
+//   transform: translate(-50%, -50%);
+//   width: 10px;
+//   height: 10px;
+//   border-radius: 50%;
+//   background-color: #fff;
+//   border: 2px solid #ccc;
+//   transition: all 0.3s ease-in-out;
+// }
 
-.incorrect-answer {
-  color: red;
-}
+// .answers .answer input[type="radio"]:checked + label:before {
+//   background-color: green;
+//   top: 0;
+// }
 
-input[type="radio"].d-none {
-  display: none;
-}
+// .answers .answer input[type="radio"]:checked + label {
+//   background-color: royalblue;
+//   color: #fff;
+//   border-color: rgb(129, 235, 129);
+//   animation: radio-translate 0.5s ease-in-out;
+// }
 
-.label.btn {
-  cursor: pointer;
-}
-
-.label.btn.selected {
-  background-color: #e7dd54;
-  color: white;
-}
+// @keyframes radio-translate {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   50% {
+//     transform: translateY(-10px);
+//   }
+//   100% {
+//     transform: translateX(0);
+//   }
+// }
