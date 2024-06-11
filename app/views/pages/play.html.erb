@@ -1,19 +1,17 @@
-<!-- app/views/pages/play.html.erb -->
 <div class="create-container">
-  <%#= member.user.username %>
-
-    <div class="question-container">
+  <div class="question-container">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
       <% weekly_answer = question_data[1] %>
       <% wrong_answers = question_data[2] %>
       <% image_url = question_data[3] %>
       <div class="question<%= index == 0 ? '' : ' d-none' %>">
-      <h1>How well do you know <%= weekly_answer.user.username %>? </h1>
-        <%= image_tag image_url, style: "width: 150px;" if image_url.present? %> <br>
-
-        <div>
-        <p> <%= weekly_answer.user.username %> was asked...</p>
+        <div class="question-header">
+          <%= image_tag image_url, class: "profile-image" if image_url.present? %>
+          <h1>How well do you know <%= weekly_answer.user.username %>? </h1>
+        </div>
+        <div class="question-body">
+          <p><%= weekly_answer.user.username %> was asked...</p>
           <p><%= weekly_question.content %></p>
           <p>Which of the answers below do you think they picked?</p>
 
@@ -23,26 +21,24 @@
             <% else %>
               <%= f.input :weekly_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
             <% end %>
-
             <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
-
             <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
-            <% answers.shuffle.each_with_index do |answer, index| %>
-              <div class="form-group form-check">
-                <%= f.radio_button :selected, answer.first, id: "answer_#{index}", class: 'form-check-input' %>
-                <%= f.label "answer_#{index}", answer.first, class: 'form-check-label' %>
-              </div>
-            <% end %>
-
+            <div class="answers">
+              <% answers.shuffle.each_with_index do |answer, index| %>
+                <div class="answer">
+                  <%= f.radio_button :selected, answer.first, id: "answer_#{index}", class: 'form-check-input' %>
+                  <%= f.label "answer_#{index}", answer.first, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
             <%= f.button :submit, "Next", class: 'btn btn-primary submit-btn next-question' %>
           <% end %>
-
-
         </div>
       </div>
     <% end %>
   </div>
 </div>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
