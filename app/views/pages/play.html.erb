@@ -1,4 +1,4 @@
-<div class="container create-container d-flex justify-content-center align-items-center">
+<div class="container create-container d-flex justify-content-center align-items-center" data-controller="play">
   <div class="question-container text-center">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
@@ -33,152 +33,11 @@
                 </div>
               <% end %>
             </div>
+            <%= f.label :next_question, "Next Question", class: "btn btn-primary submit-btn next-question d-none" %>
             <%= f.button :submit, "Done", class: 'btn btn-primary submit-btn reveal-answer' %>
-            <%= f.button :submit, "Next", class: 'btn btn-primary submit-btn next-question d-none' %>
           <% end %>
         </div>
       </div>
     <% end %>
   </div>
 </div>
-
-
-<!-- Theoretically: This is what we want -->
-
-
-<div class="container create-container d-flex justify-content-center align-items-center d-none">
-  <div class="question-container text-center">
-    <% @question_data.each_with_index do |question_data, index| %>
-      <% weekly_question = question_data[0] %>
-      <% weekly_answer = question_data[1] %>
-      <% wrong_answers = question_data[2] %>
-      <% image_url = question_data[3] %>
-      <div class="question<%= index == 0 ? '' : ' d-none' %>">
-        <div class="question-header">
-          <%= image_tag image_url, class: "profile-image" if image_url.present? %>
-          <h1>How well do you know <%= weekly_answer.user.username %>? </h1>
-        </div>
-        <div class="question-body">
-          <p><%= weekly_answer.user.username %> was asked...</p>
-          <p><%= weekly_question.content %></p>
-          <p>Which of the answers below do you think they picked?</p>
-
-          <%= simple_form_for MemberAnswer.new, url: check_answer_team_path, html: { class: 'answer-form' }, remote: true do |f| %>
-            <% if @team.week_number == 1 %>
-              <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
-            <% else %>
-              <%= f.input :weekly_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
-            <% end %>
-            <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
-            <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
-            <div class="answers d-flex flex-wrap justify-content-center">
-              <% answers.shuffle.each_with_index do |answer, index| %>
-                <div class="answer m-2">
-                  <%= f.radio_button :selected, answer.first, id: "answer_#{index}", data: { answer_group: 'answers' }, class: "d-none" %>
-                  <label for="answer_<%= index %>" class="form-check-label btn m-1">
-
-                  <!-- if answers[index] == weekly_answer.content
-                  button.green -->
-
-                    <span><%= answer.first %></span>
-                  </label>
-                </div>
-              <% end %>
-            </div>
-            <%= f.button :submit, "Next", class: 'btn btn-primary submit-btn next-question' %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<!-- When submit clicked, the correct answers reveal -->
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const questions = document.querySelectorAll('.question');
-    const nextButtons = document.querySelectorAll('.next-question');
-    const revealAnswerButtons = document.querySelectorAll('.reveal-answer');
-    const labels = document.querySelectorAll('.form-check-label');
-
-    nextButtons.forEach((button, index) => {
-
-      nextButtons.forEach(button => button.classList.add('d-none'));
-      revealAnswerButtons.forEach(button => button.classList.remove('d-none'));
-
-      button.addEventListener('click', (event) => {
-        event.preventDefault();
-        questions[index].classList.add('d-none');
-        if (index < questions.length - 1) {
-          questions[index + 1].classList.remove('d-none');
-        } else {
-          window.location.href = '<%= team_path(@team) %>';
-        }
-      });
-    });
-
-    revealAnswerButtons.forEach((button, index) => {
-      button.addEventListener('click', (event) => {
-        event.preventDefault();
-
-        nextButtons.forEach(button => button.classList.remove('d-none'));
-        revealAnswerButtons.forEach(button => button.classList.add('d-none'));
-
-        const currentQuestion = questions[index];
-        const correctAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer_id"]').dataset.answerText;
-
-        const radios = currentQuestion.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-
-        radios.forEach((radio) => {
-          const label = document.querySelector(`label[for="${radio.id}"]`);
-          if (label) {
-            if (radio.value === correctAnswer) {
-              label.classList.add('correct-answer');
-            } else {
-              label.classList.add('wrong-answer');
-            }
-          }
-        });
-      });
-    });
-
-    labels.forEach(label => {
-      label.addEventListener('click', () => {
-        const radio = document.querySelector(`#${label.getAttribute('for')}`);
-        if (radio) {
-          radio.checked = true;
-
-          const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-          radios.forEach(r => {
-            const lbl = document.querySelector(`label[for="${r.id}"]`);
-            if (lbl) {
-              lbl.classList.remove('selected');
-            }
-          });
-
-          label.classList.add('selected');
-        }
-      });
-    });
-
-    const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-    radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        if (radio.checked) {
-          radios.forEach(r => {
-            const label = document.querySelector(`label[for="${r.id}"]`);
-            if (label) {
-              label.classList.remove('selected');
-            }
-          });
-
-          const label = document.querySelector(`label[for="${radio.id}"]`);
-          if (label) {
-            label.classList.add('selected');
-          }
-        }
-      });
-    });
-  });
-</script>

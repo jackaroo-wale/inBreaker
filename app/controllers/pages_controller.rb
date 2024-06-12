@@ -67,10 +67,16 @@ class PagesController < ApplicationController
       session[:current_question_index] ||= 0
       session[:current_question_index] += 1
 
+      # if session[:current_question_index] < @question_data.length
+      #   redirect_to play_team_path(@team)
+      # else
+      #   redirect_to team_path(@team)
+      # end
+
       if session[:current_question_index] < @question_data.length
-        redirect_to play_team_path(@team)
+        redirect_to play_team_path(@team) # Redirect to play_team_path if there are more questions
       else
-        redirect_to team_path(@team)
+        redirect_to team_path(@team) # Redirect to play_team_path after revealing all answers
       end
 
     else
