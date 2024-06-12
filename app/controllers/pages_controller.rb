@@ -11,17 +11,15 @@ class PagesController < ApplicationController
   end
 
   def play
-    # @team from callback
     @team.week_number = 1 if @team.week_number < 1
     @team.save
-    
+
     if @question_data.empty?
       flash[:notice] = "Answer not found"
       redirect_to team_path(@team)
     else
-      session[:current_question_index] = 0 # Reset the current question index when the user starts the game
+      session[:current_question_index] = 0
     end
-    # raise
   end
 
   def next_question
@@ -32,8 +30,6 @@ class PagesController < ApplicationController
   end
 
   def check_answer
-
-
     if @team.week_number == 1
       answer = InitialAnswer.find_by(id: params[:member_answer][:initial_answer_id])
     else
@@ -41,8 +37,7 @@ class PagesController < ApplicationController
     end
 
     if answer.nil?
-      flash[:notice] = "Answer not found"
-      redirect_to root_path and return
+      render json: { error: "Answer not found" }, status: :not_found and return
     end
 
     member = current_user.members.find_by(team_id: @team.id)
@@ -53,13 +48,7 @@ class PagesController < ApplicationController
       selected: params[:member_answer][:selected]
     )
 
-
-
-    if params[:member_answer][:selected] == answer.content
-      member_answer.correct = true
-    else
-      member_answer.correct = false
-    end
+    member_answer.correct = params[:member_answer][:selected] == answer.content
 
     if member_answer.save
       if member_answer.correct
@@ -68,18 +57,14 @@ class PagesController < ApplicationController
         member.save
       end
 
-      session[:current_question_index] ||= 0
-      session[:current_question_index] += 1
-
-      if session[:current_question_index] < @question_data.length
-        redirect_to play_team_path(@team)
-      else
-        redirect_to team_path(@team)
-      end
-
+      render json: {
+        correct: member_answer.correct,
+        correct_answer: answer.content,
+        next_question_index: session[:current_question_index] + 1,
+        total_questions: @question_data.length
+      }
     else
-      flash[:notice] = "Failed to save answer"
-      redirect_to root_path
+      render json: { error: "Failed to save answer" }, status: :unprocessable_entity
     end
   end
 
@@ -87,10 +72,6 @@ class PagesController < ApplicationController
 
   def member_answer_params
     params.require(:member_answer).permit(:selected, :user_id, :weekly_answer_id)
-  end
-
-  def weekly_answer_params
-    params.require(:weekly_answer).permit(:user_id, :weekly_question_id)
   end
 
   def set_team
@@ -106,7 +87,6 @@ class PagesController < ApplicationController
       answers = @team.week_number == 1 ? member.user.initial_answers : member.user.weekly_answers
       answers.each do |answer|
         next if current_user_member_answers.include?([answer.id, answer.class.name])
-        # raise
         question_data = [
           @team.week_number == 1 ? answer.initial_question : answer.weekly_question,
           answer,

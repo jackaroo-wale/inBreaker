@@ -15,7 +15,7 @@
           <p><%= weekly_question.content %></p>
           <p>Which of the answers below do you think they picked?</p>
 
-          <%= simple_form_for MemberAnswer.new, url: check_answer_team_path, html: { class: 'answer-form' } do |f| %>
+          <%= simple_form_for MemberAnswer.new, url: check_answer_team_path, html: { class: 'answer-form' }, remote: true do |f| %>
             <% if @team.week_number == 1 %>
               <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
             <% else %>
@@ -41,65 +41,93 @@
   </div>
 </div>
 
-
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const questions = document.querySelectorAll('.question');
-    const nextButtons = document.querySelectorAll('.next-question');
-    const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-    const labels = document.querySelectorAll('.form-check-label');
+  const questions = document.querySelectorAll('.question');
+  const nextButtons = document.querySelectorAll('.next-question');
+  const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
+  const labels = document.querySelectorAll('.form-check-label');
 
-    nextButtons.forEach((button, index) => {
-      button.addEventListener('click', function(event) {
-        event.preventDefault();
-        questions[index].classList.add('d-none');
-        if (index < questions.length - 1) {
-          questions[index + 1].classList.remove('d-none');
-        } else {
-          window.location.href = '<%= team_path(@team) %>';
+  nextButtons.forEach((button, index) => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      const form = button.closest('form');
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
         }
-      });
-    });
-
-    labels.forEach(label => {
-      label.addEventListener('click', function() {
-        const radio = document.querySelector(`#${label.getAttribute('for')}`);
-        if (radio) {
-          radio.checked = true;
-
-          // Remove the 'selected' class from all labels
-          radios.forEach(r => {
-            const lbl = document.querySelector(`label[for="${r.id}"]`);
-            if (lbl) {
-              lbl.classList.remove('selected');
-            }
-          });
-
-          // Add the 'selected' class to the clicked label
-          label.classList.add('selected');
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+          return;
         }
-      });
-    });
 
-    radios.forEach(radio => {
-      radio.addEventListener('change', function() {
-        if (radio.checked) {
-          // Remove the 'selected' class from all labels
-          radios.forEach(r => {
-            const label = document.querySelector(`label[for="${r.id}"]`);
-            if (label) {
-              label.classList.remove('selected');
-            }
-          });
-
-          // Add the 'selected' class to the clicked label
+        const correctAnswer = data.correct_answer;
+        radios.forEach(radio => {
           const label = document.querySelector(`label[for="${radio.id}"]`);
           if (label) {
-            label.classList.add('selected');
+            if (radio.value === correctAnswer) {
+              label.classList.add('text-white', 'bg-success');
+            } else if (radio.checked) {
+              label.classList.add('text-white', 'bg-danger');
+            }
           }
-        }
-      });
+        });
+
+        setTimeout(() => {
+          if (data.next_question_index < data.total_questions) {
+            questions[index].classList.add('d-none');
+            questions[data.next_question_index].classList.remove('d-none');
+          } else {
+            window.location.href = '<%= team_path(@team) %>';
+          }
+        }, 2000);
+      })
+      .catch(error => console.error('Error:', error));
     });
   });
+
+  labels.forEach(label => {
+    label.addEventListener('click', function() {
+      const radio = document.querySelector(`#${label.getAttribute('for')}`);
+      if (radio) {
+        radio.checked = true;
+
+        radios.forEach(r => {
+          const lbl = document.querySelector(`label[for="${r.id}"]`);
+          if (lbl) {
+            lbl.classList.remove('selected');
+          }
+        });
+
+        label.classList.add('selected');
+      }
+    });
+  });
+
+  radios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (radio.checked) {
+        radios.forEach(r => {
+          const label = document.querySelector(`label[for="${r.id}"]`);
+          if (label) {
+            label.classList.remove('selected');
+          }
+        });
+
+        const label = document.querySelector(`label[for="${radio.id}"]`);
+        if (label) {
+          label.classList.add('selected');
+        }
+      }
+    });
+  });
+});
 </script>

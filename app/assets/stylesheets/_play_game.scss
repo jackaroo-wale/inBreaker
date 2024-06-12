@@ -215,3 +215,19 @@
 .answers .answer label span {
   margin: 1px solid black;
 }
+
+.text-white {
+  color: white !important;
+}
+
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.form-check-label.selected {
+  border: 2px solid #007bff;
+}
