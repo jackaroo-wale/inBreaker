@@ -32,8 +32,8 @@
           <% if member.user.profile_image.key.present? %>
             <%= cl_image_tag member.user.profile_image.key, class: "profile-image" %>
           <% end %>
-          <p>Total points: <%= member.user.username %></p>
         <% end %>
+          <p> <%= member.user.username %></p>
       </div>
     <% end %>
   </div>
