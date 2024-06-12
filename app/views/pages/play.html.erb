@@ -1,11 +1,11 @@
-<div class="container create-container d-flex justify-content-center align-items-center">
-  <div class="question-container text-center">
+<div class="container create-container d-flex justify-content-center align-items-center"  style="height: fit-content">
+  <div class="user-container text-center">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
       <% weekly_answer = question_data[1] %>
       <% wrong_answers = question_data[2] %>
       <% image_url = question_data[3] %>
-      <div class="question<%= index == 0 ? '' : ' d-none' %>">
+      <div class="create-card<%= index == 0 ? '' : ' d-none' %>">
         <div class="question-header">
           <%= image_tag image_url, class: "profile-image" if image_url.present? %>
           <h1>How well do you know <%= weekly_answer.user.username %>? </h1>
@@ -13,8 +13,7 @@
         <div class="question-body">
           <p><%= weekly_answer.user.username %> was asked...</p>
           <p><%= weekly_question.content %></p>
-          <p>Which of the answers below do you think they picked?</p>
-
+        </div>
           <%= simple_form_for MemberAnswer.new, url: check_answer_team_path, html: { class: 'answer-form' } do |f| %>
             <% if @team.week_number == 1 %>
               <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
@@ -32,8 +31,8 @@
                   </label>
                 </div>
               <% end %>
+            <%= f.button :submit, "Next", class: 'btnwrap button-54' %>
             </div>
-            <%= f.button :submit, "Next", class: 'btn btn-primary submit-btn next-question' %>
           <% end %>
         </div>
       </div>
