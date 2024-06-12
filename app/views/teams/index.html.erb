@@ -7,18 +7,13 @@
 
 <!--<ol class="alternating-colors">
 -->
-<div>
+<div class= "team-item">
 <% if team.team_image.key.present? %>
-  <%= cl_image_tag team.team_image.key, class: "profile-image" %>
+  <%= cl_image_tag team.team_image.key, class: "team-image" %>
   <% else %>
-    <%= image_tag "no_profile.jpg", class: "profile-image" %>
+    <%= image_tag "no_profile.jpg", class: "team-image" %>
   <% end %>
-</div>
-<div>
-  <strong><%= link_to team.name, team_path(team), class: "no-underline" %></strong>
+<strong><%= link_to team.name, team_path(team), class: "no-underline" %></strong>
 </div>
 
 <% end %>
-
-
- 
