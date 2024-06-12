@@ -1,12 +1,4 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require 'open-uri'
 
 User.destroy_all
 puts "Users destroyed"
@@ -30,18 +22,16 @@ initial_question4 = InitialQuestion.create(content: "What is your favourite type
 initial_question5 = InitialQuestion.create(content: "What do you think is the most important aspect for teamwork?")
 
 user1 = User.create(email: 'jack@example.com', password: 'password', username: "JackASS", description: "Cowboy in a puffer jacket")
-file = URI.open("https://m.media-amazon.com/images/I/61ktJwNsInL._AC_SL1500_.jpghttps://upload.wikimedia.org/wikipedia/commons/thumb/8/82/NES-Console-Set.jphttps://m.media-amazon.com/images/I/61ktJwNsInL._AC_SL1500_.jpg")
+file = URI.open("https://m.media-amazon.com/images/I/61ktJwNsInL._AC_SL1500_.jpg")
 user1.profile_image.attach(io: file, filename: "cowboy.png", content_type: "image/png")
 user1.save
 
 user2 = User.create(email: 'prince2@example.com', password: 'password', username: "Him Jong Un", description: "King")
-puts "Created the Users"
-file = URI.open("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfcMkNiLDXVaULaetBzC3xD2HDLaDRmvSKsw&sttps://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%2Fimages%3Fk%3D%2522black%2Bwolf%2522&psig=AOvVaw1492Z1jzi2Y0sHeiaEFDgf&ust=1717854811894000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKjYw4HSyYYDFQAAAAAdAAAAABAE")
+file = URI.open("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfcMkNiLDXVaULaetBzC3xD2HDLaDRmvSKsw&st=2024-06-13")
 user2.profile_image.attach(io: file, filename: "wolf.png", content_type: "image/png")
 user2.save
 
 user3 = User.create(email: 'thomass2@example.com', password: 'password', username: "ThomASS", description: "greatest human to ever live")
-puts "Created the Users"
 file = URI.open("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Cima_da_Conegliano%2C_God_the_Father.jpg/640px-Cima_da_Conegliano%2C_God_the_Father.jpg")
 user3.profile_image.attach(io: file, filename: "god.png", content_type: "image/png")
 user3.save
@@ -176,70 +166,21 @@ books = [
 ]
 
 User.all.each do |user|
-
-  # initial question 1
-  initial_answer = InitialAnswer.create(
-    content: school_names.sample,
-    user: user,
-    wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}",
-    initial_question: initial_question1
-  )
-
-  # initial question 2
-  initial_answer = InitialAnswer.create(
-    content: school_subjects.sample,
-    user: user,
-    wrong_answers: "#{school_subjects.sample}, #{school_subjects.sample}, #{school_subjects.sample}",
-    initial_question: initial_question2
-  )
-
-  # initial question 3
-  initial_answer = InitialAnswer.create(
-    content: hobbies.sample,
-    user: user,
-    wrong_answers: "#{hobbies.sample}, #{hobbies.sample}, #{hobbies.sample}",
-    initial_question: initial_question3
-  )
-
-  # initial question 4
-  initial_answer = InitialAnswer.create(
-    content: books.sample,
-    user: user,
-    wrong_answers: "#{books.sample}, #{books.sample}, #{books.sample}",
-    initial_question: initial_question4
-  )
-
-  # initial question 5
-  initial_answer = InitialAnswer.create(
-    content: teamwork_aspects.sample,
-    user: user,
-    wrong_answers: "#{teamwork_aspects.sample}, #{teamwork_aspects.sample}, #{teamwork_aspects.sample}",
-    initial_question: initial_question5
-  )
-
-  # weekly question 1
-  weekly_answer = WeeklyAnswer.create(
-    content: super_powers.sample,
-    user: user,
-    wrong_answers: "#{super_powers.sample}, #{super_powers.sample}, #{super_powers.sample}",
-    weekly_question: weekly_question1
-  )
-
-  # weekly question 2
-  weekly_answer = WeeklyAnswer.create(
-    content: travel_destinations.sample,
-    user: user,
-    wrong_answers: "#{travel_destinations.sample}, #{travel_destinations.sample}, #{travel_destinations.sample}",
-    weekly_question: weekly_question2
-  )
-
-  # weekly question 3
-  weekly_answer = WeeklyAnswer.create(
-    content: historical_figures.sample,
-    user: user,
-    wrong_answers: "#{historical_figures.sample}, #{historical_figures.sample}, #{historical_figures.sample}",
-    weekly_question: weekly_question3
-  )
+  InitialAnswer.create(content: school_names.sample, user: user, wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}", initial_question: initial_question1)
+  InitialAnswer.create(content: school_subjects.sample, user: user, wrong_answers: "#{school_subjects.sample}, #{school_subjects.sample}, #{school_subjects.sample}", initial_question: initial_question2)
+  InitialAnswer.create(content: hobbies.sample, user: user, wrong_answers: "#{hobbies.sample}, #{hobbies.sample}, #{hobbies.sample}", initial_question: initial_question3)
+  InitialAnswer.create(content: books.sample, user: user, wrong_answers: "#{books.sample}, #{books.sample}, #{books.sample}", initial_question: initial_question4)
+  InitialAnswer.create(content: teamwork_aspects.sample, user: user, wrong_answers: "#{teamwork_aspects.sample}, #{teamwork_aspects.sample}, #{teamwork_aspects.sample}", initial_question: initial_question5)
+  WeeklyAnswer.create(content: super_powers.sample, user: user, wrong_answers: "#{super_powers.sample}, #{super_powers.sample}, #{super_powers.sample}", weekly_question: weekly_question1)
+  WeeklyAnswer.create(content: travel_destinations.sample, user: user, wrong_answers: "#{travel_destinations.sample}, #{travel_destinations.sample}, #{travel_destinations.sample}", weekly_question: weekly_question2)
+  WeeklyAnswer.create(content: historical_figures.sample, user: user, wrong_answers: "#{historical_figures.sample}, #{historical_figures.sample}, #{historical_figures.sample}", weekly_question: weekly_question3)
 end
+
+chatroom1 = Chatroom.create(name: 'Experience design(32)', team: team1)
+chatroom2 = Chatroom.create(name: 'Top news', team: team1)
+Message.create(content: 'Getting Free Publicity For Your Business', user: user1, chatroom: chatroom1)
+Message.create(content: 'Advertisers Embrace', user: user2, chatroom: chatroom1)
+Message.create(content: 'then you know as well as I do', user: user3, chatroom: chatroom1)
+Message.create(content: 'Hello!', user: user1, chatroom: chatroom1)
 
 puts 'Database seeded!'

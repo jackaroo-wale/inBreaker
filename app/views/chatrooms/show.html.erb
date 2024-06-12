@@ -1,0 +1,26 @@
+<div class="chatroom-wrapper">
+  <div class="chatroom" data-controller="chatroom-subscription" data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
+    <div class="card">
+      <div class="card-header">
+        <h1 class="card-title">Experience design(32)</h1>
+      </div>
+      <div class="card-body messages" data-chatroom-subscription-target="messages">
+        <% @chatroom.messages.each do |message| %>
+          <div class="message">
+            <strong><%= message.user.username %>:</strong> <%= message.content %>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-footer mt-auto">
+        <form class="d-flex" data-action="turbo:submit-end->chatroom-subscription#resetForm">
+          <div class="input-group flex-grow-1">
+            <input type="text" placeholder="Say Something" class="form-control">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,3 +22,178 @@
 @import "play_game";
 @import "teams_show";
 @import "footer";
+
+// .message {
+//   margin-bottom: 10px;
+//   padding: 10px;
+//   background-color: #f0f0f0;
+//   border-radius: 5px;
+// }
+
+// .message strong {
+//   color: #007bff; /* Bootstrap primary color */
+// }
+
+// .chatroom-wrapper {
+//   max-width: 428px;
+//   margin: 0 auto;
+//   padding: 20px;
+//   height: 100%; /* Ensure the wrapper takes full height of its parent */
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .card {
+//   height: 100%; /* Fill the height of the .chatroom-wrapper */
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .card-body {
+//   flex-grow: 1; /* Allow messages to scroll within the available space */
+//   overflow-y: auto; /* Enable vertical scrolling for overflow */
+// }
+
+// .card-footer {
+//   margin-top: auto; /* Push the footer to the bottom */
+// }
+
+// .message {
+//   margin-bottom: 10px;
+//   padding: 10px;
+//   background-color: #f0f0f0;
+//   border-radius: 5px;
+// }
+
+// .message strong {
+//   color: #007bff; /* Bootstrap primary color */
+// }
+
+// .chatroom-wrapper {
+//   max-width: 428px;
+//   margin: 0 auto;
+//   padding: 20px;
+//   height: 100%; /* Ensure the wrapper takes full height of its parent */
+//   display: flex;
+//   flex-direction: column;
+//   background-color: #f8f9fa; /* Light background color */
+// }
+
+// .card {
+//   height: 100%; /* Fill the height of the .chatroom-wrapper */
+//   display: flex;
+//   flex-direction: column;
+//   background-color: #ffffff; /* White background for the card */
+//   border: 1px solid #e0e0e0; /* Light border */
+//   border-radius: 8px; /* Rounded corners */
+//   overflow: hidden; /* Hide overflow */
+// }
+
+// .card-header {
+//   background-color: #f1f1f1; /* Light gray background */
+//   padding: 15px;
+//   border-bottom: 1px solid #e0e0e0; /* Border at the bottom */
+// }
+
+// .card-header .card-title {
+//   margin: 0;
+//   font-size: 18px; /* Larger font size */
+//   color: #333333; /* Darker text color */
+// }
+
+// .card-body {
+//   flex-grow: 1; /* Allow messages to scroll within the available space */
+//   overflow-y: auto; /* Enable vertical scrolling for overflow */
+//   padding: 15px;
+// }
+
+// .card-footer {
+//   padding: 10px; /* Padding for the footer */
+//   background-color: #f8f8f8; /* Light background color for the footer */
+//   border-top: 1px solid #e0e0e0; /* Border at the top */
+// }
+
+// .input-group {
+//   width: 100%;
+// }
+
+// .input-group .form-control {
+//   border-right: 0; /* Remove right border */
+//   border-radius: 0; /* Remove border radius */
+// }
+
+// .input-group-append .btn {
+//   border-radius: 0; /* Remove border radius */
+//   background-color: #007bff; /* Bootstrap primary color */
+//   color: #ffffff; /* White text color */
+// }
+
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.message strong {
+  color: #007bff; /* Bootstrap primary color */
+}
+
+.chatroom-wrapper {
+  max-width: 428px;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100%; /* Ensure the wrapper takes full height of its parent */
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa; /* Light background color */
+}
+
+.card {
+  height: 100%; /* Fill the height of the .chatroom-wrapper */
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff; /* White background for the card */
+  border: 1px solid #e0e0e0; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Hide overflow */
+}
+
+.card-header {
+  background-color: #f1f1f1; /* Light gray background */
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0; /* Border at the bottom */
+}
+
+.card-header .card-title {
+  margin: 0;
+  font-size: 18px; /* Larger font size */
+  color: #333333; /* Darker text color */
+}
+
+.card-body {
+  flex-grow: 1; /* Allow messages to scroll within the available space */
+  overflow-y: auto; /* Enable vertical scrolling for overflow */
+  padding: 15px;
+}
+
+.card-footer {
+  padding: 10px; /* Padding for the footer */
+  background-color: #f8f8f8; /* Light background color for the footer */
+  border-top: 1px solid #e0e0e0; /* Border at the top */
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group .form-control {
+  border-right: 0; /* Remove right border */
+  border-radius: 0; /* Remove border radius */
+}
+
+.input-group-append .btn {
+  border-radius: 0; /* Remove border radius */
+  background-color: #007bff; /* Bootstrap primary color */
+  color: #ffffff; /* White text color */
+}

@@ -25,6 +25,22 @@
     </div>
   </main>
 
+  <% @chatrooms.each do |chatroom| %>
+  <div>
+    <%= link_to chatroom.name, team_chatroom_path(@team, chatroom) %>
+  </div>
+<% end %>
+
+<h1><%= @team.name %></h1>
+<h2>Members</h2>
+<% @team.members.each do |member| %>
+  <p>
+    <%= member.user.username %>
+    <%= link_to "Message", conversations_path(sender_id: current_user.id, receiver_id: member.user.id, team_id: @team.id), method: :post %>
+  </p>
+<% end %>
+
+
 <div class="main-container1">
     <% @team.members.order(total_points: :desc).each_with_index do |member, index| %>
       <div class="member-card">

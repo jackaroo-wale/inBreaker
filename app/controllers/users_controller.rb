@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     else
       @user = User.find(params[:id])
     end
+    @teams = @user.teams
   end
 
   def new
