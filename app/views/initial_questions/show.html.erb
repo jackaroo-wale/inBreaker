@@ -1,11 +1,11 @@
-<div class="create-container">
+<div class="users-container">
   <h1>Questions</h1>
   <div data-controller="display-initial-questions">
-    <div class="question">
+    <div class="user-card">
       <p><%= @initial_question.content %></p>
       <%= simple_form_for [@initial_question, @initial_answer] do |f| %>
         <%= f.input :content, input_html: { class: 'form-control' } %>
-        <%= f.submit "Send it through", class: 'submit-btn' %>
+        <%= f.submit "Send it through", class: 'button-54' %>
       <% end %>
     </div>
   </div>

@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+
 }
 
 .container label {
@@ -19,7 +20,7 @@
 }
 
 .container label input:checked + span {
-  // background-color: #414181;
+  background-color: #e9d81c;
   color: white;
 }
 
@@ -37,8 +38,7 @@
 }
 
 .container label span:hover {
-  background-color: #d6d6e5;
-  // border: 1px solid black;
+  background-color: #eadb0f;
 }
 
 .container label span:before {
