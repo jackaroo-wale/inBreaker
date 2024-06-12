@@ -14,7 +14,7 @@ class PagesController < ApplicationController
     # @team from callback
     @team.week_number = 1 if @team.week_number < 1
     @team.save
-    
+
     if @question_data.empty?
       flash[:notice] = "Answer not found"
       redirect_to team_path(@team)
@@ -32,8 +32,6 @@ class PagesController < ApplicationController
   end
 
   def check_answer
-
-
     if @team.week_number == 1
       answer = InitialAnswer.find_by(id: params[:member_answer][:initial_answer_id])
     else
@@ -52,8 +50,6 @@ class PagesController < ApplicationController
       answerable: answer,
       selected: params[:member_answer][:selected]
     )
-
-
 
     if params[:member_answer][:selected] == answer.content
       member_answer.correct = true
@@ -83,6 +79,7 @@ class PagesController < ApplicationController
     end
   end
 
+
   private
 
   def member_answer_params
@@ -98,6 +95,10 @@ class PagesController < ApplicationController
   end
 
   def set_question_data
+    member = current_user.members.find_by(team_id: @team.id)
+    member.weekly_points = 0
+    member.save
+
     @members = @team.members.includes(user: { weekly_answers: :weekly_question, initial_answers: :initial_question })
     @question_data = []
     current_user_member_answers = MemberAnswer.where(member: current_user.members).pluck(:answerable_id, :answerable_type).to_set
