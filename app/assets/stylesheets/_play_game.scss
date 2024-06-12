@@ -210,5 +210,8 @@
 .selected {
   background-color: #414181;
   color: white;
-  border: 1px solid black
+}
+
+.answers .answer label span {
+  margin: 1px solid black;
 }
