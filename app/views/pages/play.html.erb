@@ -40,7 +40,7 @@
                 </div>
               <% end %>
             </div>
-            <%= f.submit "Done", class: 'btn btn-primary submit-btn reveal-answer' %>
+            <%= f.submit "Done", class: 'btn btn-primary submit-btn reveal-answer', data: { action: "click->play#revealAnswer" }%>
           <% end %>
           <%= link_to "Comment", root_path, class: "btn btn-primary submit-btn comment d-none" %>
           <%= link_to "Next", next_question_team_path, class: "btn btn-primary submit-btn next-question d-none" %>
