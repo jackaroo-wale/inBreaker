@@ -16,7 +16,7 @@ class PagesController < ApplicationController
     @team.save
 
     if @question_data.empty?
-      flash[:notice] = "Answer not found"
+      flash[:notice] = "No questions found"
       redirect_to team_path(@team)
     else
       session[:current_question_index] = 0
@@ -34,7 +34,8 @@ class PagesController < ApplicationController
     end
   end
 
-    def check_answer
+  def check_answer
+    raise
     if @team.week_number == 1
       answer = InitialAnswer.find_by(id: params[:member_answer][:initial_answer_id])
     else

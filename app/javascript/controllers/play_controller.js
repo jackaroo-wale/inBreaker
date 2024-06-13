@@ -2,19 +2,16 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = [
-    "questions",         // Targeting each question container
-    "labels",            // Targeting labels for answer options
-    "revealAnswerButton",// Targeting the reveal answer button
-    "nextButton",        // Targeting the next button
-    "radios"             // Targeting radio buttons for answers
+    "question",
+    "labels",
+    "radios"
   ];
 
   connect() {
     console.log("Connected");
-
-    // Attach event listeners
     this.attachLabelHandlers();
     this.attachRadioHandlers();
+    this.attachDoneButtonHandler();
   }
 
   attachLabelHandlers() {
@@ -33,29 +30,61 @@ export default class extends Controller {
     });
   }
 
+  attachDoneButtonHandler() {
+    const doneButton = this.element.querySelector('.reveal-answer');
+    if (doneButton) {
+      doneButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.highlightCorrectAnswers();
+
+      });
+    }
+  }
+
   handleLabelClick(label) {
     const radio = document.querySelector(`#${label.getAttribute('for')}`);
     if (radio) {
       radio.checked = true;
-
-      // Remove 'selected' class from all labels
       this.labelsTargets.forEach(lbl => {
         lbl.classList.remove('selected');
       });
-
-      // Add 'selected' class to clicked label
       label.classList.add('selected');
     }
   }
 
+  revealAnswer(event) {
+    event.preventDefault();
+    const form = event.target.closest('form')
+    console.log(form)
+    const nextButtons = document.querySelectorAll('.next-question');
+    const revealAnswerButtons = document.querySelectorAll('.reveal-answer');
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'X-CSRF-Token': document.querySelector("[name='csrf-token']").content
+      }
+    }).then(response => {
+      if (response.ok) {
+        nextButtons.forEach(lbl => {
+          lbl.classList.toggle('d-none');
+        })
+
+        revealAnswerButtons.forEach(lbl => {
+          lbl.classList.toggle('d-none');
+        })
+      } else {
+        console.log("fuck this!!!!!")
+      }
+    })
+  }
+
   handleRadioChange(radio) {
     if (radio.checked) {
-      // Remove 'selected' class from all labels
       this.labelsTargets.forEach(lbl => {
         lbl.classList.remove('selected');
       });
-
-      // Find label corresponding to the checked radio and add 'selected' class
       const label = document.querySelector(`label[for="${radio.id}"]`);
       if (label) {
         label.classList.add('selected');
@@ -63,48 +92,12 @@ export default class extends Controller {
     }
   }
 
-  revealAnswer(event) {
-    event.preventDefault();
-
-    const form = event.target.closest('form');
-    if (!form) {
-      console.error('Form element not found');
-      return;
-    }
-
-    const currentQuestion = form.closest('.question');
-    if (!currentQuestion) {
-      console.error('Current question element not found');
-      return;
-    }
-
-    const correctAnswer = this.getCorrectAnswer(currentQuestion);
-
-    this.highlightAnswers(currentQuestion, correctAnswer);
-
-    this.nextButtonTarget.classList.remove('d-none');
-    this.revealAnswerButtonTarget.classList.add('d-none');
-  }
-
-  getCorrectAnswer(currentQuestion) {
-    const correctAnswerInput = currentQuestion.querySelector('input[type="hidden"][name*="answer-text"]');
-    if (!correctAnswerInput) {
-      console.error('Correct answer input not found in current question:', currentQuestion);
-      return null;
-    }
-    return correctAnswerInput.dataset.answerText;
-  }
-
-  highlightAnswers(currentQuestion, correctAnswer) {
-    this.radiosTargets.forEach(radio => {
-      const label = currentQuestion.querySelector(`label[for="${radio.id}"]`);
-      if (label) {
-        label.classList.remove('correct-answer', 'wrong-answer');
-        if (radio.value === correctAnswer) {
-          label.classList.add('correct-answer');
-        } else {
-          label.classList.add('wrong-answer');
-        }
+  highlightCorrectAnswers() {
+    this.labelsTargets.forEach(label => {
+      if (label.classList.contains('correct')) {
+        label.classList.add('correct-answer');
+      } else {
+        label.classList.add('wrong-answer');
       }
     });
   }
