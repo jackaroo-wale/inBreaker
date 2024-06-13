@@ -10,10 +10,16 @@
   <i class="fa-solid fa-user" style="color: #FFD43B;"></i>
 <% end %>
 <% if user_signed_in? && current_user.members.present? %>
-  <% team_id = current_user.members.first.team_id %>
-  <% chatroom_id = current_user.members.first.team.chatrooms.first.id %>
-  <%= link_to team_chatroom_path(team_id, chatroom_id) do %>
-    <i class="fa-solid fa-user" style="color: #FFD43B;"></i>
+  <% first_member = current_user.members.first %>
+  <% if first_member && first_member.team %>
+    <% team_id = first_member.team_id %>
+    <% first_chatroom = first_member.team.chatrooms.first %>
+    <% if first_chatroom %>
+      <% chatroom_id = first_chatroom.id %>
+      <%= link_to team_chatroom_path(team_id, chatroom_id) do %>
+        <i class="fa-solid fa-user" style="color: #FFD43B;"></i>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
 </div>

@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
+    console.log("Hey ya!")
     const questions = this.element.querySelectorAll('.question');
     const revealAnswerButtons = this.element.querySelectorAll('.reveal-answer');
     const labels = this.element.querySelectorAll('.form-check-label');
@@ -9,7 +10,10 @@ export default class extends Controller {
     revealAnswerButtons.forEach((button, index) => {
       button.addEventListener('click', () => {
         const currentQuestion = button.closest('.question');
-        const correctAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer"]').dataset.answerText;
+        const correctAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer-text"]').dataset.answerText;
+        console.log(correctAnswer)
+        const cortAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer-text"]');
+        console.log(cortAnswer)
         const radios = currentQuestion.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
 
         radios.forEach((radio) => {

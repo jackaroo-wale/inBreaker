@@ -3,12 +3,20 @@ class ConversationsController < ApplicationController
   before_action :set_team, only: [:index, :create, :show]
 
   def index
+    @team = Team.find(params[:team_id])
     @conversations = @team.conversations.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+    @teams = current_user.teams.includes(members: :user)
+    @members = @teams.flat_map(&:members).map(&:user).uniq
   end
 
   def create
-    @conversation = Conversation.between(params[:sender_id], params[:receiver_id], @team.id).first_or_create!(conversation_params)
-    redirect_to team_conversation_path(@team, @conversation)
+    @team = Team.find(params[:team_id])
+    @conversation = @team.conversations.new(conversation_params)
+    if @conversation.save
+      redirect_to team_conversation_path(@team, @conversation)
+    else
+      render :index
+    end
   end
 
   def show

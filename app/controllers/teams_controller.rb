@@ -32,6 +32,7 @@ class TeamsController < ApplicationController
         end
       end
       Member.create(user_id: current_user.id, team_id: @team.id, weekly_points: 0, total_points: 0)
+      Chatroom.create(name: @team.name, team: @team)
       redirect_to teams_path
       flash[:success] = "Team created successfully!"
     else
