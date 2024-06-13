@@ -75,17 +75,20 @@
 }
 
 .form-check-label.selected {
-  border: 2px solid #007bff;
+  border-radius: 50px;
+  border: 5px solid #007bff;
 }
 
 .correct-answer {
-  background-color: green !important;
+  background-color: rgb(88, 128, 88) !important;
   color: white !important;
+  border-radius: 50px;
 }
 
 .wrong-answer {
-  background-color: red !important;
+  background-color: rgb(255, 88, 88) !important;
   color: white !important;
+  border-radius: 50px;
 }
 
 .question-playcard {
