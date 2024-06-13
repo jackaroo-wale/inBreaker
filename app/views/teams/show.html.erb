@@ -9,7 +9,8 @@
       <div class="ribbon"></div>
       <table>
         <% @team.members.order(total_points: :desc).each_with_index do |member, index| %>
-          <tr>
+
+          <tr class="leaderboard-user-card">
             <td class="number"><%= index + 1 %></td>
             <%= link_to team_member_path(@team, member) do %>
           <% if member.user.profile_image.key.present? %>
@@ -17,30 +18,23 @@
           <% end %>
         <% end %>
             <td class="name"><%= member.user.username %></td>
+            <td class="chat-icon>
+
+    <%= link_to conversations_path(sender_id: current_user.id, receiver_id: member.user.id, team_id: @team.id), method: :post do %>
+<i class="fa-regular fa-comment"></i>
+<% end %>
+
+</td>
             <td class="points">
-              <%= member.total_points %>
               <% if index == 0 %>
                 <img class="gold-medal" src="https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true" alt="gold medal"/>
               <% end %>
+              <%= member.total_points %>
             </td>
           </tr>
-        <% end %>
-      </table>
-  <% @chatrooms.each do |chatroom| %>
-  <div>
-    <%= link_to chatroom.name, team_chatroom_path(@team, chatroom) %>
-  </div>
-<% end %>
+      <% end %>
+    </table>
 
-
-
-<% @team.members.each do |member| %>
-  <p>
-    <%= member.user.username %>
-    <%= link_to "Message", team_conversations_path(@team, sender_id: current_user.id, receiver_id: member.user.id), method: :post %>
-  </p>
-<% end %>
-    </div>
 
 
 
