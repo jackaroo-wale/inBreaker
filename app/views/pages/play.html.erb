@@ -51,10 +51,11 @@
 
     nextButtons.forEach((button, index) => {
 
-      nextButtons.forEach(button => button.classList.add('d-none'));
-      revealAnswerButtons.forEach(button => button.classList.remove('d-none'));
-
       button.addEventListener('click', (event) => {
+
+        button.classList.add('d-none');
+        revealAnswerButtons.forEach(button => button.classList.remove('d-none'));
+
         event.preventDefault();
         questions[index].classList.add('d-none');
         if (index < questions.length - 1) {
@@ -70,7 +71,7 @@
         event.preventDefault();
 
         nextButtons.forEach(button => button.classList.remove('d-none'));
-        revealAnswerButtons.forEach(button => button.classList.add('d-none'));
+        button.classList.add('d-none');
 
         const currentQuestion = questions[index];
         const correctAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer_id"]').dataset.answerText;
