@@ -18,9 +18,6 @@
     <% first_chatroom = first_member.team.chatrooms.first %>
     <% if first_chatroom %>
       <% chatroom_id = first_chatroom.id %>
-      <%= link_to team_chatroom_path(team_id, chatroom_id) do %>
-        <i class="fa-solid fa-user" style="color: #FFD43B;"></i>
-      <% end %>
     <% end %>
   <% end %>
   <% end %>
