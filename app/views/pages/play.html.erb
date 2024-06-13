@@ -1,11 +1,11 @@
-<div class="container create-container d-flex justify-content-center align-items-center" data-controller="play">
+<div class="container create-container d-flex justify-content-center align-items-center" data-controller="play" data-play-redirect-url="<%= team_path(@team) %>">
   <div class="user-container text-center">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
       <% weekly_answer = question_data[1] %>
       <% wrong_answers = question_data[2] %>
       <% image_url = question_data[3] %>
-      <div class="create-card<%= index == 0 ? '' : ' d-none' %>">
+      <div class="create-card<%= index == 0 ? '' : ' d-none' %> question" data-play-target="questions">
         <div class="question-header">
           <%= image_tag image_url, class: "profile-image" if image_url.present? %>
           <h1>How well do you know <%= weekly_answer.user.username %>? </h1>
@@ -22,20 +22,28 @@
               <%= f.input :weekly_answer_id, as: :hidden, input_html: { value: weekly_answer.id, 'data-answer-text': weekly_answer.content } %>
             <% end %>
             <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
+
             <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
             <div class="answers">
               <% answers.shuffle.each_with_index do |answer, index| %>
                 <div class="answer m-2">
                   <%= f.radio_button :selected, answer.first, id: "answer_#{index}", data: { answer_group: 'answers' }, class: "d-none" %>
-                  <label for="answer_<%= index %>" class="form-check-label btn m-1">
-                    <span><%= answer.first %></span>
-                  </label>
+                  <% if answer.first == weekly_answer.content %>
+                    <label for="answer_<%= index %>" class="form-check-label btn m-1 correct" data-play-target="labels">
+                      <span><%= answer.first %></span>
+                    </label>
+                  <% else %>
+                    <label for="answer_<%= index %>" class="form-check-label btn m-1 wrong" data-play-target="labels">
+                      <span><%= answer.first %></span>
+                    </label>
+                  <% end %>
                 </div>
               <% end %>
             </div>
-            <%= f.label :next_question, "Next Question", class: "btn btn-primary submit-btn next-question d-none" %>
-            <%= f.button :submit, "Done", class: 'btn btn-primary submit-btn reveal-answer' %>
+            <%= f.submit "Done", class: 'btn btn-primary submit-btn reveal-answer' %>
           <% end %>
+          <%= link_to "Comment", root_path, class: "btn btn-primary submit-btn comment d-none" %>
+          <%= link_to "Next", next_question_team_path, class: "btn btn-primary submit-btn next-question d-none" %>
         </div>
       </div>
     <% end %>
