@@ -8,13 +8,16 @@
       <div class="create-card<%= index == 0 ? '' : ' d-none' %>">
         <div class="question-header">
           <%= image_tag image_url, class: "profile-image" if image_url.present? %>
-          <h1>How well do you know <%= weekly_answer.user.username %>? </h1>
-        </div>
+<!--          <h1>How well do you know <%#= weekly_answer.user.username %>? </h1>
+-->      </div>
         <div class="question-body">
-          <p><%= weekly_answer.user.username %> was asked...</p>
-          <p><%= weekly_question.content %></p>
-          <p>Which of the answers below do you think they picked?</p>
-
+        <div class="question-playcard">
+          <h2>"<strong><%= weekly_question.content %>"</strong></h2>
+        </div>
+        <div class="guess-answer">
+          <p>Guess <strong><%= weekly_answer.user.username %>'s</strong> Answer</p>
+        </div>
+          <!--<p>Which of the answers below do you think they picked?</p>-->
           <%= simple_form_for MemberAnswer.new, url: check_answer_team_path, html: { class: 'answer-form' }, remote: true do |f| %>
             <% if @team.week_number == 1 %>
               <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id, 'data-answer-text': weekly_answer.content } %>
@@ -23,7 +26,7 @@
             <% end %>
             <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
             <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
-            <div class="answers">
+            <div class="answers mb-3">
               <% answers.shuffle.each_with_index do |answer, index| %>
                 <div class="answer m-2">
                   <%= f.radio_button :selected, answer.first, id: "answer_#{index}", data: { answer_group: 'answers' }, class: "d-none" %>
@@ -34,7 +37,7 @@
               <% end %>
             </div>
             <%= f.label :next_question, "Next Question", class: "btn btn-primary submit-btn next-question d-none" %>
-            <%= f.button :submit, "Done", class: 'btn btn-primary submit-btn reveal-answer' %>
+            <%= f.button :submit, "Done", class: 'button-54' %>
           <% end %>
         </div>
       </div>
