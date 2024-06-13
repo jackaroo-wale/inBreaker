@@ -118,3 +118,32 @@ table td {
   display: flex;
   justify-content: space-between;
 }
+
+.chat-icon {
+  width: 30px;
+  height: 30px;
+  background: #343A40;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: #343A40;
+}
+
+.leaderboard-user-card {
+  background: #DEE2E6;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 200px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.leaderboard-user-card:hover {
+  transform: scale(1.05);
+  border: 2px solid #343A40;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
