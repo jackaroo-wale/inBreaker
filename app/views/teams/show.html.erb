@@ -35,6 +35,12 @@
       <% end %>
     </table>
 
+      <% @chatrooms.each do |chatroom| %>
+        <div>
+          <%= link_to "Chatroom", team_chatroom_path(@team, chatroom), class: "button-54" %>
+        </div>
+      <% end %>
+
 
 
 

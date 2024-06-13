@@ -11,7 +11,7 @@
             </div>
           <% end %>
         </div>
-        <%= render @messages %>
+        <%#= render @messages %>
         <div class="card-footer">
           <%= simple_form_for [@chatroom, @message], url: team_chatroom_messages_path(@chatroom.team, @chatroom), html: { class: "d-flex w-100", data: { action: "turbo:submit-end->chatroom-subscription#resetForm" } } do |f| %>
             <div class="input-group flex-grow-1">
