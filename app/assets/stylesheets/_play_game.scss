@@ -38,7 +38,7 @@
 }
 
 .container label span:hover {
-  background-color: #DEE2E6;
+  background-color: #000000;
 }
 
 .container label span:before {
@@ -79,13 +79,15 @@
 }
 
 .correct-answer {
-  background-color: green !important;
+  background-color: rgb(88, 128, 88) !important;
   color: white !important;
+  border-radius: 50px;
 }
 
 .wrong-answer {
-  background-color: red !important;
+  background-color: rgb(255, 88, 88) !important;
   color: white !important;
+  border-radius: 50px;
 }
 
 .question-playcard {
