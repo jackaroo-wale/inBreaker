@@ -87,3 +87,30 @@
   background-color: red !important;
   color: white !important;
 }
+
+.question-playcard {
+  background-color: rgb(255, 255, 255);
+  padding: 17px;
+  margin: 17px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 11px;
+}
+
+.question-playcard h2 {
+  color: blue;
+  font-size: 32px;
+}
+
+.answer {
+  background-color: #ffffff;
+  padding: 3px;
+  margin: 3px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border-radius: 50px;
+}
+
+.guess-answer {
+  font-size: 24px;
+  padding: 24px;
+  margin: 24px;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>inBreaker - making connection</title>
+    <title>inBreaker - making connection through collaborations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -28,6 +28,13 @@
     <meta name="twitter:description" content="<%= meta_description %>">
     <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
     <meta name="twitter:image:src" content="<%= meta_image %>">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
+
+      <%= render 'shared/ios_pwa_links' %>
   </head>
 
   <body><%= render "shared/navbar" %>
@@ -59,6 +66,3 @@
     <%= yield %>
   </body>
 </html>
-
-      <!--<p class="notice"><%#= notice %></p>-->
-<!--      <p class="alert"><%#= alert %></p>
