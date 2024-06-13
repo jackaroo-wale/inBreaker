@@ -19,8 +19,9 @@
         <% end %>
             <td class="name"><%= member.user.username %></td>
             <td class="chat-icon>
-            <%= link_to team_conversations_path(@team, sender_id: current_user.id, receiver_id: member.user.id), method: :post do %>
-            <i class= "fa-regular fa-comment"> </i>
+
+    <%= link_to team_conversations_path(sender_id: current_user.id, receiver_id: member.user.id, team_id: @team.id), method: :post do %>
+    <i class= "fa-regular fa-comment"> </i>
     <% end %>
 
         </td>

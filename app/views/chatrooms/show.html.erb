@@ -1,29 +1,27 @@
 <div class="chatroom-wrapper">
-  <div class="chatroom" data-controller="chatroom-subscription" data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
-    <div class="card">
-      <div class="card-header">
-        <h1 class="card-title"><%= @team.name %></h1>
-      </div>
-      <div class="card-body messages" data-chatroom-subscription-target="messages">
-        <% @chatroom.messages.each do |message| %>
-          <div class="message">
-            <strong><%= message.user.username %>:</strong> <%= message.content %>
-          </div>
-        <% end %>
-      </div>
-
-      </div>
-      <%= render @messages %>
-    </div>
-    <div class="card-footer">
-      <%= simple_form_for [@chatroom, @message], url: team_chatroom_messages_path(@chatroom.team, @chatroom), html: { class: "d-flex", data: { action: "turbo:submit-end->chatroom-subscription#resetForm" } } do |f| %>
-        <div class="input-group flex-grow-1">
-          <%= f.input :content, label: false, placeholder: "Message ##{@chatroom.name}", input_html: { class: "form-control" } %>
-          <div class="input-group-append">
-            <%= f.submit "Send", class: "btn btn-primary" %>
-          </div>
+    <div class="chatroom" data-controller="chatroom-subscription" data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="card-title"><%= @team.name %></h1>
         </div>
-      <% end %>
+        <div class="card-body messages" data-chatroom-subscription-target="messages">
+          <% @chatroom.messages.each do |message| %>
+            <div class="message">
+              <strong><%= message.user.username %>:</strong> <%= message.content %>
+            </div>
+          <% end %>
+        </div>
+        <%= render @messages %>
+        <div class="card-footer">
+          <%= simple_form_for [@chatroom, @message], url: team_chatroom_messages_path(@chatroom.team, @chatroom), html: { class: "d-flex w-100", data: { action: "turbo:submit-end->chatroom-subscription#resetForm" } } do |f| %>
+            <div class="input-group flex-grow-1">
+              <%= f.input :content, label: false, placeholder: "Type your message here...", input_html: { class: "form-control" } %>
+              <div class="input-group-append">
+                <%= f.submit "Send", class: "button-54" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
-</div>
