@@ -11,6 +11,11 @@
         <% @team.members.order(total_points: :desc).each_with_index do |member, index| %>
           <tr>
             <td class="number"><%= index + 1 %></td>
+            <%= link_to team_member_path(@team, member) do %>
+          <% if member.user.profile_image.key.present? %>
+            <td class=""> <%= cl_image_tag member.user.profile_image.key, class: "user-image" %> </td>
+          <% end %>
+        <% end %>
             <td class="name"><%= member.user.username %></td>
             <td class="points">
               <%= member.total_points %>
@@ -25,18 +30,7 @@
     </div>
   </main>
 
-<div class="main-container1">
-    <% @team.members.order(total_points: :desc).each_with_index do |member, index| %>
-      <div class="member-card">
-        <%= link_to team_member_path(@team, member) do %>
-          <% if member.user.profile_image.key.present? %>
-            <%= cl_image_tag member.user.profile_image.key, class: "profile-image" %>
-          <% end %>
-        <% end %>
-          <p> <%= member.user.username %></p>
-      </div>
-    <% end %>
-  </div>
+
   <div class="play-button-container">
     <%= link_to '', play_team_path(@team), class: "play-btn" %>
   </div>

@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  
+
 }
 
 .container label {
@@ -22,7 +22,7 @@
 }
 
 .container label input:checked + span {
-  background-color: #e9d81c;
+  background-color: #DEE2E6;
   color: white;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .container label span:hover {
-  background-color: #eadb0f;
+  background-color: #DEE2E6;
 }
 
 .container label span:before {
