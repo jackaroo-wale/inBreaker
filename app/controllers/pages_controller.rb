@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
   before_action :authenticate_user!
-  before_action :set_team, only: [:play, :check_answer]
-  before_action :set_question_data, only: [:play, :check_answer]
+  before_action :set_team, only: [:play, :check_answer, :next_question]
+  before_action :set_question_data, only: [:play, :check_answer, :next_question]
 
   def home
     @initial_questions = InitialQuestion.all
@@ -19,19 +19,22 @@ class PagesController < ApplicationController
       flash[:notice] = "Answer not found"
       redirect_to team_path(@team)
     else
-      session[:current_question_index] = 0 # Reset the current question index when the user starts the game
+      session[:current_question_index] = 0
     end
-    # raise
   end
 
   def next_question
     session[:current_question_index] ||= 0
     session[:current_question_index] += 1
 
-    redirect_to play_team_path
+    if session[:current_question_index] < @question_data.length
+      redirect_to play_team_path(@team)
+    else
+      redirect_to team_path(@team)
+    end
   end
 
-  def check_answer
+    def check_answer
     if @team.week_number == 1
       answer = InitialAnswer.find_by(id: params[:member_answer][:initial_answer_id])
     else
@@ -64,20 +67,6 @@ class PagesController < ApplicationController
         member.save
       end
 
-      session[:current_question_index] ||= 0
-      session[:current_question_index] += 1
-
-      # if session[:current_question_index] < @question_data.length
-      #   redirect_to play_team_path(@team)
-      # else
-      #   redirect_to team_path(@team)
-      # end
-
-      if session[:current_question_index] < @question_data.length
-        redirect_to play_team_path(@team) # Redirect to play_team_path if there are more questions
-      else
-        redirect_to team_path(@team) # Redirect to play_team_path after revealing all answers
-      end
 
     else
       flash[:notice] = "Failed to save answer"

@@ -1,11 +1,11 @@
-<div class="container create-container d-flex justify-content-center align-items-center" data-controller="play">
+<div class="container create-container d-flex justify-content-center align-items-center" data-controller="play" data-play-redirect-url="<%= team_path(@team) %>">
   <div class="user-container text-center">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
       <% weekly_answer = question_data[1] %>
       <% wrong_answers = question_data[2] %>
       <% image_url = question_data[3] %>
-      <div class="create-card<%= index == 0 ? '' : ' d-none' %>">
+      <div class="create-card<%= index == 0 ? '' : ' d-none' %> question" data-play-target="questions">
         <div class="question-header">
           <%= image_tag image_url, class: "profile-image" if image_url.present? %>
           <h1>How well do you know <%= weekly_answer.user.username %>? </h1>
@@ -27,14 +27,16 @@
               <% answers.shuffle.each_with_index do |answer, index| %>
                 <div class="answer m-2">
                   <%= f.radio_button :selected, answer.first, id: "answer_#{index}", data: { answer_group: 'answers' }, class: "d-none" %>
-                  <label for="answer_<%= index %>" class="form-check-label btn m-1">
+                  <label for="answer_<%= index %>" class="form-check-label btn m-1" data-play-target="labels">
                     <span><%= answer.first %></span>
                   </label>
                 </div>
               <% end %>
             </div>
-            <%= f.label :next_question, "Next Question", class: "btn btn-primary submit-btn next-question d-none" %>
-            <%= f.button :submit, "Done", class: 'btn btn-primary submit-btn reveal-answer' %>
+            <%= f.label :comment, "Comment", class: "btn btn-primary submit-btn comment d-none" %>
+            <%#= f.label :next_question, "Next Question", class: "btn btn-primary submit-btn next-question d-none" %>
+            <%= link_to "next", next_question_team_path, class: "btn btn-primary submit-btn next-question d-none", data: { action: "click->play#nextButton" } %>
+            <%= f.button :submit, "Done", class: 'btn btn-primary submit-btn reveal-answer', data: { action: "click->play#revealAnswer" } %>
           <% end %>
         </div>
       </div>

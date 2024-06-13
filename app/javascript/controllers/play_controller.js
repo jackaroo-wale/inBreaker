@@ -1,104 +1,111 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  static targets = [
+    "questions",         // Targeting each question container
+    "labels",            // Targeting labels for answer options
+    "revealAnswerButton",// Targeting the reveal answer button
+    "nextButton",        // Targeting the next button
+    "radios"             // Targeting radio buttons for answers
+  ];
+
   connect() {
-    console.log("Hey ya!")
-    const questions = this.element.querySelectorAll('.question');
-    const revealAnswerButtons = this.element.querySelectorAll('.reveal-answer');
-    const labels = this.element.querySelectorAll('.form-check-label');
+    console.log("Connected");
 
-    revealAnswerButtons.forEach((button, index) => {
-      button.addEventListener('click', () => {
-        const currentQuestion = button.closest('.question');
-        const correctAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer-text"]').dataset.answerText;
-        console.log(correctAnswer)
-        const cortAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer-text"]');
-        console.log(cortAnswer)
-        const radios = currentQuestion.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
+    // Attach event listeners
+    this.attachLabelHandlers();
+    this.attachRadioHandlers();
+  }
 
-        radios.forEach((radio) => {
-          const label = currentQuestion.querySelector(`label[for="${radio.id}"]`);
-          if (label) {
-            if (radio.value === correctAnswer) {
-              label.classList.add('correct-answer');
-            } else {
-              label.classList.add('wrong-answer');
-            }
-          }
-        });
-
-        button.classList.add('d-none');
-
-        const nextButton = currentQuestion.querySelector('.next-question');
-        if (nextButton) {
-          nextButton.classList.remove('d-none');
-          nextButton.addEventListener('click', (event) => {
-            event.preventDefault();
-
-            questions[index].classList.add('d-none');
-            if (index < questions.length - 1) {
-              questions[index + 1].classList.remove('d-none');
-            } else {
-              window.location.href = '<%= team_path(@team) %>';
-            }
-
-            nextButton.classList.add('d-none');
-            if (revealAnswerButtons[index + 1]) {
-              revealAnswerButtons[index + 1].classList.remove('d-none');
-            }
-
-            const nextQuestion = questions[index + 1];
-            if (nextQuestion) {
-              const nextRadios = nextQuestion.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-              nextRadios.forEach(radio => {
-                const label = nextQuestion.querySelector(`label[for="${radio.id}"]`);
-                if (label) {
-                  label.classList.remove('correct-answer', 'wrong-answer');
-                  radio.checked = false;
-                }
-              });
-            }
-          });
-        }
-      });
-    });
-
-    labels.forEach(label => {
+  attachLabelHandlers() {
+    this.labelsTargets.forEach(label => {
       label.addEventListener('click', () => {
-        const radio = document.querySelector(`#${label.getAttribute('for')}`);
-        if (radio) {
-          radio.checked = true;
-
-          const radios = this.element.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-          radios.forEach(r => {
-            const lbl = document.querySelector(`label[for="${r.id}"]`);
-            if (lbl) {
-              lbl.classList.remove('selected');
-            }
-          });
-
-          label.classList.add('selected');
-        }
+        this.handleLabelClick(label);
       });
     });
+  }
 
-    const radios = this.element.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-    radios.forEach(radio => {
+  attachRadioHandlers() {
+    this.radiosTargets.forEach(radio => {
       radio.addEventListener('change', () => {
-        if (radio.checked) {
-          radios.forEach(r => {
-            const label = this.element.querySelector(`label[for="${r.id}"]`);
-            if (label) {
-              label.classList.remove('selected');
-            }
-          });
-
-          const label = this.element.querySelector(`label[for="${radio.id}"]`);
-          if (label) {
-            label.classList.add('selected');
-          }
-        }
+        this.handleRadioChange(radio);
       });
+    });
+  }
+
+  handleLabelClick(label) {
+    const radio = document.querySelector(`#${label.getAttribute('for')}`);
+    if (radio) {
+      radio.checked = true;
+
+      // Remove 'selected' class from all labels
+      this.labelsTargets.forEach(lbl => {
+        lbl.classList.remove('selected');
+      });
+
+      // Add 'selected' class to clicked label
+      label.classList.add('selected');
+    }
+  }
+
+  handleRadioChange(radio) {
+    if (radio.checked) {
+      // Remove 'selected' class from all labels
+      this.labelsTargets.forEach(lbl => {
+        lbl.classList.remove('selected');
+      });
+
+      // Find label corresponding to the checked radio and add 'selected' class
+      const label = document.querySelector(`label[for="${radio.id}"]`);
+      if (label) {
+        label.classList.add('selected');
+      }
+    }
+  }
+
+  revealAnswer(event) {
+    event.preventDefault();
+
+    const form = event.target.closest('form');
+    if (!form) {
+      console.error('Form element not found');
+      return;
+    }
+
+    const currentQuestion = form.closest('.question');
+    if (!currentQuestion) {
+      console.error('Current question element not found');
+      return;
+    }
+
+    const correctAnswer = this.getCorrectAnswer(currentQuestion);
+
+    this.highlightAnswers(currentQuestion, correctAnswer);
+
+    this.nextButtonTarget.classList.remove('d-none');
+    this.revealAnswerButtonTarget.classList.add('d-none');
+  }
+
+  getCorrectAnswer(currentQuestion) {
+    const correctAnswerInput = currentQuestion.querySelector('input[type="hidden"][name*="answer-text"]');
+    if (!correctAnswerInput) {
+      console.error('Correct answer input not found in current question:', currentQuestion);
+      return null;
+    }
+    return correctAnswerInput.dataset.answerText;
+  }
+
+  highlightAnswers(currentQuestion, correctAnswer) {
+    this.radiosTargets.forEach(radio => {
+      const label = currentQuestion.querySelector(`label[for="${radio.id}"]`);
+      if (label) {
+        label.classList.remove('correct-answer', 'wrong-answer');
+        if (radio.value === correctAnswer) {
+          label.classList.add('correct-answer');
+        } else {
+          label.classList.add('wrong-answer');
+        }
+      }
     });
   }
 }
