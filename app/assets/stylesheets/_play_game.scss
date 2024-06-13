@@ -1,5 +1,3 @@
-
-
 .container form.answer-form {
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +34,7 @@
   padding: 0.375em 0.75em 0.375em 0.375em;
   border-radius: 99em;
   transition: 0.25s ease;
-  color: #414181;
+  // color: #414181;
 }
 
 .container label span:hover {
@@ -56,10 +54,8 @@
   box-shadow: inset 0 0 0 0.125em #00005c;
 }
 
-/* Additional styling for selected labels */
-.selected {
-  background-color: #414181;
-  color: white;
+.chosen {
+  border: black;
 }
 
 .answers .answer label span {
@@ -83,11 +79,11 @@
 }
 
 .correct-answer {
-  background-color: green;
-  color: white;
+  background-color: green !important;
+  color: white !important;
 }
 
 .wrong-answer {
-  background-color: red;
-  color: white;
+  background-color: red !important;
+  color: white !important;
 }
