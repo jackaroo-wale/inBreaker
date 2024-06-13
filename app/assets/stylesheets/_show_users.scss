@@ -41,6 +41,7 @@
     text-align: center;
     margin-top: 100px;
     margin-bottom: 100px;
+    display: contents;
     width: 449px;
     margin: 0 auto;
     color: #000000;
@@ -302,6 +303,7 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   text-decoration: none;
+  font-family: 'poppins', sans-serif;
 }
 
 .button-54:not(:disabled):hover,
@@ -315,4 +317,16 @@
   filter: saturate(0.2) opacity(0.5);
   -webkit-filter: saturate(0.2) opacity(0.5);
   cursor: not-allowed;
+}
+
+.initial-questions-card {
+  background-color: #DEE2E6;
+  width: 449px;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
