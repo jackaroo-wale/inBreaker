@@ -4,4 +4,6 @@ class Team < ApplicationRecord
   has_many :weekly_questions
   has_one_attached :team_image
 
+  has_many :messages, dependent: :destroy
+  has_many :chatrooms, dependent: :destroy
 end

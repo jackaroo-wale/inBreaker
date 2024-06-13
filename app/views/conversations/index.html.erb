@@ -1,0 +1,7 @@
+<h1>Conversations</h1>
+<% @conversations.each do |conversation| %>
+  <p>
+    <%= link_to "Conversation with #{conversation.receiver.username}", team_conversation_path(@team, conversation) if conversation.sender == current_user %>
+    <%= link_to "Conversation with #{conversation.sender.username}", team_conversation_path(@team, conversation) if conversation.receiver == current_user %>
+  </p>
+<% end %>

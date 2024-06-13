@@ -6,7 +6,7 @@
 }
 
 .member-card {
-  background: #000000;
+  background: #343A40;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -25,30 +25,31 @@
   margin-top: 20px;
 }
 
-.play-btn {
-  display: inline-block;
-  background: #3d719f;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.3s;
-}
+// .play-btn {
+//   display: inline-block;
+//   background: #3d719f;
+//   color: white;
+//   padding: 10px 20px;
+//   border-radius: 20px;
+//   text-align: center;
+//   text-decoration: none;
+//   cursor: pointer;
+//   transition: background 0.3s;
+// }
 
-.play-btn:hover {
-  background: #2d5a7d;
-}
+// .play-btn:hover {
+//   background: #2d5a7d;
+// }
 
 /* Leaderboard specific styles */
 main {
   width: 449px;
-  background: #FFE45E;
+  background: #DEE2E6;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   box-sizing: border-box;
+  height: 100vh;
 }
 
 #header {
@@ -76,7 +77,7 @@ main {
 .ribbon {
   width: 100%;
   height: 4px;
-  background: #000000;
+  background: #343A40;
   border-radius: 2px;
   margin-bottom: 10px;
 }
@@ -89,7 +90,8 @@ table {
 
 table td {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #343A40;
+  border-color: #343A40;
 }
 
 .number {
@@ -115,18 +117,4 @@ table td {
 #buttons {
   display: flex;
   justify-content: space-between;
-}
-
-.exit, .continue {
-  background: #3d719f;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.exit:hover, .continue:hover {
-  background: #2d5a7d;
 }
