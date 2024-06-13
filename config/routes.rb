@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  get 'private_messages/create'
-  get 'conversations/index'
-  get 'conversations/create'
-  get 'conversations/show'
-  get 'messages/create'
-  get 'chatrooms/show'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -23,10 +17,10 @@ Rails.application.routes.draw do
     resources :chatrooms, only: [:show, :create] do
       resources :messages, only: [:create]
     end
-  end
 
-  resources :conversations, only: [:index, :create, :show] do
-    resources :private_messages, only: [:create]
+    resources :conversations, only: [:index, :create, :show] do
+      resources :private_messages, only: [:create]
+    end
   end
 
   resources :weekly_questions, only: [:index, :show] do

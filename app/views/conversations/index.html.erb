@@ -5,3 +5,14 @@
     <%= link_to "Conversation with #{conversation.sender.username}", team_conversation_path(@team, conversation) if conversation.receiver == current_user %>
   </p>
 <% end %>
+
+<h1>All Members in Your Groups</h1>
+
+<ul>
+  <% @members.each do |member| %>
+    <li>
+      <%= member.username %>
+      <%= link_to "Message", team_conversations_path(member.teams.first, sender_id: current_user.id, receiver_id: member.id), method: :post %>
+    </li>
+  <% end %>
+</ul>
