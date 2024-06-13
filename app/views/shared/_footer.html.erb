@@ -9,5 +9,11 @@
     <%= link_to root_path do %>
   <i class="fa-solid fa-user" style="color: #FFD43B;"></i>
 <% end %>
+<% if user_signed_in? && current_user.members.present? %>
+  <% team_id = current_user.members.first.team_id %>
+  <% chatroom_id = current_user.members.first.team.chatrooms.first.id %>
+  <%= link_to team_chatroom_path(team_id, chatroom_id) do %>
+    <i class="fa-solid fa-user" style="color: #FFD43B;"></i>
+  <% end %>
+<% end %>
 </div>
-

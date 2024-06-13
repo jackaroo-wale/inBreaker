@@ -10,6 +10,15 @@ class User < ApplicationRecord
   validates :description, presence: true, length: { maximum: 200 }
   before_destroy :destroy_associated_records
 
+  has_many :sent_conversations, class_name: 'Conversation', foreign_key: :sender_id
+  has_many :received_conversations, class_name: 'Conversation', foreign_key: :receiver_id
+  has_many :private_messages
+
+  has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
+  has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
+
+  validates :email, presence: true, uniqueness: true
+
   private
 
   def destroy_associated_records

@@ -1,4 +1,4 @@
-<div class="container create-container d-flex justify-content-center align-items-center"  style="height: fit-content">
+<div class="container create-container d-flex justify-content-center align-items-center" data-controller="play">
   <div class="user-container text-center">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
@@ -23,7 +23,7 @@
             <% end %>
             <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
             <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
-            <div class="answers d-flex flex-wrap justify-content-center">
+            <div class="answers">
               <% answers.shuffle.each_with_index do |answer, index| %>
                 <div class="answer m-2">
                   <%= f.radio_button :selected, answer.first, id: "answer_#{index}", data: { answer_group: 'answers' }, class: "d-none" %>
@@ -33,99 +33,11 @@
                 </div>
               <% end %>
             </div>
+            <%= f.label :next_question, "Next Question", class: "btn btn-primary submit-btn next-question d-none" %>
             <%= f.button :submit, "Done", class: 'btn btn-primary submit-btn reveal-answer' %>
-            <%= f.button :submit, "Next", class: 'btn btn-primary submit-btn next-question d-none' %>
           <% end %>
         </div>
       </div>
     <% end %>
   </div>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const questions = document.querySelectorAll('.question');
-    const nextButtons = document.querySelectorAll('.next-question');
-    const revealAnswerButtons = document.querySelectorAll('.reveal-answer');
-    const labels = document.querySelectorAll('.form-check-label');
-
-    nextButtons.forEach((button, index) => {
-
-      nextButtons.forEach(button => button.classList.add('d-none'));
-      revealAnswerButtons.forEach(button => button.classList.remove('d-none'));
-
-      button.addEventListener('click', (event) => {
-        event.preventDefault();
-        questions[index].classList.add('d-none');
-        if (index < questions.length - 1) {
-          questions[index + 1].classList.remove('d-none');
-        } else {
-          window.location.href = '<%= team_path(@team) %>';
-        }
-      });
-    });
-
-    revealAnswerButtons.forEach((button, index) => {
-      button.addEventListener('click', (event) => {
-        event.preventDefault();
-
-        nextButtons.forEach(button => button.classList.remove('d-none'));
-        revealAnswerButtons.forEach(button => button.classList.add('d-none'));
-
-        const currentQuestion = questions[index];
-        const correctAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer_id"]').dataset.answerText;
-
-        const radios = currentQuestion.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-
-        radios.forEach((radio) => {
-          const label = document.querySelector(`label[for="${radio.id}"]`);
-          if (label) {
-            if (radio.value === correctAnswer) {
-              label.classList.add('correct-answer');
-            } else {
-              label.classList.add('wrong-answer');
-            }
-          }
-        });
-      });
-    });
-
-    labels.forEach(label => {
-      label.addEventListener('click', () => {
-        const radio = document.querySelector(`#${label.getAttribute('for')}`);
-        if (radio) {
-          radio.checked = true;
-
-          const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-          radios.forEach(r => {
-            const lbl = document.querySelector(`label[for="${r.id}"]`);
-            if (lbl) {
-              lbl.classList.remove('selected');
-            }
-          });
-
-          label.classList.add('selected');
-        }
-      });
-    });
-
-    const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
-    radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        if (radio.checked) {
-          radios.forEach(r => {
-            const label = document.querySelector(`label[for="${r.id}"]`);
-            if (label) {
-              label.classList.remove('selected');
-            }
-          });
-
-          const label = document.querySelector(`label[for="${radio.id}"]`);
-          if (label) {
-            label.classList.add('selected');
-          }
-        }
-      });
-    });
-  });
-</script>
