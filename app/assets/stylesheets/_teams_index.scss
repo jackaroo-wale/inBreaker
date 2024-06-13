@@ -15,11 +15,51 @@ body {
 
 .no-underline {
   text-decoration: none;
+  color: black;
 }
 
 img.team-image {
-  width:60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px 0px 0px 8px;
 
+}
+
+.team-index-card {
+  background: #00000024;
+  height: 80px;
+  width: 300px;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+  text-align: center;
+  display: contents;
+  justify-content: center;
+}
+
+.team-item {
+  margin-bottom: 20px;
+  background-color: #00000024;
+  height: 80px;
+  width: 300px;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+  text-align: center;
+  display: contents;
+  justify-content: center;
+}
+.test-container {
+  height:100px;
+  background-color: white;
+  margin: 8px 0px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(131.83deg, #FFFAFA 0%,     #FFF7F7 99.21%);
+  position: relative;
 }
