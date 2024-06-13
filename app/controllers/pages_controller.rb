@@ -35,7 +35,6 @@ class PagesController < ApplicationController
   end
 
   def check_answer
-    raise
     if @team.week_number == 1
       answer = InitialAnswer.find_by(id: params[:member_answer][:initial_answer_id])
     else
