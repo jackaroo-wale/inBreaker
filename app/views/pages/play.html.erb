@@ -1,4 +1,4 @@
-<div class="container create-container d-flex justify-content-center align-items-center" data-controller="play" style="height: fit-content">
+<div class="container create-container d-flex justify-content-center align-items-center" data-controller="play">
   <div class="user-container text-center">
     <% @question_data.each_with_index do |question_data, index| %>
       <% weekly_question = question_data[0] %>
@@ -23,7 +23,7 @@
             <% end %>
             <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
             <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
-            <div class="answers d-flex flex-wrap justify-content-center">
+            <div class="answers">
               <% answers.shuffle.each_with_index do |answer, index| %>
                 <div class="answer m-2">
                   <%= f.radio_button :selected, answer.first, id: "answer_#{index}", data: { answer_group: 'answers' }, class: "d-none" %>
