@@ -41,6 +41,7 @@
     text-align: center;
     margin-top: 100px;
     margin-bottom: 100px;
+    display: contents;
     width: 449px;
     margin: 0 auto;
     color: #000000;
@@ -110,11 +111,11 @@
   color: blue;
   width: 100px;
   height: 100px;
-  background: radial-gradient(rgba(255, 0, 128, 0.8) 60%, rgba(255, 255, 255, 1) 62%);
+  background-color: blue;
   border-radius: 50%;
   position: relative;
   display: block;
-  box-shadow: 0px 0px 25px 3px rgba(255, 0, 128, 0.8);
+  box-shadow: 0px 0px 25px 3px rgba(4, 0, 255, 0.8);
   margin: 60px;
 
 }
@@ -157,8 +158,8 @@
   opacity: 1;
   border-radius: 50%;
   border: 5px solid rgba(255, 255, 255, .75);
-  top: -30%;
-  left: -30%;
+  top: -25%;
+  left: -25%;
   background: rgba(198, 16, 0, 0);
 }
 
@@ -302,6 +303,7 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   text-decoration: none;
+  font-family: 'poppins', sans-serif;
 }
 
 .button-54:not(:disabled):hover,
@@ -315,4 +317,16 @@
   filter: saturate(0.2) opacity(0.5);
   -webkit-filter: saturate(0.2) opacity(0.5);
   cursor: not-allowed;
+}
+
+.initial-questions-card {
+  background-color: #DEE2E6;
+  width: 449px;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
