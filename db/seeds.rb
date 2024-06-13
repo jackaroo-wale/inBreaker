@@ -176,7 +176,7 @@ User.all.each do |user|
   WeeklyAnswer.create(content: historical_figures.sample, user: user, wrong_answers: "#{historical_figures.sample}, #{historical_figures.sample}, #{historical_figures.sample}", weekly_question: weekly_question3)
 end
 
-chatroom1 = Chatroom.create(name: 'Experience design(32)', team: team1)
+chatroom1 = Chatroom.create(name: 'Experience', team: team1)
 chatroom2 = Chatroom.create(name: 'Top news', team: team1)
 Message.create(content: 'Getting Free Publicity For Your Business', user: user1, chatroom: chatroom1)
 Message.create(content: 'Advertisers Embrace', user: user2, chatroom: chatroom1)
