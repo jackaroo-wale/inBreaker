@@ -13,12 +13,13 @@
         <div class="question-body">
           <p><%= weekly_answer.user.username %> was asked...</p>
           <p><%= weekly_question.content %></p>
-        </div>
-          <%= simple_form_for MemberAnswer.new, url: check_answer_team_path, html: { class: 'answer-form' } do |f| %>
+          <p>Which of the answers below do you think they picked?</p>
+
+          <%= simple_form_for MemberAnswer.new, url: check_answer_team_path, html: { class: 'answer-form' }, remote: true do |f| %>
             <% if @team.week_number == 1 %>
-              <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
+              <%= f.input :initial_answer_id, as: :hidden, input_html: { value: weekly_answer.id, 'data-answer-text': weekly_answer.content } %>
             <% else %>
-              <%= f.input :weekly_answer_id, as: :hidden, input_html: { value: weekly_answer.id } %>
+              <%= f.input :weekly_answer_id, as: :hidden, input_html: { value: weekly_answer.id, 'data-answer-text': weekly_answer.content } %>
             <% end %>
             <%= f.input :user_id, as: :hidden, input_html: { value: weekly_answer.user_id } %>
             <% answers = [[weekly_answer.content, weekly_answer.content]] + wrong_answers.map { |wa| [wa, wa] } %>
@@ -31,8 +32,9 @@
                   </label>
                 </div>
               <% end %>
-            <%= f.button :submit, "Next", class: 'btnwrap button-54' %>
             </div>
+            <%= f.button :submit, "Done", class: 'btn btn-primary submit-btn reveal-answer' %>
+            <%= f.button :submit, "Next", class: 'btn btn-primary submit-btn next-question d-none' %>
           <% end %>
         </div>
       </div>
@@ -40,17 +42,19 @@
   </div>
 </div>
 
-
-
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', () => {
     const questions = document.querySelectorAll('.question');
     const nextButtons = document.querySelectorAll('.next-question');
-    const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
+    const revealAnswerButtons = document.querySelectorAll('.reveal-answer');
     const labels = document.querySelectorAll('.form-check-label');
 
     nextButtons.forEach((button, index) => {
-      button.addEventListener('click', function(event) {
+
+      nextButtons.forEach(button => button.classList.add('d-none'));
+      revealAnswerButtons.forEach(button => button.classList.remove('d-none'));
+
+      button.addEventListener('click', (event) => {
         event.preventDefault();
         questions[index].classList.add('d-none');
         if (index < questions.length - 1) {
@@ -61,13 +65,38 @@
       });
     });
 
+    revealAnswerButtons.forEach((button, index) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        nextButtons.forEach(button => button.classList.remove('d-none'));
+        revealAnswerButtons.forEach(button => button.classList.add('d-none'));
+
+        const currentQuestion = questions[index];
+        const correctAnswer = currentQuestion.querySelector('input[type="hidden"][name*="answer_id"]').dataset.answerText;
+
+        const radios = currentQuestion.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
+
+        radios.forEach((radio) => {
+          const label = document.querySelector(`label[for="${radio.id}"]`);
+          if (label) {
+            if (radio.value === correctAnswer) {
+              label.classList.add('correct-answer');
+            } else {
+              label.classList.add('wrong-answer');
+            }
+          }
+        });
+      });
+    });
+
     labels.forEach(label => {
-      label.addEventListener('click', function() {
+      label.addEventListener('click', () => {
         const radio = document.querySelector(`#${label.getAttribute('for')}`);
         if (radio) {
           radio.checked = true;
 
-          // Remove the 'selected' class from all labels
+          const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
           radios.forEach(r => {
             const lbl = document.querySelector(`label[for="${r.id}"]`);
             if (lbl) {
@@ -75,16 +104,15 @@
             }
           });
 
-          // Add the 'selected' class to the clicked label
           label.classList.add('selected');
         }
       });
     });
 
+    const radios = document.querySelectorAll('input[type="radio"][data-answer-group="answers"]');
     radios.forEach(radio => {
-      radio.addEventListener('change', function() {
+      radio.addEventListener('change', () => {
         if (radio.checked) {
-          // Remove the 'selected' class from all labels
           radios.forEach(r => {
             const label = document.querySelector(`label[for="${r.id}"]`);
             if (label) {
@@ -92,7 +120,6 @@
             }
           });
 
-          // Add the 'selected' class to the clicked label
           const label = document.querySelector(`label[for="${radio.id}"]`);
           if (label) {
             label.classList.add('selected');
