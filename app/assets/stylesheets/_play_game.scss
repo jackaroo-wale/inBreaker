@@ -75,6 +75,7 @@
 }
 
 .form-check-label.selected {
+  width: 98%;
   border-radius: 50px;
   border: 5px solid #007bff;
 }
@@ -83,12 +84,14 @@
   background-color: rgb(88, 128, 88) !important;
   color: white !important;
   border-radius: 50px;
+  width: 98%;
 }
 
 .wrong-answer {
   background-color: rgb(255, 88, 88) !important;
   color: white !important;
   border-radius: 50px;
+  width: 98%;
 }
 
 .question-playcard {
