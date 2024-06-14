@@ -85,11 +85,14 @@ team4.save
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team1)
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team2)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0, team: team1)
-member1 = Member.create(user: user1, weekly_points: 0, total_points: 32, team: team3)
-member3 = Member.create(user: user3, weekly_points: 0, total_points: 16, team: team1)
-member4 = Member.create(user: user4, weekly_points: 0, total_points: 64, team: team1)
-member5 = Member.create(user: user5, weekly_points: 0, total_points: 24, team: team1)
-member6 = Member.create(user: user6, weekly_points: 0, total_points: 16, team: team1)
+member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team3)
+member3 = Member.create(user: user3, weekly_points: 0, total_points: 0, team: team1)
+member4 = Member.create(user: user4, weekly_points: 0, total_points: 0, team: team1)
+member5 = Member.create(user: user5, weekly_points: 0, total_points: 0, team: team1)
+member6 = Member.create(user: user6, weekly_points: 0, total_points: 0, team: team1)
+member5 = Member.create(user: user5, weekly_points: 0, total_points: 80, team: team2)
+member6 = Member.create(user: user6, weekly_points: 0, total_points: 104, team: team2)
+
 puts "Created #{Member.count} Members"
 
 weekly_question1 = WeeklyQuestion.create!(content: "If you could have any superpower, what would it be?", team_id: team1.id)
@@ -107,7 +110,47 @@ super_powers = [
   "Mind reading",
   "Shape-shifting",
   "Energy manipulation",
-  "Healing factor"
+  "Healing factor",
+  "Pyrokinesis",
+  "Cryokinesis",
+  "X-ray vision",
+  "Super speed",
+  "Elasticity",
+  "Force field generation",
+  "Electrokinesis",
+  "Magnetism manipulation",
+  "Animal communication",
+  "Intangibility",
+  "Precognition",
+  "Density control",
+  "Size manipulation",
+  "Duplication",
+  "Regeneration",
+  "Laser vision",
+  "Telepathy",
+  "Technopathy",
+  "Bioluminescence",
+  "Infravision",
+  "Hydrokinesis",
+  "Aerokinesis",
+  "Chronokinesis",
+  "Gravity manipulation",
+  "Phasing",
+  "Probability manipulation",
+  "Heat vision",
+  "Plant manipulation",
+  "Sound manipulation",
+  "Clairvoyance",
+  "Teleportation",
+  "Summoning",
+  "Hypnosis",
+  "Force manipulation",
+  "Necromancy",
+  "Dimensional travel",
+  "Transmutation",
+  "Sonic scream",
+  "Illusion casting",
+  "Mental projection"
 ]
 
 travel_destinations = [
@@ -206,6 +249,7 @@ books = [
 User.all.each do |user|
   InitialAnswer.create(content: school_names.sample, user: user, wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}", initial_question: initial_question1)
   InitialAnswer.create(content: school_subjects.sample, user: user, wrong_answers: "#{school_subjects.sample}, #{school_subjects.sample}, #{school_subjects.sample}", initial_question: initial_question2)
+  WeeklyAnswer.create(content: super_powers.sample, user: user, wrong_answers: "#{super_powers.sample}, #{super_powers.sample}, #{super_powers.sample}", weekly_question: weekly_question1)
 end
 
 chatroom1 = Chatroom.create(name: team1.name, team: team1)
