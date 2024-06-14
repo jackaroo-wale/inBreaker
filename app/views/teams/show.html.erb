@@ -1,51 +1,32 @@
   <main>
     <div id="header">
       <h1> <%= @team.name %></h1>
+    <%= link_to team_chatroom_path(sender_id: current_user.id, team_id: @team.id), method: :post do %>
+    <i class= "fa-regular fa-comment message-icon"> </i>
+    <% end %>
       <button class="share">
         <i class="ph ph-share-network"></i>
       </button>
     </div>
     <div id="leaderboard">
-      <div class="ribbon"></div>
-      <table>
+      <!--<div class="ribbon"></div>-->
         <% @team.members.order(total_points: :desc).each_with_index do |member, index| %>
-
-          <tr class="leaderboard-user-card">
-            <td class="number"><%= index + 1 %></td>
+          <div class="leaderboard-user-card">
+            <strong><div class="number me-3"><%= index + 1 %></div></strong>
             <%= link_to team_member_path(@team, member) do %>
           <% if member.user.profile_image.key.present? %>
-            <td class=""> <%= cl_image_tag member.user.profile_image.key, class: "user-image" %> </td>
+            <div class=""> <%= cl_image_tag member.user.profile_image.key, class: "user-image" %> </div>
           <% end %>
-
         <% end %>
-            <td class="name"><%= member.user.username %></td>
-        
-            <td class="">
-
-    <%= link_to team_conversations_path(sender_id: current_user.id, receiver_id: member.user.id, team_id: @team.id), method: :post do %>
-    <i class= "fa-regular fa-comment"> </i>
-    <% end %>
-
-        </td>
-            <td class="points">
+            <div class="name"><%= member.user.username %></div>
+            <div class="points">
               <% if index == 0 %>
                 <img class="gold-medal" src="https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true" alt="gold medal"/>
               <% end %>
               <%= member.total_points %>
-            </td>
-          </tr>
+            </div>
+          </div>
       <% end %>
-    </table>
-
-      <% @chatrooms.each do |chatroom| %>
-        <div>
-          <%= link_to "Chatroom", team_chatroom_path(@team, chatroom), class: "button-54" %>
-        </div>
-      <% end %>
-
-
-
-
 
 
   <div class="play-button-container">

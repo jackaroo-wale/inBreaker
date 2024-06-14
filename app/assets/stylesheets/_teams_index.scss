@@ -16,7 +16,7 @@ body {
 .no-underline {
   text-decoration: none;
   color: black;
-  font-size: 26px;
+  font-size: 20px;
 }
 
 img.team-image {
@@ -59,8 +59,24 @@ img.team-image {
   margin: 8px 0px;
   border-radius: 8px;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-image: linear-gradient(131.83deg, #FFFAFA 0%,     #FFF7F7 99.21%);
   position: relative;
+  .team-image {
+    width: 100px;
+    height: 100%;
+
+  }
+
+  .team-title {
+    background-color: white;
+    .a {
+
+      font-size: 16px;
+    }
+    margin-left: 16px;
+    text-align: left;
+    padding: 15px
+  }
 }
