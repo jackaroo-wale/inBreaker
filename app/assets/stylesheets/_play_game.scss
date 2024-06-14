@@ -96,14 +96,18 @@
 
 .question-playcard {
   background-color: rgb(255, 255, 255);
+  margin: 17px 0;
   padding: 17px;
-  margin: 17px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 11px;
+  p {
+    margin-bottom: 0px;
+    margin-top: 16px;
+  }
 }
 
 .question-playcard h2 {
-  color: blue;
+  color: #4361EE;
   font-size: 32px;
 }
 

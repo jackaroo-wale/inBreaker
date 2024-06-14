@@ -13,10 +13,10 @@
         <div class="question-body">
         <div class="question-playcard">
           <h2>"<strong><%= weekly_question.content %>"</strong></h2>
-        </div>
-        <div class="guess-answer">
           <p>Guess <strong><%= weekly_answer.user.username %>'s</strong> Answer</p>
         </div>
+       <!-- <div class="guess-answer">
+        </div>-->
           <!--<p>Which of the answers below do you think they picked?</p>-->
           <%= simple_form_for MemberAnswer.new, url: check_answer_team_path, html: { class: 'answer-form' }, remote: true do |f| %>
             <% if @team.week_number == 1 %>
@@ -43,10 +43,10 @@
                 </div>
               <% end %>
             </div>
-            <%= f.submit "Done", class: 'btn btn-primary submit-btn reveal-answer', data: { action: "click->play#revealAnswer" }%>
+            <%= f.submit "Done", class: 'button-54 reveal-answer', data: { action: "click->play#revealAnswer" }%>
           <% end %>
           <%= link_to "Comment", root_path, class: "btn btn-primary submit-btn comment d-none" %>
-          <%= link_to "Next", next_question_team_path, class: "btn btn-primary submit-btn next-question d-none" %>
+          <%= button_to "Next", next_question_team_path, class: "button-54 next-question d-none" %>
         </div>
       </div>
     <% end %>
