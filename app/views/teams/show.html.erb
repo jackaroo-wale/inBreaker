@@ -16,9 +16,11 @@
           <% if member.user.profile_image.key.present? %>
             <td class=""> <%= cl_image_tag member.user.profile_image.key, class: "user-image" %> </td>
           <% end %>
+
         <% end %>
             <td class="name"><%= member.user.username %></td>
-            <td class="chat-icon>
+        
+            <td class="">
 
     <%= link_to team_conversations_path(sender_id: current_user.id, receiver_id: member.user.id, team_id: @team.id), method: :post do %>
     <i class= "fa-regular fa-comment"> </i>

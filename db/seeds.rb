@@ -18,40 +18,81 @@ puts "WeeklyAnswers destroyed"
 initial_question1 = InitialQuestion.create(content: "Where did you go to high school?")
 initial_question2 = InitialQuestion.create(content: "What subject did you excel at most in your life?")
 initial_question3 = InitialQuestion.create(content: "What is your favourite hobby?")
-initial_question4 = InitialQuestion.create(content: "What is your favourite type of book?")
+initial_question4 = InitialQuestion.create(content: "What is your favourite book?")
 initial_question5 = InitialQuestion.create(content: "What do you think is the most important aspect for teamwork?")
 
-user1 = User.create(email: 'jack@example.com', password: 'password', username: "JackASS", description: "Cowboy in a puffer jacket")
-file = URI.open("https://m.media-amazon.com/images/I/61ktJwNsInL._AC_SL1500_.jpg")
+user1 = User.create(email: 'jack3@example.com', password: 'password', username: "Jack", description: "Learning to code")
+file = URI.open("https://avatars.githubusercontent.com/u/166990332?v=4")
 user1.profile_image.attach(io: file, filename: "cowboy.png", content_type: "image/png")
 user1.save
 
-user2 = User.create(email: 'prince2@example.com', password: 'password', username: "Him Jong Un", description: "King")
-file = URI.open("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfcMkNiLDXVaULaetBzC3xD2HDLaDRmvSKsw&st=2024-06-13")
-user2.profile_image.attach(io: file, filename: "wolf.png", content_type: "image/png")
+user2 = User.create(email: 'prince3@example.com', password: 'password', username: "Prince", description: "A wolf in disguise as a man")
+file = URI.open("https://avatars.githubusercontent.com/u/75453290?v=4")
+user2.profile_image.attach(io: file, filename: "wolfnotman.png", content_type: "image/png")
 user2.save
 
-user3 = User.create(email: 'thomass2@example.com', password: 'password', username: "ThomASS", description: "greatest human to ever live")
-file = URI.open("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Cima_da_Conegliano%2C_God_the_Father.jpg/640px-Cima_da_Conegliano%2C_God_the_Father.jpg")
-user3.profile_image.attach(io: file, filename: "god.png", content_type: "image/png")
+user3 = User.create(email: 'thomas3@example.com', password: 'password', username: "Thomas", description: "Greatest human to ever live")
+file = URI.open("https://avatars.githubusercontent.com/u/162109209?v=4")
+user3.profile_image.attach(io: file, filename: "thomas.png", content_type: "image/png")
 user3.save
 
-team1 = Team.create(name: 'Le Wagon', week_number: 1)
-team2 = Team.create(name: 'BreakerBoys', week_number: rand(1..3))
-puts "Created #{Team.count} Teams"
+user4 = User.create(email: 'meg@example.com', password: 'password', username: "Meg", description: "Loving this game!")
+file = URI.open("https://avatars.githubusercontent.com/u/82448006?v=4")
+user4.profile_image.attach(io: file, filename: "meg.png", content_type: "image/png")
+user4.save
 
-team_default_image = URI.open("https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg")
+user5 = User.create(email: 'luvo@example.com', password: 'password', username: "Luvo", description: "Seize the day and
+  create the change you want to follow")
+file = URI.open("https://res.cloudinary.com/wagon/image/upload/c_fill,g_face,h_200,w_200/v1713491298/d2e0wbixvrozx8xfaoxu.jpg")
+user5.profile_image.attach(io: file, filename: "Luvo.png", content_type: "image/png")
+user5.save
 
-team3 = Team.create(name: "camera Team", week_number: rand(1..3))
+user6 = User.create(email: 'nolu@example.com', password: 'password', username: "Nolu", description: "yes!")
+file = URI.open("https://avatars.githubusercontent.com/u/82448006?v=4")
+user6.profile_image.attach(io: file, filename: "nolu.png", content_type: "image/png")
+user6.save
+
+team1 = Team.create(name: "Le Wagon batch #1676", week_number: 1)
 puts "Created #{Team.count} Teams"
-file = URI.open("https://images.pexels.com/photos/1208074/pexels-photo-1208074.jpeg?cs=srgb&dl=pexels-cody-king-433493-1208074.jpg&fm=jpg")
-team3.team_image.attach(io: file, filename: "lens.png", content_type: "image/png")
+file1 = URI.open("https://avatars.githubusercontent.com/u/5470001?s=280&v=4")
+team1.team_image.attach(io: file1, filename: "lewagon.png", content_type: "image/png")
+team1.save
+
+team2 = Team.create(name: "Phriday Photography Group", week_number: rand(1..3))
+puts "Created #{Team.count} Teams"
+file2 = URI.open("https://images.pexels.com/photos/1208074/pexels-photo-1208074.jpeg?cs=srgb&dl=pexels-cody-king-433493-1208074.jpg&fm=jpg")
+team2.team_image.attach(io: file2, filename: "lens.png", content_type: "image/png")
+team2.save
+
+team3 = Team.create(name: "Slaves to the Waves", week_number: rand(1..3))
+puts "Created #{Team.count} Teams"
+file3 = URI.open("https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,f_webp,h_500,q_55,w_1170/v1/clients/visitflorida/GayBeach1_ec2e376a-8b54-45e8-bd10-a649f0909bec.jpg")
+team3.team_image.attach(io: file3, filename: "paddleboet.png", content_type: "image/png")
 team3.save
+
+team4 = Team.create(name: "Saturday Padel Team", week_number: rand(1..3))
+puts "Created #{Team.count} Teams"
+file4 = URI.open("https://media.istockphoto.com/id/1381923192/vector/vintage-paddle-tennis-logo-icon-vector-on-white-background.jpg?s=612x612&w=0&k=20&c=NGw6Yb7jcC88fkn7vhd9wr95vhS44vxxlJg8rF1lW6k=")
+team4.team_image.attach(io: file4, filename: "padel.png", content_type: "image/png")
+team4.save
+
+# team_default_image = URI.open("https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg")
+
+
+# team4 = Team.create(name: "Le Wagon batch #1676", week_number: rand(1..4))
+# puts "Created #{Team.count} Teams"
+# file4 = URI.open("https://avatars.githubusercontent.com/u/5470001?s=280&v=4")
+# team4.team_image.attach(io: file4, filename: "lewagon.png", content_type: "image/png")
+# team4.save
 
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team1)
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team2)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0, team: team1)
-member1 = Member.create(user: user1, weekly_points: 0, total_points: 64, team: team3)
+member1 = Member.create(user: user1, weekly_points: 0, total_points: 32, team: team3)
+member3 = Member.create(user: user3, weekly_points: 0, total_points: 16, team: team1)
+member4 = Member.create(user: user4, weekly_points: 0, total_points: 64, team: team1)
+member5 = Member.create(user: user5, weekly_points: 0, total_points: 24, team: team1)
+member6 = Member.create(user: user6, weekly_points: 0, total_points: 16, team: team1)
 puts "Created #{Member.count} Members"
 
 weekly_question1 = WeeklyQuestion.create!(content: "If you could have any superpower, what would it be?", team_id: team1.id)
