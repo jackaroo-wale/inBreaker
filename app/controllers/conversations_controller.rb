@@ -1,18 +1,18 @@
+# app/controllers/conversations_controller.rb
+
 class ConversationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_team, only: [:index, :create, :show]
 
   def index
-    @team = Team.find(params[:team_id])
-    @conversations = @team.conversations.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
-    @teams = current_user.teams.includes(members: :user)
-    @members = @teams.flat_map(&:members).map(&:user).uniq
+    @conversations = Conversation.where(team_id: @team.id)
+    @members = @team.members.where.not(user_id: current_user.id).map(&:user).uniq
   end
 
   def create
-    @team = Team.find(params[:team_id])
-    @conversation = @team.conversations.new(conversation_params)
-    if @conversation.save
+    @conversation = Conversation.find_or_create_by(conversation_params)
+
+    if @conversation.persisted?
       redirect_to team_conversation_path(@team, @conversation)
     else
       render :index
@@ -20,7 +20,7 @@ class ConversationsController < ApplicationController
   end
 
   def show
-    @conversation = @team.conversations.find(params[:id])
+    @conversation = Conversation.find(params[:id])
     @private_message = PrivateMessage.new
   end
 
