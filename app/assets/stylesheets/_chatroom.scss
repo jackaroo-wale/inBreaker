@@ -1,20 +1,21 @@
 .chatroom-wrapper {
-  margin: 50px auto;
+  width: 100vw;
+  height: 100vh;
   padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 80vh !important;
+  background-color: #DEE2E6;
+  display: flex;
+  flex-direction: column;
 }
 .chatroom .card {
   border: none;
+  min-height: 80vh;
 }
 .card-header {
-  background-color: #007bff;
-  color: white;
-  padding: 15px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  // background-color: #007bff;
+  color: #343A40;
+  // padding: 15px;
+  // border-top-left-radius: 8px;
+  // border-top-right-radius: 8px;
 }
 .messages {
   height: 500px;

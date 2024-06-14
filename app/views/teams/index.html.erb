@@ -1,20 +1,24 @@
 <div class="users-container">
-<h1>My Teams</h1>
-<% @teams.each do |team| %>
-  <%# <%= link_to member.team.name, weekly_question_path(id: member.team.weekly_questions.first.id, team_id: member.team.id), class: "text" %>
+  <h1>My Teams</h1>
+  <% @teams.each do |team| %>
+  <div class="test-container">
+    <%# <%= link_to member.team.name, weekly_question_path(id: member.team.weekly_questions.first.id, team_id: member.team.id), class: "text" %>
 
-<!--<ol class="alternating-colors">
--->
-<div class="test-container">
-<div class="inner-member-container">
-<% if team.team_image.key.present? %>
-  <%= cl_image_tag team.team_image.key, class: "team-image" %>
-  <% else %>
-    <%= image_tag "no_profile.jpg", class: "team-image" %>
+  <!--<ol class="alternating-colors">
+  -->
+    <% if team.team_image.key.present? %>
+    <div class="team-image">
+      <%= cl_image_tag team.team_image.key, class: "team-image" %>
+    </div>
+      <% else %>
+    <div class="team-image">
+        <%= image_tag "no_profile.jpg", class: "team-image" %>
+    </div>
+      <% end %>
+      <div class="team-title">
+        <%= link_to team.name, team_path(team), class: "no-underline" %>
+      </div>
+  </div>
   <% end %>
-<strong><%= link_to team.name, team_path(team), class: "no-underline" %></strong>
-</div>
-</div>
-<% end %>
 
 </div>

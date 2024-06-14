@@ -10,7 +10,7 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find(params[:id])
-    @chatrooms = @team.chatrooms
+    @chatroom = @team.chatrooms.first
   end
 
   def new

@@ -43,7 +43,7 @@
 
 /* Leaderboard specific styles */
 main {
-  width: 449px;
+  width: 100vw;
   background: #DEE2E6;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -60,7 +60,15 @@ main {
 }
 
 #header h1 {
-  margin: 0;
+  font-size: 20px;
+  margin: auto 8px;
+  a {
+    text-decoration: none;
+  }
+}
+
+.message-icon {
+  font-size: 24px;
 }
 
 .share {
@@ -132,19 +140,34 @@ table td {
 }
 
 .leaderboard-user-card {
+  display: flex;
   background: #ffffff;
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 200px;
+  align-items: center;
+  margin: 8px auto;
   transition: 0.3s;
-  height: 100px;
+  height: 88px;
   cursor: pointer;
+  font-size: 20px;
 }
 
 .leaderboard-user-card:hover {
   transform: scale(1.05);
   border: 2px solid #343A40;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-img-leader {
+  position: relative;
+}
+
+.gold-medal {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  top: -5px;
+  right: -5px;
 }

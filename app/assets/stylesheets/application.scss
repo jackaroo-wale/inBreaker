@@ -35,14 +35,6 @@
 //   color: #007bff; /* Bootstrap primary color */
 // }
 
-// .chatroom-wrapper {
-//   max-width: 428px;
-//   margin: 0 auto;
-//   padding: 20px;
-//   height: 100%; /* Ensure the wrapper takes full height of its parent */
-//   display: flex;
-//   flex-direction: column;
-// }
 
 // .card {
 //   height: 100%; /* Fill the height of the .chatroom-wrapper */
@@ -70,15 +62,6 @@
 //   color: #007bff; /* Bootstrap primary color */
 // }
 
-// .chatroom-wrapper {
-//   max-width: 428px;
-//   margin: 0 auto;
-//   padding: 20px;
-//   height: 100%; /* Ensure the wrapper takes full height of its parent */
-//   display: flex;
-//   flex-direction: column;
-//   background-color: #f8f9fa; /* Light background color */
-// }
 
 // .card {
 //   height: 100%; /* Fill the height of the .chatroom-wrapper */
@@ -140,16 +123,6 @@
   color: #007bff; /* Bootstrap primary color */
 }
 
-.chatroom-wrapper {
-  max-width: 428px;
-  margin: 0 auto;
-  padding: 20px;
-  height: 80vh; /* Ensure the wrapper takes full height of its parent */
-  display: flex;
-  flex-direction: column;
-  background-color: #f8f9fa; /* Light background color */
-}
-
 .card {
   height: 100%; /* Fill the height of the .chatroom-wrapper */
   display: flex;
@@ -160,22 +133,29 @@
   overflow: hidden; /* Hide overflow */
 }
 
-.card-header {
-  background-color: #f1f1f1; /* Light gray background */
-  padding: 15px;
-  border-bottom: 1px solid #e0e0e0; /* Border at the bottom */
-}
 
-.card-header .card-title {
-  margin: 0;
-  font-size: 18px; /* Larger font size */
-  color: #333333; /* Darker text color */
+
+.card-header {
+
+  .card-title {
+    margin: 0;
+    font-size: 18px; /* Larger font size */
+    color: #333333; /* Darker text color */
+    a {
+      text-decoration: none;
+    }
+  }
 }
 
 .card-body {
   flex-grow: 1; /* Allow messages to scroll within the available space */
   overflow-y: auto; /* Enable vertical scrolling for overflow */
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 72vh;
+
 }
 
 .card-footer {
