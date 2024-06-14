@@ -5,6 +5,7 @@ class PagesController < ApplicationController
   before_action :set_question_data, only: [:play, :check_answer, :next_question]
 
   def home
+    @team = current_user.teams.first
     @initial_questions = InitialQuestion.all
     @answer = InitialAnswer.new
     @users = User.all

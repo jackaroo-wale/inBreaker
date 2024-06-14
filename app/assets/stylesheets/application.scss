@@ -144,7 +144,7 @@
   max-width: 428px;
   margin: 0 auto;
   padding: 20px;
-  height: 100%; /* Ensure the wrapper takes full height of its parent */
+  height: 80vh; /* Ensure the wrapper takes full height of its parent */
   display: flex;
   flex-direction: column;
   background-color: #f8f9fa; /* Light background color */
@@ -189,10 +189,6 @@
   display: block;
 }
 
-.input-group .form-control {
-  border-right: 0; /* Remove right border */
-  border-radius: 0; /* Remove border radius */
-}
 
 .input-group-append .btn {
   border-radius: 0; /* Remove border radius */
@@ -206,4 +202,36 @@ h1 {
 
 p {
   font-family: 'Poppins', sans-serif;
+}
+
+
+.conversation-list {
+  margin-top: 20px;
+}
+
+.conversation-list h3 {
+  margin-bottom: 10px;
+}
+
+.conversation-list ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.conversation-list li {
+  margin-bottom: 10px;
+}
+
+.conversation-list li span {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.conversation-list li a {
+  color: #007bff; /* Bootstrap's primary color */
+  text-decoration: none;
+}
+
+.conversation-list li a:hover {
+  text-decoration: underline;
 }

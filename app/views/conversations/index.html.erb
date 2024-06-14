@@ -1,18 +1,18 @@
 <h1>Conversations</h1>
-<% @conversations.each do |conversation| %>
-  <p>
-    <%= link_to "Conversation with #{conversation.receiver.username}", team_conversation_path(@team, conversation) if conversation.sender == current_user %>
-    <%= link_to "Conversation with #{conversation.sender.username}", team_conversation_path(@team, conversation) if conversation.receiver == current_user %>
-  </p>
-<% end %>
 
-<h1>All Members in Your Groups</h1>
-
-<ul>
-  <% @members.each do |member| %>
-    <li>
-      <%= member.username %>
-      <%= link_to "Message", team_conversations_path(member.teams.first, sender_id: current_user.id, receiver_id: member.id), method: :post %>
-    </li>
-  <% end %>
-</ul>
+<div class="conversation-list">
+  <h3>All Members in Your Groups</h3>
+  <ul>
+    <% @members.each do |member| %>
+      <li>
+        <span><%= member.username %></span>
+        <% conversation = @conversations.find_by(sender_id: current_user.id, receiver_id: member.id) %>
+        <% if conversation %>
+          <%= link_to "Message", team_conversation_path(@team, conversation), method: :post %>
+        <% else %>
+          <%= link_to "Message", team_conversations_path(@team, sender_id: current_user.id, receiver_id: member.id), method: :post %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
