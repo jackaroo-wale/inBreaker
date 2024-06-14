@@ -258,5 +258,5 @@ Message.create(content: 'I am the best', user: user1, chatroom: chatroom1)
 Message.create(content: 'No, I am number 1, the best. BEST', user: user2, chatroom: chatroom1)
 Message.create(content: 'Say less', user: user3, chatroom: chatroom1)
 Message.create(content: 'Prince just joined', user: user1, chatroom: chatroom1)
-
+git 
 puts 'Database seeded!'
