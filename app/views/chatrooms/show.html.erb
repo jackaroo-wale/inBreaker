@@ -1,17 +1,21 @@
 <div class="chatroom-wrapper">
+  <div id="header">
+    <%= link_to team_path(@team) do %>
+     <h1> <i class="fa-solid fa-arrow-left"></i> <%= @team.name %></h1>
+    <% end %>
+
+        </div>
+          <!--<h1 class="card-title"><i class="fa-solid fa-arrow-left"></i><%#= link_to "#{@team.name}", team_path(@team) %></h1>-->
     <div class="chatroom" data-controller="chatroom-subscription" data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
-      <div class="card">
         <div class="card-header">
-          <h1 class="card-title"><%= @team.name %></h1>
-        </div>
         <div class="card-body messages" data-chatroom-subscription-target="messages">
-          <% @chatroom.messages.each do |message| %>
-            <div class="message">
-              <strong><%= message.user.username %>:</strong> <%= message.content %>
-            </div>
-          <% end %>
-        </div>
-        <%#= render @messages %>
+          <div>
+            <% @chatroom.messages.each do |message| %>
+              <div class="message">
+                <strong><%= message.user.username %>:</strong> <%= message.content %>
+              </div>
+            <% end %>
+          </div>
         <div class="card-footer">
           <%= simple_form_for [@chatroom, @message], url: team_chatroom_messages_path(@chatroom.team, @chatroom), html: { class: "d-flex w-100", data: { action: "turbo:submit-end->chatroom-subscription#resetForm" } } do |f| %>
             <div class="input-group flex-grow-1">
@@ -22,6 +26,7 @@
             </div>
           <% end %>
         </div>
+        </div>
+        <%#= render @messages %>
       </div>
-    </div>
   </div>
