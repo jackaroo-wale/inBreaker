@@ -61,7 +61,10 @@ main {
 
 #header h1 {
   font-size: 20px;
-  margin: 0;
+  margin: auto 8px;
+  a {
+    text-decoration: none;
+  }
 }
 
 .message-icon {
@@ -155,4 +158,16 @@ table td {
   transform: scale(1.05);
   border: 2px solid #343A40;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-img-leader {
+  position: relative;
+}
+
+.gold-medal {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  top: -5px;
+  right: -5px;
 }
