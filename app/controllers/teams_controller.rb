@@ -5,6 +5,7 @@ class TeamsController < ApplicationController
   def index
     # raise
     @teams = current_user.teams
+    @team = @teams.first
   end
 
   def show
