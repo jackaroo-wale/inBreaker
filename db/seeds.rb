@@ -17,9 +17,6 @@ puts "WeeklyAnswers destroyed"
 
 initial_question1 = InitialQuestion.create(content: "Where did you go to high school?")
 initial_question2 = InitialQuestion.create(content: "What subject did you excel at most in your life?")
-initial_question3 = InitialQuestion.create(content: "What is your favourite hobby?")
-initial_question4 = InitialQuestion.create(content: "What is your favourite book?")
-initial_question5 = InitialQuestion.create(content: "What do you think is the most important aspect for teamwork?")
 
 user1 = User.create(email: 'jack3@example.com', password: 'password', username: "Jack", description: "Learning to code")
 file = URI.open("https://avatars.githubusercontent.com/u/166990332?v=4")
@@ -88,11 +85,14 @@ team4.save
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team1)
 member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team2)
 member2 = Member.create(user: user2, weekly_points: 0, total_points: 0, team: team1)
-member1 = Member.create(user: user1, weekly_points: 0, total_points: 32, team: team3)
-member3 = Member.create(user: user3, weekly_points: 0, total_points: 16, team: team1)
-member4 = Member.create(user: user4, weekly_points: 0, total_points: 64, team: team1)
-member5 = Member.create(user: user5, weekly_points: 0, total_points: 24, team: team1)
-member6 = Member.create(user: user6, weekly_points: 0, total_points: 16, team: team1)
+member1 = Member.create(user: user1, weekly_points: 0, total_points: 0, team: team3)
+member3 = Member.create(user: user3, weekly_points: 0, total_points: 0, team: team1)
+member4 = Member.create(user: user4, weekly_points: 0, total_points: 0, team: team1)
+member5 = Member.create(user: user5, weekly_points: 0, total_points: 0, team: team1)
+member6 = Member.create(user: user6, weekly_points: 0, total_points: 0, team: team1)
+member5 = Member.create(user: user5, weekly_points: 0, total_points: 80, team: team2)
+member6 = Member.create(user: user6, weekly_points: 0, total_points: 104, team: team2)
+
 puts "Created #{Member.count} Members"
 
 weekly_question1 = WeeklyQuestion.create!(content: "If you could have any superpower, what would it be?", team_id: team1.id)
@@ -110,7 +110,47 @@ super_powers = [
   "Mind reading",
   "Shape-shifting",
   "Energy manipulation",
-  "Healing factor"
+  "Healing factor",
+  "Pyrokinesis",
+  "Cryokinesis",
+  "X-ray vision",
+  "Super speed",
+  "Elasticity",
+  "Force field generation",
+  "Electrokinesis",
+  "Magnetism manipulation",
+  "Animal communication",
+  "Intangibility",
+  "Precognition",
+  "Density control",
+  "Size manipulation",
+  "Duplication",
+  "Regeneration",
+  "Laser vision",
+  "Telepathy",
+  "Technopathy",
+  "Bioluminescence",
+  "Infravision",
+  "Hydrokinesis",
+  "Aerokinesis",
+  "Chronokinesis",
+  "Gravity manipulation",
+  "Phasing",
+  "Probability manipulation",
+  "Heat vision",
+  "Plant manipulation",
+  "Sound manipulation",
+  "Clairvoyance",
+  "Teleportation",
+  "Summoning",
+  "Hypnosis",
+  "Force manipulation",
+  "Necromancy",
+  "Dimensional travel",
+  "Transmutation",
+  "Sonic scream",
+  "Illusion casting",
+  "Mental projection"
 ]
 
 travel_destinations = [
@@ -209,19 +249,14 @@ books = [
 User.all.each do |user|
   InitialAnswer.create(content: school_names.sample, user: user, wrong_answers: "#{school_names.sample}, #{school_names.sample}, #{school_names.sample}", initial_question: initial_question1)
   InitialAnswer.create(content: school_subjects.sample, user: user, wrong_answers: "#{school_subjects.sample}, #{school_subjects.sample}, #{school_subjects.sample}", initial_question: initial_question2)
-  InitialAnswer.create(content: hobbies.sample, user: user, wrong_answers: "#{hobbies.sample}, #{hobbies.sample}, #{hobbies.sample}", initial_question: initial_question3)
-  InitialAnswer.create(content: books.sample, user: user, wrong_answers: "#{books.sample}, #{books.sample}, #{books.sample}", initial_question: initial_question4)
-  InitialAnswer.create(content: teamwork_aspects.sample, user: user, wrong_answers: "#{teamwork_aspects.sample}, #{teamwork_aspects.sample}, #{teamwork_aspects.sample}", initial_question: initial_question5)
   WeeklyAnswer.create(content: super_powers.sample, user: user, wrong_answers: "#{super_powers.sample}, #{super_powers.sample}, #{super_powers.sample}", weekly_question: weekly_question1)
-  WeeklyAnswer.create(content: travel_destinations.sample, user: user, wrong_answers: "#{travel_destinations.sample}, #{travel_destinations.sample}, #{travel_destinations.sample}", weekly_question: weekly_question2)
-  WeeklyAnswer.create(content: historical_figures.sample, user: user, wrong_answers: "#{historical_figures.sample}, #{historical_figures.sample}, #{historical_figures.sample}", weekly_question: weekly_question3)
 end
 
-chatroom1 = Chatroom.create(name: 'Experience', team: team1)
-chatroom2 = Chatroom.create(name: 'Top news', team: team1)
-Message.create(content: 'Getting Free Publicity For Your Business', user: user1, chatroom: chatroom1)
-Message.create(content: 'Advertisers Embrace', user: user2, chatroom: chatroom1)
-Message.create(content: 'then you know as well as I do', user: user3, chatroom: chatroom1)
-Message.create(content: 'Hello!', user: user1, chatroom: chatroom1)
+chatroom1 = Chatroom.create(name: team1.name, team: team1)
 
+Message.create(content: 'I am the best', user: user1, chatroom: chatroom1)
+Message.create(content: 'No, I am number 1, the best. BEST', user: user2, chatroom: chatroom1)
+Message.create(content: 'Say less', user: user3, chatroom: chatroom1)
+Message.create(content: 'Prince just joined', user: user1, chatroom: chatroom1)
+git 
 puts 'Database seeded!'
